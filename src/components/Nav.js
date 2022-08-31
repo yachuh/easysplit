@@ -12,6 +12,12 @@ const Nav = () => {
             <li>
                 <Link to="/login">Login</Link>
             </li>
+            <li>
+                <Link to="/ForgetPassword">忘記密碼</Link>
+            </li>
+            <li>
+                <Link to="/UserProfile">會員資料</Link>
+            </li>
         </nav>
     );
 }
