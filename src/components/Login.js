@@ -68,7 +68,7 @@ export const Login = () => {
 
     return (
         <div>
-            <h2 className="text-2xl mb-3">Signup</h2>
+            <h2 className="text-2xl mb-3">Login</h2>
             <form
                 className="flex flex-col w-1/3"
                 onSubmit={handleSubmit(onSubmit)}>
