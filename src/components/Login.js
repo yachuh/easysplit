@@ -9,8 +9,8 @@ export const Login = () => {
     formState: { errors }
   } = useForm({
     defaultValues: {
-      Account: '',
-      Password: ''
+      account: '',
+      password: ''
     }
   })
 
@@ -20,15 +20,14 @@ export const Login = () => {
     console.log('form data', data)
 
     try {
-      const res = await loginApi(data)
-      const { Status: status, Message: message } = res.data
-      console.log(data)
-      if (!status) { // 登入失敗
+      const { status: isSuccess, message } = await loginApi(data)
+      if (!isSuccess) {
         alert(message)
-      } else { // 登入成功
-        console.log(message)
-        navigate('/profile')
+        return
       }
+
+      console.log(message)
+      navigate('/profile')
     } catch (err) {
       console.log(err)
     }
@@ -53,7 +52,7 @@ export const Login = () => {
                       }
                     })}
                 />
-                <p className="text-xs mb-2 text-rose-600">{errors.Account?.message}</p>
+                <p className="text-xs mb-2 text-rose-600">{errors.account?.message}</p>
                 {/* 密碼 */}
                 <label htmlFor="password">密碼</label>
 
@@ -73,7 +72,7 @@ export const Login = () => {
                       }
                     })}
                 />
-                <p className="text-xs mb-2 text-rose-600">{errors.Password?.message}</p>
+                <p className="text-xs mb-2 text-rose-600">{errors.password?.message}</p>
                 {/* 確認 BTN */}
                 <input
                     className="p-2 border border-slate-700 rounded-sm w-1/3"
