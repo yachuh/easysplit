@@ -1,7 +1,7 @@
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom'
 
 const Nav = () => {
-    return (
+  return (
         <nav className="mt-5 mb-5 flex items-center gap-x-4 list-none underline ">
             <li>
                 <Link to="/">Home</Link>
@@ -16,10 +16,10 @@ const Nav = () => {
                 <Link to="/ForgetPassword">忘記密碼</Link>
             </li>
             <li>
-                <Link to="/UserProfile">會員資料</Link>
+                <Link to="/profile">會員資料</Link>
             </li>
         </nav>
-    );
+  )
 }
 
-export default Nav;
+export default Nav

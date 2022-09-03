@@ -1,9 +1,9 @@
-import { ForgetPassword } from "../components/ForgetPassword";
+import { ForgetPassword } from '../components/ForgetPassword'
 
-export default function ForgetPwdPage() {
-    return (
+export default function ForgetPwdPage () {
+  return (
         <div>
             <ForgetPassword />
         </div>
-    )
+  )
 }
