@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useForm } from "react-hook-form";
 
-export const UserProfile = () => {
+export const Profile = () => {
     const { register, handleSubmit, formState: { errors } } = useForm({
         defaultValues: {
             Name: '',
