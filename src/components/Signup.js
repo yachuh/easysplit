@@ -9,9 +9,9 @@ export const Signup = () => {
     formState: { errors }
   } = useForm({
     defaultValues: {
-      Name: '',
-      Account: '',
-      Password: ''
+      name: '',
+      account: '',
+      password: ''
     }
   })
 
@@ -19,14 +19,12 @@ export const Signup = () => {
     console.log('form data', data)
 
     try {
-      const res = await signupApi(data)
-      const { Status: status, Message: message } = res.data
-      console.log(data)
-      if (!status) { // 註冊失敗
+      const { status: isSuccess, message } = await signupApi(data)
+      if (!isSuccess) {
         alert(message)
-      } else { // 註冊成功
-        alert(message)
+        return
       }
+      alert(message)
     } catch (err) {
       console.log(err)
     }
@@ -37,12 +35,9 @@ export const Signup = () => {
             <h2 className="text-2xl mb-3">註冊</h2>
             <form className="flex flex-col w-1/3" onSubmit={handleSubmit(onSubmit)}>
                 {/* 名稱 */}
-                <label
-                    htmlFor="Name">
-                    名稱
-                </label>
+                <label htmlFor="name">名稱</label>
                 <input
-                    id='Name'
+                    id='name'
                     className="mb-3 border border-slate-700 rounded-sm"
                     type="text"
                     placeholder="站內顯示的暱稱，未來可隨時更改"
@@ -50,11 +45,9 @@ export const Signup = () => {
                 />
                 <p className="text-xs mb-2 text-rose-600">{errors.Name?.message}</p>
                 {/* Email */}
-                <label
-                    htmlFor="Account">
-                    電子郵件帳號
-                </label>
+                <label htmlFor="account">電子郵件帳號</label>
                 <input
+                id="account"
                     className="mb-3 border border-slate-700 rounded-sm"
                     type="email"
                     placeholder="請輸入常用電子郵件"
@@ -66,12 +59,9 @@ export const Signup = () => {
                       }
                     })}
                 />
-                <p className="text-xs mb-2 text-rose-600">{errors.Account?.message}</p>
+                <p className="text-xs mb-2 text-rose-600">{errors.account?.message}</p>
                 {/* 密碼 */}
-                <label
-                    htmlFor="Password">
-                    密碼
-                </label>
+                <label htmlFor="password">密碼</label>
                 <input
                     className="mb-3 border border-slate-700 rounded-sm"
                     type="password"
@@ -87,7 +77,7 @@ export const Signup = () => {
                       }
                     })}
                 />
-                <p className="text-xs mb-2 text-rose-600">{errors.Password?.message}</p>
+                <p className="text-xs mb-2 text-rose-600">{errors.password?.message}</p>
                 {/* 確認 BTN */}
                 <input
                     className="p-2 border border-slate-700 rounded-sm w-1/3"
