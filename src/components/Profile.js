@@ -1,50 +1,33 @@
-import axios from 'axios';
-import { useForm } from "react-hook-form";
+import axios from 'axios'
+import { useForm } from 'react-hook-form'
 
 export const Profile = () => {
-    const { register, handleSubmit, formState: { errors } } = useForm({
-        defaultValues: {
-            Name: '',
-            Account: '',
-        }
-    });
-
-    const getUserProfile = () => {
-
-        axios
-            .get(`https://easysplit.rocket-coding.com/api/User/GetProfile`)
-            .then(res => {
-                console.log(res);
-                console.log("成功");
-            })
-            .catch(err => {
-                console.log(err);
-            });
-
+  const { register, handleSubmit, formState: { errors } } = useForm({
+    defaultValues: {
+      Name: '',
+      Account: ''
     }
+  })
 
-    console.log(getUserProfile());
+  const getUserProfile = () => {
+    axios
+      .get('https://easysplit.rocket-coding.com/api/User/GetProfile')
+      .then(res => {
+        console.log(res)
+        console.log('成功')
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
 
-    const onSubmit = data => {
-        console.log(data);
+  console.log(getUserProfile())
 
-        const {
-            Name,
-            Account,
-        } = data;
+  const onSubmit = data => {
+    console.log(data)
+  }
 
-        // axios
-        //     .get(`https://easysplit.rocket-coding.com/api/User/GetProfile`)
-        //     .then(res => {
-        //         console.log(res);
-        //         console.log("成功");
-        //     })
-        //     .catch(err => {
-        //         console.log(err);
-        //     });
-    }
-
-    return (
+  return (
         <div>
             <h2 className="text-2xl mb-3">會員資料</h2>
             <form
@@ -58,11 +41,11 @@ export const Profile = () => {
                     className="mb-3 border border-slate-700 rounded-sm"
                     type="text"
                     placeholder="Name"
-                    {...register("Name", {
-                        required: {
-                            value: true,
-                            message: '請輸入您的姓名!'
-                        }
+                    {...register('Name', {
+                      required: {
+                        value: true,
+                        message: '請輸入您的姓名!'
+                      }
                     })} />
                 <p
                     className="text-xs mb-2 text-rose-600">
@@ -84,5 +67,5 @@ export const Profile = () => {
                     type="submit" />
             </form>
         </div>
-    );
+  )
 }

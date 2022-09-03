@@ -1,41 +1,40 @@
-import axios from 'axios';
-import { useForm } from 'react-hook-form';
-import { useNavigate, Link } from 'react-router-dom';
-import { loginApi } from '../utils/api';
+import { useForm } from 'react-hook-form'
+import { useNavigate, Link } from 'react-router-dom'
+import { loginApi } from '../utils/api'
 
 export const Login = () => {
-    const {
-        register,
-        handleSubmit,
-        formState: { errors }
-    } = useForm({
-        defaultValues: {
-            Account: '',
-            Password: ''
-        }
-    });
-
-    let navigate = useNavigate();
-
-    const onSubmit = async data => {
-        console.log('form data', data);
-
-        try {
-            const res = await loginApi(data);
-            const { Status: status, Message: message } = res.data;
-            console.log(data);
-            if (!status) { // 登入失敗
-                alert(message);
-            } else { // 登入成功
-                console.log(message);
-                navigate('/profile');
-            }
-        } catch (err) {
-            console.log(err);
-        }
+  const {
+    register,
+    handleSubmit,
+    formState: { errors }
+  } = useForm({
+    defaultValues: {
+      Account: '',
+      Password: ''
     }
+  })
 
-    return (
+  const navigate = useNavigate()
+
+  const onSubmit = async data => {
+    console.log('form data', data)
+
+    try {
+      const res = await loginApi(data)
+      const { Status: status, Message: message } = res.data
+      console.log(data)
+      if (!status) { // 登入失敗
+        alert(message)
+      } else { // 登入成功
+        console.log(message)
+        navigate('/profile')
+      }
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  return (
         <div>
             <h2 className="text-2xl mb-3">登入</h2>
             <form className="flex flex-col w-1/3" onSubmit={handleSubmit(onSubmit)}>
@@ -47,11 +46,11 @@ export const Login = () => {
                     type="email"
                     placeholder="請輸入你的會員電子郵件"
                     {...register('account', {
-                        required: '此為必填欄位',
-                        pattern: {
-                            value: /^\S+@\S+$/i,
-                            message: '電子郵件格式有誤，請重新確認'
-                        }
+                      required: '此為必填欄位',
+                      pattern: {
+                        value: /^\S+@\S+$/i,
+                        message: '電子郵件格式有誤，請重新確認'
+                      }
                     })}
                 />
                 <p className="text-xs mb-2 text-rose-600">{errors.Account?.message}</p>
@@ -64,14 +63,14 @@ export const Login = () => {
                     type="password"
                     placeholder="請輸入密碼"
                     {...register('password', {
-                        required: {
-                            value: true,
-                            message: '此為必填欄位'
-                        },
-                        minLength: {
-                            value: 6,
-                            message: '密碼長度至少6位字元'
-                        }
+                      required: {
+                        value: true,
+                        message: '此為必填欄位'
+                      },
+                      minLength: {
+                        value: 6,
+                        message: '密碼長度至少6位字元'
+                      }
                     })}
                 />
                 <p className="text-xs mb-2 text-rose-600">{errors.Password?.message}</p>
@@ -86,5 +85,5 @@ export const Login = () => {
                 <p>還沒有帳號嗎？<Link className="text-teal-600" to="/signup">註冊會員</Link></p>
             </div>
         </div>
-    );
+  )
 }
