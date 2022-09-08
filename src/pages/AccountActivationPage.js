@@ -3,8 +3,17 @@ import { useSearchParams } from 'react-router-dom'
 
 // Function: account verification API
 const accountActivateAPI = async (guid) => {
+  const myHeaders = new Headers()
+  myHeaders.append('Content-Type', 'application/json')
+
+  const raw = JSON.stringify({
+    Guid: guid
+  })
+
   const requestOptions = {
-    method: 'POST'
+    method: 'POST',
+    headers: myHeaders,
+    body: raw
   }
 
   const resp = await fetch(`https://easysplit.rocket-coding.com/api/User/AuthMail/AccountActivation?guid=${guid}`, requestOptions)
@@ -24,19 +33,19 @@ export default function AccountActivationPage () {
   //
 
   // trigger accountActivation API
-  const accountActivate = async () => {
+  const accountActivate = async (guid) => {
     const resp = await accountActivateAPI(guid)
     const status = resp.Status
     setIsVerified(status)
     const message = resp.Message
     setMessage(message)
   }
-  accountActivate()
+  accountActivate(guid)
   //
 
   useEffect(() => {
     console.log(isVerified)
-  }, [isVerified])
+  }, [])
 
   return (
         <div>
