@@ -15,3 +15,186 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+@layer components {
+  .viewContainer {
+    @apply container mx-auto max-w-[95%] md:max-w-[85%];
+  }
+
+  .btn-primary {
+    @apply py-2 px-8 sm:px-10 bg-colors-primary rounded text-white font-bold hover:bg-colors-sixth focus:bg-colors-seventh;
+  }
+
+  .btn-secondary {
+    @apply py-2 px-10 bg-colors-fifth rounded text-black font-bold hover:bg-colors-sixth focus:bg-colors-seventh;
+  }
+
+  .btn-google {
+    @apply flex justify-center py-3 rounded text-gray-700 gap-5;
+  }
+
+  .footerLink {
+    @apply flex flex-col items-center;
+  }
+
+  .footerImg {
+    @apply lg:hidden mb-2 lg:mb-0;
+  }
+
+  .footerImg-phone {
+    @apply mb-2;
+  }
+
+  .footerTxt {
+    @apply text-xs md:text-base;
+  }
+
+  .headerNav-hover {
+    @apply hover:border-colors-primary hover:border-b-4 hover:bg-teal-200 hover:text-colors-primary hover:rounded-t hover:duration-300 cursor-pointer;
+  }
+
+  .footer-hover {
+    @apply hover:text-green-200 hover:duration-300;
+  }
+
+  .inputInfo {
+    @apply py-2 pl-8 border border-gray-300 rounded w-full;
+  }
+
+  .inputImg {
+    @apply absolute w-3 top-2  left-2 text-gray-300;
+  }
+
+  .labelTitle {
+    @apply mb-2 font-bold;
+  }
+
+  .formCard {
+    @apply w-full px-[20px] py-20 mt-10 border-4 bg-white border-colors-primary rounded-[20px] md:w-3/4 lg:w-2/3 xl:w-1/2 2xl:w-2/5 sm:px-24;
+  }
+
+  .h1-logo {
+    display: block;
+    background: url("./image/logo.svg") no-repeat;
+    text-indent: 101%;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .h1-userlogo {
+    display: block;
+    background: url("./image/logoSm.svg") no-repeat;
+    text-indent: 101%;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .card-shadow {
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
+  }
+
+  .btn-shadow {
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.17);
+  }
+
+  .line-bilateral {
+    flex: 1 1;
+    border-bottom: 1px solid rgb(156 163 175);
+    margin: auto;
+  }
+
+  .group_beforeImg {
+    width: 218px;
+    height: 438px;
+    background: url("./image/group01.svg") no-repeat center/contain;
+  }
+
+  .group_afterImg {
+    width: 115px;
+    height: 476px;
+    background: url("./image/group02.svg") no-repeat center/contain;
+  }
+
+  /* home */
+  .feature-Card {
+    @apply px-16 py-10 bg-white rounded-[20px] mb-20 md:mb-0 max-w-full md:max-w-[48%] xl:max-w-[40%] 2xl:max-w-[33%] hover:border-gray-300 hover:border-4 hover:scale-105 hover:duration-300 hover:ease-in-out !important;
+  }
+
+  .feature-Card-Img {
+    @apply max-w-[80px] lg:max-w-[100px] xl:max-w-[120px] top-[-40px] inset-x-0 lg:inset-x-auto m-auto;
+  }
+
+  .feature-Card-Title {
+    @apply pb-5 border-b border-gray-300 mb-5 font-bold text-colors-primary text-center lg:text-right mt-4 lg:mt-0;
+  }
+
+  .aboutUs-Card {
+    @apply px-[84px] py-10 border-4 rounded-[40px] bg-white flex flex-col md:flex-row md:justify-evenly xl:flex-col items-center gap-5 w-full xl:w-[1/3] hover:bg-colors-secondary hover:border-white hover:duration-300 hover:scale-105 hover:ease-in-out !important;
+  }
+
+  .topBtn {
+    display: block;
+    position: fixed;
+    background: url("./image/top-g.svg") no-repeat center/contain;
+    width: 45px;
+    height: 45px;
+    bottom: 11%;
+    right: 8%;
+    cursor: pointer;
+    z-index: 10;
+  }
+
+  .bannerCarousel01 {
+    background: url("./image/Carousel-img01.svg") no-repeat center / cover;
+  }
+
+  .bannerCarousel02 {
+    background: url("./image/Carousel-img02.svg") no-repeat center / cover;
+  }
+
+  .bannerCarousel03 {
+    background: url("./image/Carousel-img03.svg") no-repeat center / cover;
+  }
+
+  .bannerCarousel04 {
+    background: url("./image/Carousel-img04.svg") no-repeat center / cover;
+  }
+
+  .bg-circle {
+    background-image: url("./image/phone.svg"), url("./image/bgEllipse.svg");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center bottom;
+  }
+
+  .loginInputMail {
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    content: "\f007";
+  }
+
+  /* UserProfile */
+  .sideEdge-hover {
+    @apply border-gray-400;
+  }
+
+  .sideEdge-circle {
+    @apply md:w-4 md:h-4 rounded-full bg-[#9fbcc5] absolute left-[-9px] top-0 bottom-0 m-auto;
+  }
+
+  .sideEdge-circle:hover {
+    @apply bg-colors-primary;
+  }
+}
+.swiper-pagination-bullet {
+  width: 12px !important;
+  height: 12px !important;
+  background: #fff !important;
+  opacity: 0.7 !important;
+}
+
+.swiper-pagination-bullet-active {
+  background: #40798c !important;
+  border: 1px solid #fff !important;
+  opacity: 1 !important;
+}

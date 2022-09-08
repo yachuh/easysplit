@@ -1,9 +1,13 @@
-import { Login } from '../components/Login'
+import { HeaderForm } from '../components/Header'
+import LoginForm from '../components/LoginForm'
+import { FooterPhone } from '../components/Footer'
 
 export default function LoginPage () {
   return (
-        <div>
-            <Login />
-        </div>
+    <>
+      <HeaderForm />
+      <LoginForm />
+      <FooterPhone />
+    </>
   )
 }

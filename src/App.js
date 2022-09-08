@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react'
 import { useNavigate, Routes, Route } from 'react-router-dom'
 import { AuthContext } from './context/context'
 import { setAuthToken, getAuthToken } from './utils/utils'
+import Aos from 'aos'
+import 'aos/dist/aos.css'
 import Nav from './components/Nav'
 import HomePage from './pages/HomePage'
 import SignupPage from './pages/SignupPage'
@@ -32,12 +34,17 @@ function App () {
     }
   }, [])
 
+  useEffect(function () {
+    Aos.init({ duration: 1000 })
+  }, [])
+
   return (
-    <div className="container mx-auto">
-      <AuthContext.Provider value={ { token, setToken, user, setUser } }>
-        <Nav handleLogout={handleLogout}/>
+    <>
+      <AuthContext.Provider value={{ token, setToken, user, setUser }}>
+        {/* <Nav handleLogout={handleLogout} /> */}
         <Routes>
           <Route index element={<HomePage />} />
+          <Route path="nav" handleLogout={handleLogout} element={<Nav />} />
           {/* <Route path={"/#AuthMail"}>
             <Route path="AccountActivation" element={<AccountActivationPage />} />
           </Route> */}
@@ -48,7 +55,7 @@ function App () {
           <Route path="/profile" element={<ProfilePage />} />
         </Routes>
       </AuthContext.Provider>
-    </div>
+    </>
   )
 }
 
