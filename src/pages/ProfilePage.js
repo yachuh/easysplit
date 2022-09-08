@@ -1,9 +1,13 @@
-import { Profile } from '../components/Profile'
+import { HeaderUser } from '../components/Header'
+import UserProfile from '../components/UserProfile'
+import { FooterUser } from '../components/Footer'
 
-export default function ProfilePage () {
+export default function UserProfilePage () {
   return (
-        <div>
-            <Profile />
-        </div>
+    <>
+      <HeaderUser />
+      <UserProfile />
+      <FooterUser />
+    </>
   )
 }
