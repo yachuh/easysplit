@@ -1,8 +1,11 @@
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate, Link } from 'react-router-dom'
 import { loginApi } from '../utils/api'
 import { getAuthToken, setAuthToken } from '../utils/utils'
 import { useAuth } from '../context/context'
+import Modal from '../components/Modal'
+import ForgetPassword from '../components/ForgetPassword'
 import {
   EmailOutlined,
   HttpsOutlined
@@ -12,6 +15,8 @@ import googleIcon from '../image/googleIcon.svg'
 export default function LoginForm () {
   const { token, setToken } = useAuth()
   console.log('old token', token)
+
+  const [isOpen, setIsOpen] = useState(false)
 
   const {
     register,
@@ -115,11 +120,18 @@ export default function LoginForm () {
                 })}
               />
               <p className="text-xs mb-2 text-rose-600">{errors.password?.message}</p>
-              <Link
-                className='text-sm text-gray-500 block text-right mb-10'
-                to="/resetPwd">
-                忘記密碼？
-              </Link>
+              <div>
+                <p
+                  onClick={() => setIsOpen(true)}
+                  className='text-sm text-gray-500 block text-right mb-10 cursor-pointer'>
+                  忘記密碼？
+                </p>
+                <Modal
+                  open={isOpen}
+                  onClose={() => setIsOpen(false)}>
+                  <ForgetPassword />
+                </Modal>
+              </div>
             </div>
 
             {/* 確認 BTN */}

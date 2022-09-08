@@ -9,7 +9,7 @@ import HomePage from './pages/HomePage'
 import SignupPage from './pages/SignupPage'
 import LoginPage from './pages/LoginPage'
 import AccountActivationPage from './pages/AccountActivationPage'
-import ForgetPwdPage from './pages/ForgetPwdPage'
+import ForgetPasswordPage from './pages/ForgetPasswordPage'
 import ProfilePage from './pages/ProfilePage'
 
 function App () {
@@ -41,19 +41,19 @@ function App () {
   return (
     <>
       <AuthContext.Provider value={{ token, setToken, user, setUser }}>
-        {/* <Nav handleLogout={handleLogout} /> */}
-        <Routes>
-          <Route index element={<HomePage />} />
-          <Route path="nav" handleLogout={handleLogout} element={<Nav />} />
-          {/* <Route path={"/#AuthMail"}>
+          {/* <Nav handleLogout={handleLogout} /> */}
+          <Routes>
+            <Route index element={<HomePage />} />
+            <Route path="nav" handleLogout={handleLogout} element={<Nav />} />
+            {/* <Route path={"/#AuthMail"}>
             <Route path="AccountActivation" element={<AccountActivationPage />} />
           </Route> */}
-          <Route path="/AuthMail/AccountActivation" element={<AccountActivationPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/signup" element={<SignupPage />} />
-          <Route path="/ForgetPassword" element={<ForgetPwdPage />} />
-          <Route path="/profile" element={<ProfilePage />} />
-        </Routes>
+            <Route path="/AuthMail/AccountActivation" element={<AccountActivationPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/signup" element={<SignupPage />} />
+            <Route path="/forgetpassword" element={<ForgetPasswordPage />} />
+            <Route path="/profile" element={<ProfilePage />} />
+          </Routes>
       </AuthContext.Provider>
     </>
   )
