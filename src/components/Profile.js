@@ -1,30 +1,61 @@
-import axios from 'axios'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { editProfileApi, getProfileApi } from '../utils/api'
+import { useAuth } from '../context/context'
+import { getAuthToken } from '../utils/utils'
 
 export const Profile = () => {
-  const { register, handleSubmit, formState: { errors } } = useForm({
+  const { token, setToken } = useAuth()
+  const [userData, setUserData] = useState({
+    name: '',
+    account: '',
+    imageUrl: ''
+  })
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors }
+  } = useForm({
     defaultValues: {
-      Name: '',
-      Account: ''
+      name: '',
+      account: ''
     }
   })
 
-  const getUserProfile = () => {
-    axios
-      .get('https://easysplit.rocket-coding.com/api/User/GetProfile')
-      .then(res => {
-        console.log(res)
-        console.log('成功')
+  setToken(getAuthToken())
+  console.log('new token', token)
+
+  const getUserProfile = async () => {
+    try {
+      const res = await getProfileApi(token)
+      console.log('res', res)
+      if (!res.status) {
+        console.log(res.message)
+        return
+      }
+      setUserData({
+        name: res.userstatus.name,
+        account: res.userdata.Account
       })
-      .catch(err => {
-        console.log(err)
-      })
+    } catch (error) {
+      console.log(error)
+    }
   }
+  getUserProfile()
 
-  console.log(getUserProfile())
-
-  const onSubmit = data => {
-    console.log(data)
+  const onSubmit = async data => {
+    console.log('form data', data)
+    try {
+      const { status: isSuccess, message } = await editProfileApi(userData.name)
+      if (!isSuccess) {
+        alert(message)
+        return
+      }
+      console.log(message)
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (
@@ -34,14 +65,14 @@ export const Profile = () => {
                 className="flex flex-col w-1/3"
                 onSubmit={handleSubmit(onSubmit)}>
                 <label
-                    htmlFor="Name">
+                    htmlFor="name">
                     Name
                 </label>
                 <input
                     className="mb-3 border border-slate-700 rounded-sm"
                     type="text"
-                    placeholder="Name"
-                    {...register('Name', {
+                    value= {userData.name}
+                    {...register('name', {
                       required: {
                         value: true,
                         message: '請輸入您的姓名!'
@@ -49,17 +80,17 @@ export const Profile = () => {
                     })} />
                 <p
                     className="text-xs mb-2 text-rose-600">
-                    {errors.Name?.message}
+                    {errors.name?.message}
                 </p>
                 <label
-                    htmlFor="Account">
+                    htmlFor="account">
                     Email
                 </label>
                 <input
                     disabled="disabled"
                     className="mb-3 border border-slate-700 rounded-sm"
                     type="email"
-                // value={Account}
+                    value={userData.email}
                 />
                 <input
                     className="p-2 border border-slate-700 rounded-sm w-1/3"

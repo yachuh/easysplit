@@ -1,8 +1,13 @@
 import { useForm } from 'react-hook-form'
 import { useNavigate, Link } from 'react-router-dom'
 import { loginApi } from '../utils/api'
+import { getAuthToken, setAuthToken } from '../utils/utils'
+import { useAuth } from '../context/context'
 
 export const Login = () => {
+  const { token, setToken } = useAuth()
+  console.log('old token', token)
+
   const {
     register,
     handleSubmit,
@@ -20,13 +25,15 @@ export const Login = () => {
     console.log('form data', data)
 
     try {
-      const { status: isSuccess, message } = await loginApi(data)
+      const { status: isSuccess, message, jwtToken } = await loginApi(data)
       if (!isSuccess) {
         alert(message)
         return
       }
-
-      console.log(message)
+      console.log(message, jwtToken)
+      setAuthToken(jwtToken)
+      setToken(getAuthToken()) /* not working */
+      console.log('token after setToken in Login.js', token) /* not working */
       navigate('/profile')
     } catch (err) {
       console.log(err)
