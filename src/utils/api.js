@@ -3,7 +3,7 @@ import { getAuthToken } from './utils'
 
 /* API config */
 const baseApiEndpoint = 'https://easysplit.rocket-coding.com/api'
-const AUTH_TOKEN = 'Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJJZCI6MTAsIkFjY291bnQiOiJ5YWNodWhAZ21haWwuY29tIiwiTmFtZSI6InVjIiwiSW5pdFRpbWUiOiI5LzgvMjAyMiAxMjo1MzoyNiBBTSIsIkV4cCI6IjkvOS8yMDIyIDEyOjUzOjI2IEFNIn0.7epfHxHvT3vrgiznP7t0QcQxDItRPHtmRy94khQ8ce5FsfDFgkIgeBwy7njjdq9rn0CHhTRYghG-lpO7PZ5Hsg' // `Bearer ${getAuthToken()}`
+const AUTH_TOKEN = `Bearer ${getAuthToken()}` /* not working: capture old token */
 axios.defaults.baseURL = baseApiEndpoint
 // axios.defaults.headers.common.Authorization = AUTH_TOKEN
 
@@ -60,20 +60,22 @@ export const loginApi = (payload) => postApi(LOGIN, toUpperCamelCase(payload))
 export const accountActivateAPI = (payload) => postApi(ACCOUNT_ACTIVATION, toUpperCamelCase(payload))
 
 const getApi = async (url, token) => {
-  const res = await axios.get(url, {
+  const res = await axios(url, {
     headers: {
-      authorization: `Bearer ${token}`
+      Authorization: `Bearer ${token}`
     }
   })
   return toCamelCase(res.data)
 }
 
-export const getProfileApi = (token) => {
-  getApi(GET_PROFILE, token)
-}
+export const getProfileApi = (token) => getApi(GET_PROFILE, token)
 
-const putApi = async (url, payload) => {
-  const res = await axios.put(url, payload)
+const putApi = async (url, token, payload) => {
+  const res = await axios.put(url, {
+    headers: {
+      authorization: `Bearer ${token}`
+    }
+  }, payload)
   return toCamelCase(res.data)
 }
 

@@ -9,7 +9,7 @@ export const Profile = () => {
   const [userData, setUserData] = useState({
     name: '',
     account: '',
-    imageUrl: ''
+    image: ''
   })
 
   const {
@@ -18,36 +18,41 @@ export const Profile = () => {
     formState: { errors }
   } = useForm({
     defaultValues: {
-      name: '',
-      account: ''
+      name: userData.name
     }
   })
 
+  /* Get token from localStorage */
   setToken(getAuthToken())
   console.log('new token', token)
 
   const getUserProfile = async () => {
     try {
-      const res = await getProfileApi(token)
-      console.log('res', res)
-      if (!res.status) {
-        console.log(res.message)
+      const { status: isSuccess, message, userdata } = await getProfileApi(token)
+      if (!isSuccess) {
+        console.log(message)
         return
       }
-      setUserData({
-        name: res.userstatus.name,
-        account: res.userdata.Account
-      })
+      setUserData(userData => ({
+        ...userData,
+        name: userdata.Name,
+        account: userdata.Account,
+        image: userdata.Image
+      }))
     } catch (error) {
       console.log(error)
     }
   }
-  getUserProfile()
 
+  useEffect(() => {
+    getUserProfile()
+  }, [token])
+
+  /* Update profile */
   const onSubmit = async data => {
     console.log('form data', data)
     try {
-      const { status: isSuccess, message } = await editProfileApi(userData.name)
+      const { status: isSuccess, message } = await editProfileApi(data.name)
       if (!isSuccess) {
         alert(message)
         return
@@ -64,33 +69,24 @@ export const Profile = () => {
             <form
                 className="flex flex-col w-1/3"
                 onSubmit={handleSubmit(onSubmit)}>
-                <label
-                    htmlFor="name">
-                    Name
-                </label>
+                <label htmlFor="name">Name</label>
                 <input
                     className="mb-3 border border-slate-700 rounded-sm"
                     type="text"
-                    value= {userData.name}
+                    placeholder="請輸入你的暱稱"
                     {...register('name', {
                       required: {
                         value: true,
-                        message: '請輸入您的姓名!'
+                        message: '此為必填欄位'
                       }
                     })} />
-                <p
-                    className="text-xs mb-2 text-rose-600">
-                    {errors.name?.message}
-                </p>
-                <label
-                    htmlFor="account">
-                    Email
-                </label>
+                <p className="text-xs mb-2 text-rose-600">{errors.name?.message}</p>
+                <label htmlFor="account">Email</label>
                 <input
                     disabled="disabled"
                     className="mb-3 border border-slate-700 rounded-sm"
                     type="email"
-                    value={userData.email}
+                    value={userData.account}
                 />
                 <input
                     className="p-2 border border-slate-700 rounded-sm w-1/3"
