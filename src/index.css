@@ -73,6 +73,14 @@ code {
     @apply w-full px-[20px] py-20 mt-10 border-4 bg-white border-colors-primary rounded-[20px] md:w-3/4 lg:w-2/3 xl:w-1/2 2xl:w-2/5 sm:px-24;
   }
 
+  .modalCard-bg {
+    @apply fixed inset-0 bg-black/70 z-50;
+  }
+
+  .modalCard {
+    @apply px-8 pt-11 pb-4 rounded-[20px] flex flex-col items-center fixed top-1/2 left-1/2 translate-y-[-50%] translate-x-[-50%] bg-white z-50;
+  }
+
   .h1-logo {
     display: block;
     background: url("./image/logo.svg") no-repeat;
@@ -104,13 +112,14 @@ code {
   }
 
   .group_beforeImg {
-    width: 218px;
-    height: 438px;
+    width: 170px;
+    height: 433px;
     background: url("./image/group01.svg") no-repeat center/contain;
+    
   }
 
   .group_afterImg {
-    width: 115px;
+    width: 170px;
     height: 476px;
     background: url("./image/group02.svg") no-repeat center/contain;
   }
