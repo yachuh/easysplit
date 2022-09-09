@@ -1,11 +1,26 @@
 import axios from 'axios'
 import { getAuthToken } from './utils'
 
+/* Interceptors: addgin token to header */
+axios.interceptors.request.use(function (config) {
+  // Do something before request is sent
+  const newConfig = {
+    ...config,
+    headers: {
+      ...config.headers,
+      authorization: `Bearer ${getAuthToken()}`
+    }
+  }
+  console.log('newConfig', newConfig.headers.authorization)
+  return newConfig
+}, function (error) {
+  // Do something with request error
+  return Promise.reject(error)
+})
+
 /* API config */
 const baseApiEndpoint = 'https://easysplit.rocket-coding.com/api'
-const AUTH_TOKEN = `Bearer ${getAuthToken()}` /* not working: capture old token */
 axios.defaults.baseURL = baseApiEndpoint
-// axios.defaults.headers.common.Authorization = AUTH_TOKEN
 
 const SINGN_UP = '/User/SignUp'
 const LOGIN = '/User/Login'
@@ -59,23 +74,15 @@ export const signupApi = (payload) => postApi(SINGN_UP, toUpperCamelCase(payload
 export const loginApi = (payload) => postApi(LOGIN, toUpperCamelCase(payload))
 export const accountActivateAPI = (payload) => postApi(ACCOUNT_ACTIVATION, toUpperCamelCase(payload))
 
-const getApi = async (url, token) => {
-  const res = await axios(url, {
-    headers: {
-      Authorization: `Bearer ${token}`
-    }
-  })
+const getApi = async (url) => {
+  const res = await axios(url)
   return toCamelCase(res.data)
 }
 
-export const getProfileApi = (token) => getApi(GET_PROFILE, token)
+export const getProfileApi = () => getApi(GET_PROFILE)
 
-const putApi = async (url, token, payload) => {
-  const res = await axios.put(url, {
-    headers: {
-      authorization: `Bearer ${token}`
-    }
-  }, payload)
+const putApi = async (url, payload) => {
+  const res = await axios.put(url, payload)
   return toCamelCase(res.data)
 }
 
