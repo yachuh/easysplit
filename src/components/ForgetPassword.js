@@ -1,9 +1,11 @@
+import React, { useState } from 'react'
 import axios from 'axios'
 import { useForm } from 'react-hook-form'
 import {
-  EmailOutlined,
-  CloseOutlined
+  EmailOutlined
 } from '@mui/icons-material'
+import Modal from '../components/Modal'
+import { ModalFeedback } from '../components/ModalFeedback.js'
 
 export default function ForgetPassword () {
   const { register, handleSubmit, formState: { errors } } = useForm({
@@ -11,12 +13,24 @@ export default function ForgetPassword () {
       AccountMail: ''
     }
   })
+
+  const [isOpen, setIsOpen] = useState(false)
   const ForgetPwdOnSubmit = data => {
     console.log(data)
 
     const {
       AccountMail
     } = data
+
+    const feedback = () => {
+      return (
+        <Modal
+          open={isOpen}
+          onClose={() => setIsOpen(false)}>
+          <ModalFeedback />
+        </Modal>
+      )
+    }
 
     axios
       .put('https://easysplit.rocket-coding.com/api/User/ForgetPassword',
@@ -46,33 +60,31 @@ export default function ForgetPassword () {
       <form
         className="w-full"
         onSubmit={handleSubmit(ForgetPwdOnSubmit)}>
-        <div className="relative">
-          <div
-            className='inputImg'>
-            <EmailOutlined sx={{ fontSize: 16 }} />
-          </div>
-          <input
-            className="inputInfo mb-2"
-            type="email"
-            placeholder="請輸入Email"
-            {...register('AccountMail',
-              {
-                required: {
-                  value: true,
-                  message: '請輸入資料內容!'
-                },
-                pattern: {
-                  value: /^\S+@\S+$/i,
-                  message: '格式有誤!'
-                }
-              }
-            )}
-          />
-          <p
-            className="text-xs mb-2 text-rose-600">
-            {errors.AccountMail?.message}
-          </p>
+        <div
+          className='inputImg'>
+          <EmailOutlined sx={{ fontSize: 16 }} />
         </div>
+        <input
+          className="inputInfo mb-2"
+          type="email"
+          placeholder="請輸入Email"
+          {...register('AccountMail',
+            {
+              required: {
+                value: true,
+                message: '請輸入資料內容!'
+              },
+              pattern: {
+                value: /^\S+@\S+$/i,
+                message: '格式有誤!'
+              }
+            }
+          )}
+        />
+        <p
+          className="text-xs mb-2 text-rose-600">
+          {errors.AccountMail?.message}
+        </p>
         <input
           className="btn-primary w-full mt-8"
           value="發送重設密碼信"

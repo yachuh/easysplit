@@ -51,7 +51,6 @@ export default function LoginForm () {
   }
 
   return (
-    <>
       <div className='viewContainer flex justify-center gap-16 mb-10 lg:mb-0'>
         <div className='hidden lg:block lg:group_beforeImg lg:mt-20' />
         <div
@@ -173,6 +172,5 @@ export default function LoginForm () {
         </div>
         <div className='hidden lg:block lg:group_afterImg lg:mt-20' />
       </div>
-    </>
   )
 }
