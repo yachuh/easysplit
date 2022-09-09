@@ -32,7 +32,7 @@ export const Login = () => {
       }
       console.log(message, jwtToken)
       setAuthToken(jwtToken)
-      setToken(getAuthToken()) /* not working */
+      setToken(jwtToken) /* not working */
       console.log('token after setToken in Login.js', token) /* not working */
       navigate('/profile')
     } catch (err) {

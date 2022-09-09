@@ -32,7 +32,7 @@ function App () {
       setToken(getAuthToken())
       console.log('app.js', token)
     }
-  }, [])
+  }, [token, setToken])
 
   useEffect(function () {
     Aos.init({ duration: 1000 })

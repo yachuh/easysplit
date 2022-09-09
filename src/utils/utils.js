@@ -2,7 +2,7 @@ const TOKEN_NAME = 'token'
 
 /* 將 token 存到 localStorage */
 export const setAuthToken = (token) => {
-  localStorage.setItem(TOKEN_NAME, token)
+  return localStorage.setItem(TOKEN_NAME, token)
 }
 
 /* 從 localStorage 取得 token */
