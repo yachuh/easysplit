@@ -12,7 +12,7 @@ import {
 }
   from '@mui/icons-material'
 
-export default function Profile () {
+export default function UserProfile () {
   const { token, setToken } = useAuth()
   const [userData, setUserData] = useState({
     name: '',

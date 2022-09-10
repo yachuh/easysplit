@@ -1,27 +1,56 @@
-import React from 'react'
-import ReactDom from 'react-dom'
+import React, { useState } from 'react'
+import { ModalResetPwd } from '../components/ModalFeedback'
+import Modal from '@mui/material/Modal'
+// import ReactDom from 'react-dom'
 import {
   CloseOutlined
 } from '@mui/icons-material'
 
-export default function Modal ({ open, children, onClose }) {
-  if (!open) return null
+export default function ModalResetPassword () {
+  const [open, setOpen] = useState(false)
+  const handleOpen = () => setOpen(true)
+  const handleClose = () => setOpen(false)
 
-  return ReactDom.createPortal(
+  return (
+    <Modal
+      open={open}
+      onClose={handleClose}
+      className='modalCard-bg'
+    >
+      <div
+        onClick={(e) => e.stopPropagation()}
+        className='modalCard'>
         <div
-            onClick={onClose}
-            className='modalCard-bg'>
-            <div
-                onClick={(e) => e.stopPropagation()}
-                className='modalCard w-11/12 sm:w-3/5 lg:w-1/3 xl:w-[30%] card-shadow relative'>
-                <div
-                    onClick={onClose}
-                    className="absolute top-[18px] right-[18px] text-gray-500 cursor-pointer">
-                    <CloseOutlined sx={{ fontSize: 14 }} />
-                </div>
-                {children}
-            </div>
-        </div>,
-        document.getElementById('modal')
+          onClick={handleClose}
+          className="modalCancel">
+          <CloseOutlined sx={{ fontSize: 14 }} />
+        </div>
+        <ModalResetPwd
+          open={open}
+          onClose={handleClose} />
+      </div>
+    </Modal>
+
   )
 }
+
+// export default function Modal({ open, children, onClose }) {
+//   if (!open) return null
+
+//   return (
+//     <div
+//         onClick={onClose}
+//         className='modalCard-bg'>
+//         <div
+//             onClick={(e) => e.stopPropagation()}
+//             className='modalCard'>
+//             <div
+//                 onClick={onClose}
+//                 className="modalCancel">
+//                 <CloseOutlined sx={{ fontSize: 14 }} />
+//             </div>
+//             {children}
+//         </div>
+//     </div>
+//   )
+// }
