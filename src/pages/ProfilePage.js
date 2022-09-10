@@ -1,13 +1,19 @@
 import { HeaderUser } from '../components/Header'
-import UserProfile from '../components/UserProfile'
+import Profile from '../components/Profile'
 import { FooterUser } from '../components/Footer'
 
-export default function UserProfilePage () {
+export default function ProfilePage () {
   return (
     <>
       <HeaderUser />
-      <UserProfile />
-      <FooterUser />
+      <div
+        className='pb-[111px] md:pb-20 md:ProfileFitFooter-md'>
+        <Profile />
+      </div>
+      <div
+        className='ProfileFitFooter'>
+        <FooterUser />
+      </div>
     </>
   )
 }
