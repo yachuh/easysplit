@@ -21,17 +21,11 @@ export const FooterHome = () => {
                     className="hidden lg:block"
                     to="/">
                     <img
+                        className='w-[35px]'
                         src={singleLogo}
                         alt="singleLogo"
                     />
                 </Link>
-                {/* <Link to="/">
-                        <img
-                            className="block lg:hidden"
-                            src={singleLogoSm}
-                            alt="singleLogo"
-                        />
-                    </Link> */}
                 <ul
                     className="flex items-center lg:items-start text-white gap-5 lg:gap-8">
                     <li className="footer-hover">
@@ -124,85 +118,10 @@ export const FooterHome = () => {
   )
 }
 
-export const FooterPhone = () => {
-  return (
-        <footer className="bg-colors-third py-5 lg:hidden">
-            <ul
-                className="viewContainer flex items-center justify-center text-white gap-5">
-                <li className="footer-hover">
-                    <Link
-                        className="footerLink"
-                        to="/">
-                        <div className="footerImg-phone">
-                            <MoreOutlined sx={{ fontSize: 45 }} />
-                        </div>
-                        <p
-                            className="footerTxt">
-                            了解更多
-                        </p>
-                    </Link>
-                </li>
-                <li className="footer-hover">
-                    <Link
-                        className="footerLink"
-                        to="/signup">
-                        <div className="footerImg-phone">
-                            <GroupAddOutlined sx={{ fontSize: 45 }} />
-                        </div>
-                        <p
-                            className="footerTxt">
-                            註冊會員
-                        </p>
-                    </Link>
-                </li>
-                <li className="footer-hover">
-                    <Link
-                        className="footerLink"
-                        to="/">
-                        <div className="footerImg-phone">
-                            <Savings sx={{ fontSize: 45 }} />
-                        </div>
-                        <p
-                            className="footerTxt">
-                            支持我們
-                        </p>
-                    </Link>
-                </li>
-                <li className="footer-hover">
-                    <Link
-                        className="footerLink"
-                        to="/">
-                        <div className="footerImg-phone">
-                            <HelpCenterOutlined sx={{ fontSize: 45 }} />
-                        </div>
-                        <p
-                            className="footerTxt">
-                            常見問答
-                        </p>
-                    </Link>
-                </li>
-                <li className="footer-hover">
-                    <Link
-                        className="footerLink"
-                        to="/">
-                        <div className="footerImg-phone">
-                            <SupervisedUserCircleOutlined sx={{ fontSize: 45 }} />
-                        </div>
-                        <p
-                            className="footerTxt">
-                            隱私政策
-                        </p>
-                    </Link>
-                </li>
-            </ul>
-        </footer>
-  )
-}
-
 export const FooterUser = () => {
   return (
         <footer className="bg-colors-third py-5">
-            <ul className="viewContainer flex items-center justify-center text-white gap-14">
+            <ul className="viewContainer flex items-center justify-center text-white gap-14 md:hidden">
                 <li className="footer-hover hover:text-colors-fifth">
                     <Link
                         className="footerLink"
@@ -212,7 +131,7 @@ export const FooterUser = () => {
                         </div>
                         <p
                             className="footerTxt">
-                            了解更多
+                            拆帳群組
                         </p>
                     </Link>
                 </li>
@@ -243,6 +162,21 @@ export const FooterUser = () => {
                     </Link>
                 </li>
             </ul>
+
+            <div className="viewContainer hidden md:flex md:justify-between md:items-center md:gap-2">
+                <Link
+                    to="/">
+                    <img
+                        className='w-[35px]'
+                        src={singleLogo}
+                        alt="singleLogo"
+                    />
+                </Link>
+                <h6
+                    className="text-white">
+                    Copyright © 2022 EasySplit All rights reserved
+                </h6>
+            </div>
         </footer>
   )
 }
