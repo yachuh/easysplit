@@ -1,12 +1,12 @@
 import { HeaderUser } from '../components/Header'
-import UserProfile from '../components/UserProfile'
+import Profile from '../components/Profile'
 import { FooterUser } from '../components/Footer'
 
 export default function UserProfilePage () {
   return (
     <>
       <HeaderUser />
-      <UserProfile />
+      <Profile />
       <FooterUser />
     </>
   )
