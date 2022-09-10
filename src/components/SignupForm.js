@@ -141,7 +141,7 @@ export default function SignupForm () {
                     <input
                         className="btn-primary mb-5 mt-14"
                         type="submit"
-                        value="登入"
+                        value="註冊"
                     />
                 </form>
                 <p
@@ -160,12 +160,12 @@ export default function SignupForm () {
                     />
                     <p
                         className='text-sm'>
-                        使用 Google 帳號登入
+                        使用 Google 帳號註冊
                     </p>
                 </button>
 
                 <div className='text-center text-xs'>
-                    <p>還沒有帳號嗎？
+                    <p>已經有帳號嗎？
                         <Link
                             className="font-black"
                             to="/login">

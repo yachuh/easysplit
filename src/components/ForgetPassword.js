@@ -4,47 +4,41 @@ import { useForm } from 'react-hook-form'
 import {
   EmailOutlined
 } from '@mui/icons-material'
-import Modal from '../components/Modal'
-import { ModalFeedback } from '../components/ModalFeedback.js'
+// import Modal from '../components/Modal'
+// import { ModalFeedback } from '../components/ModalFeedback.js'
 
-export default function ForgetPassword () {
+export default function ForgetPassword ({ Open, onClose }) {
   const { register, handleSubmit, formState: { errors } } = useForm({
     defaultValues: {
       AccountMail: ''
     }
   })
 
-  const [isOpen, setIsOpen] = useState(false)
-  const ForgetPwdOnSubmit = data => {
+  const onSubmit = async data => {
     console.log(data)
 
     const {
       AccountMail
     } = data
 
-    const feedback = () => {
-      return (
-        <Modal
-          open={isOpen}
-          onClose={() => setIsOpen(false)}>
-          <ModalFeedback />
-        </Modal>
-      )
-    }
-
-    axios
-      .put('https://easysplit.rocket-coding.com/api/User/ForgetPassword',
+    try {
+      const res = await axios.post('https://easysplit.rocket-coding.com/api/User/ForgetPassword',
         {
           AccountMail
         })
-      .then(res => {
-        console.log(res)
-        console.log('忘記密碼傳送郵件成功')
-      })
-      .catch(err => {
-        console.log(err)
-        console.log('這個信箱還沒有註冊喔，請再確認看看！')
-      })
+      console.log(res)
+      console.log(res.data.Status)
+      console.log('忘記密碼傳送郵件成功')
+      if (res.status === 200 && res.data.Status === true) {
+        onClose()
+      }
+      // if (res.status === 200 && res.data.Status === false) {
+      //   Open()
+      // }
+    } catch (err) {
+      console.log(err)
+      console.log('這個信箱還沒有註冊喔，請再確認看看！')
+    }
   }
 
   return (
@@ -58,8 +52,8 @@ export default function ForgetPassword () {
         請輸入你註冊時的電子郵件信箱
       </p>
       <form
-        className="w-full"
-        onSubmit={handleSubmit(ForgetPwdOnSubmit)}>
+        className="w-full relative"
+        onSubmit={handleSubmit(onSubmit)}>
         <div
           className='inputImg'>
           <EmailOutlined sx={{ fontSize: 16 }} />
