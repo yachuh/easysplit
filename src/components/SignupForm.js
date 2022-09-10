@@ -93,14 +93,10 @@ export default function SignupForm () {
                         <p className="text-xs mb-2 text-rose-600">{errors.password?.message}</p>
                     </div>
                     {/* 確認 BTN */}
-                    <input
-                        className="btn-primary mb-5 mt-14"
-                        type="submit"
-                        value="註冊"
-                    />
+                    <input className="btn-primary mb-5 mt-14" type="submit" value="註冊"/>
                 </form>
                 <p className="flex before:line-bilateral after:line-bilateral mb-5">
-                    <span className='text-gray-400 px-[20px]'>或</span>
+                    <span className="text-gray-400 px-[20px]">或</span>
                 </p>
                 <button className="btn-google btn-shadow w-full mb-12">
                     <img className="w-[20px]" src={googleIcon} alt="googleIcon"/>
@@ -110,7 +106,7 @@ export default function SignupForm () {
                     <p>已經有帳號嗎？<Link className="font-black" to="/login">登入</Link></p>
                 </div>
             </div>
-            <div className='hidden lg:block lg:group_afterImg lg:mt-20' />
+            <div className="hidden lg:block lg:group_afterImg lg:mt-20" />
         </div>
   )
 }
