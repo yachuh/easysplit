@@ -28,7 +28,8 @@ module.exports = {
         'colors-fourth': '#70A9A1',
         'colors-fifth': '#F0CC67',
         'colors-sixth': '#9EC1A3',
-        'colors-seventh': '#70A9A1'
+        'colors-seventh': '#70A9A1',
+        black: '#1F363D'
       }
 
     }
