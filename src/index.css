@@ -284,3 +284,29 @@ code {
 .css-jpln7h-MuiTabs-scroller{
   white-space: normal !important;
 }
+
+.css-6hp17o-MuiList-root-MuiMenu-list{
+  padding: 24px 20px 8px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+}
+
+.css-6hp17o-MuiList-root-MuiMenu-list li+li {
+  border-top: 1px solid rgba(31,54,61,1) !important;
+  padding-top: 16px !important;
+}
+
+.css-6hp17o-MuiList-root-MuiMenu-list li {
+  padding-bottom: 16px !important;
+  color: rgb(31, 54, 61) !important;
+  font-weight: 700;
+}
+
+.css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root{
+  padding: 0 !important;  
+}
+
+.css-1poimk-MuiPaper-root-MuiMenu-paper-MuiPaper-root-MuiPopover-paper{
+  border-radius: 20px !important;
+}

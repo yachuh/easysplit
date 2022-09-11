@@ -1,10 +1,9 @@
 import { Link } from 'react-router-dom'
+import ProfileMenu from '../components/ProfileMenu'
 import {
-  LogoutOutlined,
   Notifications
 }
   from '@mui/icons-material'
-import userImg from '../image/userImg.svg'
 
 export const HeaderHome = () => {
   return (
@@ -64,11 +63,6 @@ export const HeaderUser = () => {
   return (
         <header
             className="viewContainer py-3 flex justify-between items-center">
-            {/* <Link
-                to="/"
-                className="text-colors-primary">
-                <LogoutOutlined sx={{ fontSize: 30 }} />
-            </Link> */}
             <h1
                 className='block md:hidden'>
                 <Link
@@ -90,21 +84,8 @@ export const HeaderUser = () => {
                 className="text-colors-fifth md:hidden">
                 <Notifications sx={{ fontSize: 30 }} />
             </Link>
-            <ul
-                className='hidden md:flex md:items-center md:gap-[20px]'>
-                <li>
-                    Candice Wu
-                </li>
-                <li>
-                    <img
-                        className="rounded-full border card-shadow w-8"
-                        src={userImg}
-                        alt="userImg"
-                    />
-                </li>
-
-            </ul>
-
+            <ProfileMenu />
+            {/* <UserMenu /> */}
         </header>
   )
 }
