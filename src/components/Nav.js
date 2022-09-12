@@ -5,7 +5,7 @@ import { ModalResetPwd, ModalPwdSuccess, ModalVerifySignup } from '../components
 import {
   CloseOutlined
 } from '@mui/icons-material'
-import ProfileMenu from './ProfileMenu'
+import HeaderUserNav from './HeaderUserNav'
 
 const Nav = () => {
   // const [isOpen, setIsOpen] = useState(false)
@@ -107,7 +107,7 @@ const Nav = () => {
             </li>
 
             <li>
-                <ProfileMenu />
+                <HeaderUserNav />
             </li>
 
         </nav>

@@ -1,10 +1,7 @@
 import GroupCoverPhoto from '../image/Group_cover-photo.svg'
-import {
-  Add
-}
-  from '@mui/icons-material'
+import { Add } from '@mui/icons-material'
 
-export default function ProfileSideGroup () {
+export default function SideNavGroup () {
   return (
         <div className='flex flex-col'>
             <div

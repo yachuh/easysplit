@@ -1,14 +1,12 @@
 import React, { useState } from 'react'
-import { UserMenu } from '../components/UserMenu'
+import { UserMenu } from './UserMenu'
 import Button from '@mui/material/Button'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import ListItemIcon from '@mui/material/ListItemIcon'
-import {
-  LogoutOutlined
-} from '@mui/icons-material'
+import { LogoutOutlined } from '@mui/icons-material'
 
-export default function ProfileMenu () {
+export default function HeaderUserNav () {
   const [anchorEl, setAnchorEl] = useState(null)
   const open = Boolean(anchorEl)
   const handleClick = (event) => {
