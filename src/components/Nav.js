@@ -6,6 +6,7 @@ import {
   CloseOutlined
 } from '@mui/icons-material'
 import HeaderUserNav from './HeaderUserNav'
+import ResetPwdPage from '../pages/ResetPwdPage'
 
 const Nav = () => {
   // const [isOpen, setIsOpen] = useState(false)
@@ -24,7 +25,7 @@ const Nav = () => {
   const handleClose3 = () => setOpen3(false)
 
   return (
-        <nav className="mt-5 mb-5 flex items-center gap-x-4 list-none underline ">
+      <nav className="viewContainer mt-5 mb-5 flex flex-col gap-x-4 list-none underline w-full">
             <li>
                 <Link to="/">Home</Link>
             </li>
@@ -108,6 +109,10 @@ const Nav = () => {
 
             <li>
                 <HeaderUserNav />
+            </li>
+
+            <li>
+                <ResetPwdPage />
             </li>
 
         </nav>
