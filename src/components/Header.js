@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import ProfileMenu from '../components/ProfileMenu'
+import HeaderUserNav from './HeaderUserNav'
 import {
   Notifications
 }
@@ -84,7 +84,7 @@ export const HeaderUser = () => {
                 className="text-colors-fifth md:hidden">
                 <Notifications sx={{ fontSize: 30 }} />
             </Link>
-            <ProfileMenu />
+            <HeaderUserNav />
             {/* <UserMenu /> */}
         </header>
   )

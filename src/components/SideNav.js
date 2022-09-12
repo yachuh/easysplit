@@ -1,18 +1,13 @@
 import React, { useState } from 'react'
 import ProfileUser from './ProfileUser'
 import ProfileTab from './ProfileTab'
-import ProfileSideGroup from './ProfileSideGroup.js'
+import SideNavGroup from './SideNavGroup.js'
 import PropTypes from 'prop-types'
 import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
 import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
-import {
-  Home,
-  Person,
-  Notifications
-}
-  from '@mui/icons-material'
+import { Home, Person, Notifications } from '@mui/icons-material'
 
 const primary = '#40798C'
 const secondary = '#6AC1AC'
@@ -86,7 +81,7 @@ export default function ProfileSidebars () {
           icon={<Notifications sx={{ fontSize: 24, color: third }} />}
           iconPosition="start"
           label="通知" {...a11yProps(2)} />
-        <ProfileSideGroup />
+        <SideNavGroup />
       </Tabs>
 
       <TabPanel

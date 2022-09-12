@@ -1,13 +1,13 @@
 import ProfileTab from './ProfileTab'
 import ProfileUser from './ProfileUser'
-import ProfileSidebars from './ProfileSidebars'
+import SideNav from './SideNav'
 
 export default function Profile () {
   return (
     <div
       className="viewContainer">
       <div className='hidden md:block relative'>
-        <ProfileSidebars />
+        <SideNav />
       </div>
       <div className='md:hidden'>
         <ProfileUser />

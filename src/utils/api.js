@@ -2,21 +2,21 @@ import axios from 'axios'
 import { getAuthToken } from './utils'
 
 /* Interceptors: addgin token to header */
-// axios.interceptors.request.use(function (config) {
-//   // Do something before request is sent
-//   const newConfig = {
-//     ...config,
-//     headers: {
-//       ...config.headers,
-//       authorization: `Bearer ${getAuthToken()}`
-//     }
-//   }
-//   console.log('newConfig', newConfig.headers.authorization)
-//   return newConfig
-// }, function (error) {
-//   // Do something with request error
-//   return Promise.reject(error)
-// })
+axios.interceptors.request.use(function (config) {
+  // Do something before request is sent
+  const newConfig = {
+    ...config,
+    headers: {
+      ...config.headers,
+      authorization: `Bearer ${getAuthToken()}`
+    }
+  }
+  console.log('newConfig', newConfig.headers.authorization)
+  return newConfig
+}, function (error) {
+  // Do something with request error
+  return Promise.reject(error)
+})
 
 /* API config */
 const baseApiEndpoint = 'https://easysplit.rocket-coding.com/api'
