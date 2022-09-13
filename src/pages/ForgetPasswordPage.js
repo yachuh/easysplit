@@ -1,4 +1,4 @@
-import ForgetPassword from '../components/ForgetPassword'
+import ForgetPassword from '../components/loginPage/ForgetPassword'
 
 export default function ForgetPasswordPage () {
   return (

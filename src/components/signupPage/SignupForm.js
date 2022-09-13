@@ -1,8 +1,8 @@
 import { useForm } from 'react-hook-form'
 import { Link } from 'react-router-dom'
-import { signupApi } from '../utils/api'
+import { signupApi } from '../../utils/api'
 import { EmailOutlined, HttpsOutlined, PermIdentityOutlined } from '@mui/icons-material'
-import googleIcon from '../image/googleIcon.svg'
+import googleIcon from '../../image/googleIcon.svg'
 
 export default function SignupForm () {
   const {

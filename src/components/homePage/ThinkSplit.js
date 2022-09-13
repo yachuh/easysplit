@@ -1,7 +1,7 @@
-import introImg from '../image/intro-img.svg'
-import introImgSm01 from '../image/intro-sm01.svg'
-import introImgSm02 from '../image/intro-sm02.svg'
-import introImgSm03 from '../image/intro-sm03.svg'
+import introImg from '../../image/intro-img.svg'
+import introImgSm01 from '../../image/intro-sm01.svg'
+import introImgSm02 from '../../image/intro-sm02.svg'
+import introImgSm03 from '../../image/intro-sm03.svg'
 
 export default function ThinkSplit () {
   return (
