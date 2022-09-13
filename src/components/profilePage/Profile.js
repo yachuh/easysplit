@@ -1,6 +1,6 @@
 import ProfileTab from './ProfileTab'
 import ProfileUser from './ProfileUser'
-import SideNav from './SideNav'
+import SideNav from '../SideNav'
 
 export default function Profile () {
   return (
