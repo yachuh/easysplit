@@ -3,8 +3,8 @@ import { HeaderUser } from '../components/Header'
 import { getProfileApi } from '../utils/api'
 import { UserDataContext } from '../context/context'
 import { FooterUser } from '../components/Footer'
-import ProfileTab from '../components/ProfileTab'
-import ProfileUser from '../components/ProfileUser'
+import ProfileTab from '../components/profilePage/ProfileTab'
+import ProfileUser from '../components/profilePage/ProfileUser'
 import SideNav from '../components/SideNav'
 
 export default function ProfilePage () {

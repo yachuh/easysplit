@@ -26,7 +26,10 @@ const SINGN_UP = '/User/SignUp'
 const LOGIN = '/User/Login'
 const GET_PROFILE = '/User/GetProfile'
 const EDIT_PROFILE = '/User/EditProfile'
-const ACCOUNT_ACTIVATION = '/User/AuthMail/AccountActivation?guid='
+const ACCOUNT_ACTIVATION_MAIL = '/User/AuthMail/AccountActivation?guid='
+const RESET_PWD = '/User/ResetPassword'
+const RESET_PWD_MAIL = '/User/AuthMail/ResetPassword'
+
 /**
  * input an object with any keys
  * output an object with key in camel case
@@ -65,15 +68,18 @@ const toCamelCase = (payload) => {
   return result
 }
 
-/* APIs */
+/* --- APIs --- */
+/* POST */
 const postApi = async (url, payload) => {
   const res = await axios.post(url, payload)
   return toCamelCase(res.data)
 }
 export const signupApi = (payload) => postApi(SINGN_UP, toUpperCamelCase(payload))
 export const loginApi = (payload) => postApi(LOGIN, toUpperCamelCase(payload))
-export const accountActivateAPI = (payload) => postApi(ACCOUNT_ACTIVATION, toUpperCamelCase(payload))
+export const accountActivateAPI = (payload) => postApi(ACCOUNT_ACTIVATION_MAIL, toUpperCamelCase(payload))
+export const resetPwdEmailApi = () => postApi(RESET_PWD)
 
+/* GET */
 const getApi = async (url) => {
   const res = await axios(url)
   return toCamelCase(res.data)
@@ -81,9 +87,11 @@ const getApi = async (url) => {
 
 export const getProfileApi = () => getApi(GET_PROFILE)
 
+/* PUT */
 const putApi = async (url, payload) => {
   const res = await axios.put(url, payload)
   return toCamelCase(res.data)
 }
 
 export const editProfileApi = (param) => putApi(`${EDIT_PROFILE}?name=${param}`)
+export const resetPwdApi = (payload) => putApi(RESET_PWD_MAIL, toUpperCamelCase(payload))

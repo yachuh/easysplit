@@ -1,8 +1,8 @@
-import { useUserData } from '../context/context'
+import { useUserData } from '../../context/context'
 import { BorderColorOutlined } from '@mui/icons-material'
 
 export default function ProfileUser () {
-  const { userData, setUserData } = useUserData()
+  const { userData } = useUserData()
   const { name, image } = userData
 
   return (

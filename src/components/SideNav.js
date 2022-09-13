@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import ProfileUser from './ProfileUser'
-import ProfileTab from './ProfileTab'
+import ProfileUser from './profilePage/ProfileUser'
+import ProfileTab from './profilePage/ProfileTab'
 import SideNavGroup from './SideNavGroup.js'
 import PropTypes from 'prop-types'
 import Tabs from '@mui/material/Tabs'
