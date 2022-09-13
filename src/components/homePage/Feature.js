@@ -1,7 +1,7 @@
-import iconGroup from '../image/iconGroup.svg'
-import iconExport from '../image/iconExport.svg'
-import iconImg from '../image/iconImg.svg'
-import iconNotice from '../image/iconNotice.svg'
+import iconGroup from '../../image/iconGroup.svg'
+import iconExport from '../../image/iconExport.svg'
+import iconImg from '../../image/iconImg.svg'
+import iconNotice from '../../image/iconNotice.svg'
 
 export default function Feature () {
   return (

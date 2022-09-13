@@ -1,6 +1,6 @@
-import doraImg from '../image/Dora.svg'
-import yaChuImg from '../image/YaChu.svg'
-import jeanImg from '../image/Jean.svg'
+import doraImg from '../../image/Dora.svg'
+import yaChuImg from '../../image/YaChu.svg'
+import jeanImg from '../../image/Jean.svg'
 
 export default function AboutUs () {
   return (

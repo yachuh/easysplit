@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import usImgLg from '../image/usImgLg.svg'
+import usImgLg from '../../image/usImgLg.svg'
 
 export default function EnjoyEastSplit () {
   return (

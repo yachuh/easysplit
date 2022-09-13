@@ -1,12 +1,12 @@
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate, Link } from 'react-router-dom'
-import { setAuthToken } from '../utils/utils'
-import { loginApi } from '../utils/api'
+import { setAuthToken } from '../../utils/utils'
+import { loginApi } from '../../utils/api'
 import Modal from '@mui/material/Modal'
-import ForgetPassword from '../components/ForgetPassword'
+import ForgetPassword from './ForgetPassword'
 import { EmailOutlined, HttpsOutlined, CloseOutlined } from '@mui/icons-material'
-import googleIcon from '../image/googleIcon.svg'
+import googleIcon from '../../image/googleIcon.svg'
 
 export default function LoginForm () {
   const [open, setOpen] = useState(false)

@@ -11,7 +11,7 @@ import 'swiper/css/navigation'
 // import required modules
 import { Autoplay, Pagination } from 'swiper'
 
-import bannerLogo from '../image/bannerLogo.svg'
+import bannerLogo from '../../image/bannerLogo.svg'
 
 export default function Banner () {
   const bannerCarousel = (
