@@ -29,7 +29,7 @@ export default function AccountActivationPage () {
   // Get the params from the URL
   const [searchParams] = useSearchParams()
   const guid = searchParams.get('guid')
-  console.log('guid', guid)
+  // console.log('guid', guid)
   //
 
   // trigger accountActivation API

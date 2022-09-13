@@ -2,7 +2,7 @@ import React from 'react'
 import mailSend from '../image/mailSend.svg'
 import successIcon from '../image/successIcon.svg'
 
-export const ModalResetPwd = ({ onClose }) => {
+export const ModalResetPwd = ({ onClose, account }) => {
   return (
         <>
             <div
@@ -18,7 +18,7 @@ export const ModalResetPwd = ({ onClose }) => {
                 </h4>
                 <p
                     className='text-gray-500'>
-                    至 o***t@mail.com
+                    至 {account}
                 </p>
                 <p>
                     請點擊信件中的連結以進行重設密碼

@@ -10,6 +10,7 @@ import LoginPage from './pages/LoginPage'
 import AccountActivationPage from './pages/AccountActivationPage'
 import ForgetPasswordPage from './pages/ForgetPasswordPage'
 import ProfilePage from './pages/ProfilePage'
+import ResetPwdPage from './pages/ResetPwdPage'
 
 function App () {
   const [token, setToken] = useState(null)
@@ -39,13 +40,11 @@ function App () {
         <Routes>
           <Route index element={<HomePage />} />
           <Route path="nav" handleLogout={handleLogout} element={<Nav />} />
-          {/* <Route path={"/#AuthMail"}>
-          <Route path="AccountActivation" element={<AccountActivationPage />} />
-        </Route> */}
-          <Route path="/AuthMail/AccountActivation" element={<AccountActivationPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/forgetpassword" element={<ForgetPasswordPage />} />
+          <Route path="/AuthMail/AccountActivation" element={<AccountActivationPage />} />
+          <Route path="/AuthMail/ResetPassword" element={<ResetPwdPage />} />
           <Route path="/profile" element={<ProfilePage />} />
         </Routes>
     </>
