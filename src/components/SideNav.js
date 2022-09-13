@@ -14,7 +14,7 @@ const secondary = '#6AC1AC'
 const third = '#F0CC67'
 
 function TabPanel (props) {
-  const { children, value, index, ...other } = props
+  const { children, value, index, classes, ...other } = props
 
   return (
     <div
@@ -26,7 +26,7 @@ function TabPanel (props) {
     >
       {value === index && (
         <Box>
-          <Typography>{children}</Typography>
+          {children}
         </Box>
       )}
     </div>

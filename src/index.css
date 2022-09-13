@@ -33,6 +33,10 @@ code {
     @apply flex justify-center py-3 rounded text-gray-700 gap-5;
   }
 
+  /* .btn-addPayment {
+    @apply py-2 px-8 sm:px-10 border-2 border-colors-primary rounded text-colors-primary font-bold hover:border-white hover:bg-colors-sixth hover:text-white focus:bg-colors-seventh;
+  } */
+
   .footerLink {
     @apply flex flex-col items-center;
   }
@@ -198,7 +202,7 @@ code {
     @apply bg-colors-primary;
   } */
 
-  .ProfileSidebars-tab{
+  .ProfileSidebars-tab {
     @apply flex items-center gap-[20px];
   }
 
@@ -252,17 +256,17 @@ code {
   font-size: 16px !important;
 }
 
-.css-1x77c5g-MuiButtonBase-root-MuiTab-root.Mui-selected{
+.css-1x77c5g-MuiButtonBase-root-MuiTab-root.Mui-selected {
   color: #000 !important;
   font-weight: 700 !important;
   font-size: 24px !important;
 }
 
-.css-lfwcke-MuiTabs-flexContainer{
+.css-lfwcke-MuiTabs-flexContainer {
   gap: 40px;
 }
 
-.css-1x77c5g-MuiButtonBase-root-MuiTab-root{
+.css-1x77c5g-MuiButtonBase-root-MuiTab-root {
   color: #000 !important;
   padding: 0 !important;
   min-height: 24px !important;
@@ -270,30 +274,30 @@ code {
   justify-content: start !important;
 }
 
-.css-1x77c5g-MuiButtonBase-root-MuiTab-root:hover{
-  color: #70A9A1 !important;
+.css-1x77c5g-MuiButtonBase-root-MuiTab-root:hover {
+  color: #70a9a1 !important;
 }
-.css-1x77c5g-MuiButtonBase-root-MuiTab-root:focus{
-  color: #70A9A1 !important;
+.css-1x77c5g-MuiButtonBase-root-MuiTab-root:focus {
+  color: #70a9a1 !important;
 }
 
-.css-10d9dml-MuiTabs-indicator{
+.css-10d9dml-MuiTabs-indicator {
   background-color: #fff !important;
 }
 
-.css-jpln7h-MuiTabs-scroller{
+.css-jpln7h-MuiTabs-scroller {
   white-space: normal !important;
 }
 
-.css-6hp17o-MuiList-root-MuiMenu-list{
+.css-6hp17o-MuiList-root-MuiMenu-list {
   padding: 24px 20px 8px !important;
   display: flex !important;
   flex-direction: column !important;
   align-items: center !important;
 }
 
-.css-6hp17o-MuiList-root-MuiMenu-list li+li {
-  border-top: 1px solid rgba(31,54,61,1) !important;
+.css-6hp17o-MuiList-root-MuiMenu-list li + li {
+  border-top: 1px solid rgba(31, 54, 61, 1) !important;
   padding-top: 16px !important;
 }
 
@@ -303,10 +307,36 @@ code {
   font-weight: 700;
 }
 
-.css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root{
-  padding: 0 !important;  
+.css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root {
+  padding: 0 !important;
 }
 
-.css-1poimk-MuiPaper-root-MuiMenu-paper-MuiPaper-root-MuiPopover-paper{
+.css-1poimk-MuiPaper-root-MuiMenu-paper-MuiPaper-root-MuiPopover-paper {
   border-radius: 20px !important;
 }
+
+.btn-addPayment {
+  padding: 8px 32px !important;
+  border: 2px solid #40798c !important;
+  border-radius: 4px !important;
+  width: 100% !important;
+  color: #40798c !important;
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  background-color: white !important;
+  margin: 24px 0 !important;
+  gap: 14px !important;
+}
+
+.btn-addPayment:hover {
+  background-color: #6ac1ac !important;
+  color: #fff !important;
+  border: 2px solid #fff !important;
+}
+
+/* #ppu.css-1poimk-MuiPaper-root-MuiMenu-paper-MuiPaper-root-MuiPopover-paper .payment-way{
+  width: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+} */

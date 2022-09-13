@@ -7,6 +7,7 @@ import {
 } from '@mui/icons-material'
 import HeaderUserNav from './HeaderUserNav'
 import ResetPwdPage from '../pages/ResetPwdPage'
+import SplitMainPage from '../pages/SplitMainPage'
 
 const Nav = () => {
   // const [isOpen, setIsOpen] = useState(false)
@@ -25,7 +26,7 @@ const Nav = () => {
   const handleClose3 = () => setOpen3(false)
 
   return (
-      <nav className="viewContainer mt-5 mb-5 flex flex-col gap-x-4 list-none underline w-full">
+        <nav className="viewContainer mt-5 mb-5 flex flex-col gap-x-4 list-none w-full">
             <li>
                 <Link to="/">Home</Link>
             </li>
@@ -111,8 +112,12 @@ const Nav = () => {
                 <HeaderUserNav />
             </li>
 
-            <li>
+            <li className='mb-16'>
                 <ResetPwdPage />
+            </li>
+
+            <li>
+              <SplitMainPage />
             </li>
 
         </nav>

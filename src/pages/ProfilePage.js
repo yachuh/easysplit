@@ -37,24 +37,22 @@ export default function ProfilePage () {
   }, [])
 
   return (
-    <>
+    <UserDataContext.Provider value={{ userData, setUserData }}>
       <HeaderUser />
-      <UserDataContext.Provider value={ { userData, setUserData } }>
-        <div className='pb-[111px] md:pb-20 md:ProfileFitFooter-md'>
-          <div className="viewContainer">
-            <div className='hidden md:block relative'>
-              <SideNav />
-            </div>
-            <div className='md:hidden'>
-              <ProfileUser />
-              <ProfileTab />
-            </div>
+      <div className='pb-[111px] md:pb-20 md:ProfileFitFooter-md'>
+        <div className="viewContainer">
+          <div className='hidden md:block relative'>
+            <SideNav />
+          </div>
+          <div className='md:hidden'>
+            <ProfileUser />
+            <ProfileTab />
           </div>
         </div>
-      </UserDataContext.Provider>
+      </div>
       <div className='ProfileFitFooter'>
         <FooterUser />
       </div>
-    </>
+    </UserDataContext.Provider>
   )
 }
