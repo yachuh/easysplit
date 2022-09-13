@@ -84,8 +84,9 @@ export const HeaderUser = () => {
                 className="text-colors-fifth md:hidden">
                 <Notifications sx={{ fontSize: 30 }} />
             </Link>
-            <HeaderUserNav />
-            {/* <UserMenu /> */}
+            <div className='hidden md:block'>
+                <HeaderUserNav />
+            </div>
         </header>
   )
 }
