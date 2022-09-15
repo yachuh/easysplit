@@ -5,7 +5,6 @@ import SideNavGroup from './SideNavGroup.js'
 import PropTypes from 'prop-types'
 import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
-import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
 import { Home, Person, Notifications } from '@mui/icons-material'
 
