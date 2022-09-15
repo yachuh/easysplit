@@ -4,15 +4,15 @@
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+  font-family: "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto",
+    "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+  font-family: "source-code-pro", "Menlo, Monaco, Consolas", "Courier New",
     monospace;
 }
 
@@ -37,6 +37,10 @@ code {
     @apply py-2 px-10 bg-line-pay rounded text-white font-bold hover:bg-colors-sixth focus:bg-colors-seventh;
   }
 
+  .btn-red {
+    @apply py-2 px-8 sm:px-10 bg-red-700 rounded text-white font-bold hover:bg-red-700/70 focus:bg-colors-seventh;
+  }
+
   .btn-google {
     @apply flex justify-center py-3 rounded text-gray-700 gap-5;
   }
@@ -48,6 +52,17 @@ code {
     @apply py-2 px-6 bg-white border border-colors-primary rounded text-colors-primary font-bold hover:bg-colors-sixth focus:bg-colors-seventh;
   }
 
+  .btn-outline-fifth {
+    @apply py-2 px-6 bg-white border border-colors-fifth rounded font-bold hover:bg-colors-sixth focus:bg-colors-seventh;
+  }
+
+  .btn-outline-linepay {
+    @apply py-2 px-6 bg-white border border-line-pay rounded font-bold hover:bg-colors-sixth focus:bg-colors-seventh;
+  }
+
+  .btn-outline-red {
+    @apply py-2 px-6 bg-white border border-red-700 rounded font-bold hover:bg-colors-sixth focus:bg-colors-seventh;
+  }
 
   .footerLink {
     @apply flex flex-col items-center;

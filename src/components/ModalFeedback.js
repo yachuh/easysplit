@@ -1,6 +1,7 @@
 import React from 'react'
 import mailSend from '../image/mailSend.svg'
 import successIcon from '../image/successIcon.svg'
+import deleteIcon from '../image/deleteIcon.svg'
 
 export const ModalResetPwd = ({ onClose, account }) => {
   return (
@@ -97,6 +98,37 @@ export const ModalVerifySignup = ({ onClose }) => {
                 className="btn-primary w-full">
                 確定
             </button>
+        </>
+  )
+}
+
+export const DeletePayment = ({ onClose }) => {
+  return (
+        <>
+            <div
+                className='flex flex-col items-center gap-4 mb-4'>
+                <img
+                    className='w-[45px]'
+                    src={deleteIcon}
+                    alt="deleteIcon"
+                />
+                <h4
+                    className='font-bold'>
+                    確定刪除 收款資料 項目
+                </h4>
+            </div>
+            <div className='w-full flex justify-between gap-4'>
+                <button
+                    onClick={onClose}
+                    className="btn-outline-red w-full">
+                    取消
+                </button>
+                <button
+                    onClick={onClose}
+                    className="btn-red w-full">
+                    確定刪除
+                </button>
+            </div>
         </>
   )
 }

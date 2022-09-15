@@ -1,11 +1,16 @@
 import React, { useState } from 'react'
 import Modal from '@mui/material/Modal'
 import EditPaymentCash from './EditPaymentCash'
+import { DeletePayment } from '../ModalFeedback'
 
 export default function CashPaymentList () {
   const [open, setOpen] = useState(false)
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
+
+  const [openDeleteItem, setOpenDeleteItem] = useState(false)
+  const handleOpenDeleteItem = () => setOpenDeleteItem(true)
+  const handleCloseDeleteItem = () => setOpenDeleteItem(false)
 
   return (
         <li className="ProfilePayment-item">
@@ -28,7 +33,22 @@ export default function CashPaymentList () {
 
                         </div>
                     </Modal>
-                    <li>刪除</li>
+                    <li onClick={handleOpenDeleteItem}>刪除</li>
+                    <Modal
+                        open={openDeleteItem}
+                        onClose={handleCloseDeleteItem}
+                        className='modalCard-bg'
+                    >
+                        <div
+                            onClick={(e) => e.stopPropagation()}
+                            className='modalCard'>
+
+                            <DeletePayment
+                                open={openDeleteItem}
+                                onClose={handleCloseDeleteItem} />
+
+                        </div>
+                    </Modal>
                 </ul>
             </div>
             <ul className="ProfilePayment-information">
