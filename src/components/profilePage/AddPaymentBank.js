@@ -60,18 +60,36 @@ export default function AddPaymentBank ({ onClose }) {
                         <p className="text-xs text-rose-600">{errors.tel?.message}</p>
                     </div>
 
-                    <div className='md:w-full'>
+                    <div className='mb-8 md:w-full md:mb-0'>
                         <label
                             className='labelTitle mb-1'
-                            htmlFor="account">
-                            聯絡訊息
+                            htmlFor="bankname">
+                            銀行名稱
                         </label>
-                        <textarea
-                            className="inputInfo pl-2 h-[75px] md:ProfilePaymentModal-textarea"
-                            placeholder="請輸入面交相關地址資訊或其他資訊。"
-                            {...register('Developer',
-                              { required: true }
+                        <input
+                            id='name'
+                            className="inputInfo pl-2 mb-1"
+                            type="text"
+                            placeholder="請輸入銀行名稱"
+                            {...register('bankname',
+                              { required: '此為必填欄位' }
                             )} />
+                        <p className="text-xs text-rose-600">{errors.bankname?.message}</p>
+
+                        <label
+                            className='labelTitle mt-7 mb-1'
+                            htmlFor="bankaccount">
+                            銀行帳號
+                        </label>
+                        <input
+                            id='tel'
+                            className="inputInfo pl-2 mb-1"
+                            type="tel"
+                            placeholder="請輸入銀行帳號"
+                            {...register('bankaccount',
+                              { required: '此為必填欄位' }
+                            )} />
+                        <p className="text-xs text-rose-600">{errors.bankaccount?.message}</p>
                     </div>
                 </div>
 
@@ -81,7 +99,7 @@ export default function AddPaymentBank ({ onClose }) {
                         <input
                             onClick={onClose}
                             type="button"
-                            className='btn-primary mb-4 w-full cursor-pointer md:mb-0'
+                          className='btn-outline mb-4 w-full cursor-pointer md:mb-0'
                             value='取消'
                         />
                         <input

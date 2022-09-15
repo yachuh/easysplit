@@ -64,18 +64,34 @@ export default function EditPaymentLinePay ({ onClose }) {
                         <p className="text-xs text-rose-600">{errors.tel?.message}</p>
                     </div>
 
-                    <div className='md:w-full'>
+                    <div className='mb-8 md:w-full md:mb-0'>
                         <label
                             className='labelTitle mb-1'
-                            htmlFor="account">
-                            聯絡訊息
+                            htmlFor="tel">
+                            手機號碼
                         </label>
-                        <textarea
-                            className="inputInfo pl-2 h-[75px] md:ProfilePaymentModal-textarea"
-                            placeholder="請輸入面交相關地址資訊或其他資訊。"
-                            {...register('Developer',
-                              { required: true }
+                        <input
+                            id='tel'
+                            className="inputInfo pl-2 mb-1"
+                            type="tel"
+                            placeholder="請輸入手機號碼"
+                            {...register('tel',
+                              { required: '此為必填欄位' }
                             )} />
+                        <p className="text-xs text-rose-600">{errors.tel?.message}</p>
+
+                        <label
+                            className='labelTitle mt-7 mb-1'
+                            htmlFor="qrcode">
+                            收款二維碼 (選填)
+                        </label>
+                        <input
+                            id='qrcode'
+                            className="inputInfo pl-2 mb-1"
+                            type="file"
+                            placeholder="上傳"
+                            {...register('qrcode', {})}
+                        />
                     </div>
                 </div>
 
@@ -85,13 +101,13 @@ export default function EditPaymentLinePay ({ onClose }) {
                         <input
                             onClick={onClose}
                             type="button"
-                            className='btn-linePay mb-4 w-full cursor-pointer md:mb-0'
+                          className='btn-outline-linepay mb-4 w-full cursor-pointer md:mb-0'
                             value='取消'
                         />
                         <input
                             className='btn-linePay w-full cursor-pointer'
                             type="submit"
-                            value='新增'
+                            value='儲存'
                         />
                     </div>
                 </div>

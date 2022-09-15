@@ -81,7 +81,7 @@ export default function AddPaymentCash ({ onClose }) {
             <input
               onClick={onClose}
               type="button"
-              className='btn-secondary mb-4 w-full cursor-pointer md:mb-0'
+              className='btn-outline-fifth mb-4 w-full cursor-pointer md:mb-0'
               value='取消'
             />
             <input

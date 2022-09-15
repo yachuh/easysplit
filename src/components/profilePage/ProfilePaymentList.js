@@ -14,9 +14,9 @@ export default function ProfilePayment () {
                 <BankPaymentList />
                 <LinePaymentList />
             </ul>
-            <div className='md:hidden'>
+            {/* <div className='md:hidden'>
                 <KeyboardArrowDown />
-            </div>
+            </div> */}
         </div>
   )
 }
