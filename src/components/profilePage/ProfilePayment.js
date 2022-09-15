@@ -1,75 +1,29 @@
-import React, { useState } from 'react'
-import Button from '@mui/material/Button'
-import Menu from '@mui/material/Menu'
-import MenuItem from '@mui/material/MenuItem'
-import ListItemIcon from '@mui/material/ListItemIcon'
-import { Add, LocalAtm, CreditCard } from '@mui/icons-material'
+import React from 'react'
+import { Add } from '@mui/icons-material'
+import CashPaymentModal from './CashPaymentModal'
+import BankPaymentModal from './BankPaymentModal'
+import LinePaymentModal from './LinePaymentModal'
 import ProfilePaymentList from './ProfilePaymentList'
 
-export default function ProfilePayment (props) {
-  const [anchorEl, setAnchorEl] = useState(null)
-  const open = Boolean(anchorEl)
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget)
-  }
-  const handleClose = () => {
-    setAnchorEl(null)
-  }
-
+export default function ProfilePayment () {
   return (
-    <>
-      <Button
-        className='btn-addPayment'
-        id="basic-button"
-        aria-controls={open ? 'basic-menu' : undefined}
-        aria-haspopup="true"
-        aria-expanded={open ? 'true' : undefined}
-        onClick={handleClick}
-      >
+    <div className='ProfilePayment-wrap relative'>
+      <label
+        className='ProfilePayment-btn ProfilePayment-label'
+        htmlFor="switch">
         <Add sx={{ fontSize: 20 }} />
-        創建收款方式
-      </Button>
-      <Menu
-        id="basic-menu"
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleClose}
-        MenuListProps={{
-          'aria-labelledby': 'basic-button'
-        }}
-        // PaperProps={{
-        //   style: {
-        //     width: '100%',
-        //     left: 0,
-        //     right: 0
-        //   }
-        // }}
-      >
-        <MenuItem
-          onClick={handleClose}
-          >
-          <ListItemIcon>
-            <LocalAtm sx={{ fontSize: 24 }} />
-          </ListItemIcon>
-          現金面交
-        </MenuItem>
-        <MenuItem
-          onClick={handleClose}>
-          <ListItemIcon>
-            <CreditCard sx={{ fontSize: 24 }} />
-          </ListItemIcon>
-          銀行轉帳（台灣）
-        </MenuItem>
-        <MenuItem
-          onClick={handleClose}>
-          <ListItemIcon>
-            {/* <LogoutOutlined sx={{ fontSize: 24 }} /> */}
-          </ListItemIcon>
-          LINE PAY
-        </MenuItem>
-      </Menu>
-
+        <p>
+          創建收款方式
+        </p>
+      </label>
+      <input className='ProfilePayment-input hidden' type="checkbox" id="switch" />
+      <ul className='ProfilePayment-menu card-shadow absolute top-[15%] md:top-[11%]'>
+        <CashPaymentModal />
+        <BankPaymentModal />
+        <LinePaymentModal />
+      </ul>
       <ProfilePaymentList />
-    </>
+    </div>
+
   )
 }

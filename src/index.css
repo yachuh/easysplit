@@ -16,6 +16,10 @@ code {
     monospace;
 }
 
+::-webkit-scrollbar {
+  display: none;
+}
+
 @layer components {
   .viewContainer {
     @apply container mx-auto max-w-[95%] md:max-w-[85%];
@@ -27,6 +31,10 @@ code {
 
   .btn-secondary {
     @apply py-2 px-10 bg-colors-fifth rounded text-black font-bold hover:bg-colors-sixth focus:bg-colors-seventh;
+  }
+
+  .btn-linePay {
+    @apply py-2 px-10 bg-line-pay rounded text-white font-bold hover:bg-colors-sixth focus:bg-colors-seventh;
   }
 
   .btn-google {
@@ -74,7 +82,7 @@ code {
   }
 
   .labelTitle {
-    @apply mb-2 font-bold;
+    @apply mb-2 font-bold block;
   }
 
   .formCard {
@@ -86,7 +94,19 @@ code {
   }
 
   .modalCard {
-    @apply px-8 pt-11 pb-4 rounded-[20px] flex flex-col items-center fixed top-1/2 left-1/2 translate-y-[-50%] translate-x-[-50%] bg-white z-50 w-11/12 sm:w-3/5 lg:w-1/3 xl:w-[30%] card-shadow relative;
+    @apply px-8 pt-11 pb-4 rounded-[20px] flex flex-col items-center fixed top-1/2 left-1/2 translate-y-[-50%] translate-x-[-50%] bg-white z-50 w-11/12 sm:w-3/5 lg:w-1/3 xl:w-[30%] card-shadow;
+  }
+
+  .modalCard-pay {
+    @apply rounded-[20px] flex flex-col items-center fixed top-1/2 left-1/2 translate-y-[-50%] translate-x-[-50%] bg-white z-50 w-11/12 sm:w-3/5 md:w-3/4 card-shadow;
+  }
+
+  .modalCard-payTitle {
+    @apply w-full rounded-t-[20px] flex justify-center items-center text-xl font-bold p-4 gap-3;
+  }
+
+  .modalCard-payForm {
+    @apply py-16 px-10 w-full;
   }
 
   .modalCancel {
@@ -202,17 +222,6 @@ code {
   }
 
   /* Profile */
-  /* .sideEdge-hover {
-    @apply border-gray-400;
-  }
-
-  .sideEdge-circle {
-    @apply md:w-4 md:h-4 rounded-full bg-[#9fbcc5] absolute left-[-9px] top-0 bottom-0 m-auto;
-  }
-
-  .sideEdge-circle:hover {
-    @apply bg-colors-primary;
-  } */
 
   .ProfileSidebars-tab {
     @apply flex items-center gap-[20px];
@@ -232,6 +241,74 @@ code {
 
   .ProfileSideGroup {
     @apply flex items-center gap-4;
+  }
+
+  .ProfilePayment-view {
+    @apply h-[240px] overflow-y-scroll w-full md:h-auto md:overflow-y-auto;
+  }
+
+  .ProfilePayment-item {
+    @apply mb-4;
+  }
+
+  .ProfilePayment-cashWay {
+    @apply py-3 px-10 font-bold flex justify-between bg-colors-fifth;
+  }
+
+  .ProfilePayment-bankWay {
+    @apply py-3 px-10 font-bold flex justify-between bg-colors-primary text-white;
+  }
+
+  .ProfilePayment-linepayWay {
+    @apply py-3 px-10 font-bold flex justify-between bg-line-pay text-white;
+  }
+
+  .ProfilePayment-edit {
+    @apply flex gap-9;
+  }
+
+  .ProfilePayment-edit > li {
+    @apply cursor-pointer;
+  }
+
+  .ProfilePayment-information {
+    @apply py-3 px-10 flex flex-col gap-5 md:flex-row;
+  }
+
+  .ProfilePayment-information li p:nth-child(1) {
+    @apply font-bold;
+  }
+
+  .ProfilePayment-wrap {
+    @apply md:flex md:flex-col;
+  }
+
+  .ProfilePayment-btn {
+    @apply w-full py-2 px-8 border-2 border-colors-primary rounded text-colors-primary font-bold bg-white my-5 hover:border-white hover:bg-colors-secondary hover:text-white focus:bg-colors-seventh cursor-pointer md:w-fit md:self-end;
+  }
+
+  .ProfilePayment-label {
+    @apply flex items-center justify-center gap-3;
+  }
+
+  .ProfilePayment-menu {
+    @apply w-full flex flex-col items-center bg-white max-h-0 overflow-hidden duration-200 rounded-[20px] cursor-pointer font-bold md:w-fit md:right-0;
+  }
+
+  .ProfilePayment-way {
+    @apply p-4 flex justify-center w-full gap-2 md:justify-start;
+  }
+
+  .ProfilePayment-input:checked ~ .ProfilePayment-menu {
+    @apply max-h-full;
+  }
+
+  .ProfilePaymentModal-wrap {
+    @apply md:flex md:justify-between md:gap-[6%];
+  }
+
+  .ProfilePaymentModal-textarea {
+    height: calc(100% - 28px);
   }
 }
 
@@ -327,28 +404,8 @@ code {
   border-radius: 20px !important;
 }
 
-.btn-addPayment {
-  padding: 8px 32px !important;
-  border: 2px solid #40798c !important;
-  border-radius: 4px !important;
-  width: 100% !important;
-  color: #40798c !important;
-  font-size: 16px !important;
-  font-weight: 700 !important;
-  background-color: white !important;
-  margin: 24px 0 !important;
-  gap: 14px !important;
-}
-
 .btn-addPayment:hover {
   background-color: #6ac1ac !important;
   color: #fff !important;
   border: 2px solid #fff !important;
 }
-
-/* #ppu.css-1poimk-MuiPaper-root-MuiMenu-paper-MuiPaper-root-MuiPopover-paper .payment-way{
-  width: 100% !important;
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: center !important;
-} */

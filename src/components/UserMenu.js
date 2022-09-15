@@ -1,5 +1,5 @@
 import { useUserData } from '../context/context'
-import userImg from '../image/userImg.svg'
+// import userImg from '../image/userImg.svg'
 
 export const UserMenu = () => {
   const { userData, setUserData } = useUserData()

@@ -1,105 +1,22 @@
+import CashPaymentList from './CashPaymentList'
+import BankPaymentList from './BankPaymentList'
+import LinePaymentList from './LinePaymentList'
+import {
+  KeyboardArrowDown
+} from '@mui/icons-material'
+
 export default function ProfilePayment () {
   return (
-        <ul>
-            <li>
-                <div>
-                    <p>現金面交</p>
-                    <p>編輯</p>
-                    <p>刪除</p>
-                </div>
-                <ul>
-                    <li>
-                        <p>姓名</p>
-                        <p>陳珍妮</p>
-                    </li>
-                    <li>
-                        <p>聯絡電話</p>
-                        <p>0900999888</p>
-                    </li>
-                    <li>
-                        <p>聯絡訊息</p>
-                        <p>高雄-好市多(中華店)門口，是個正妹 ! XD</p>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <div>
-                    <p>銀行轉帳（台灣）</p>
-                    <p>編輯</p>
-                    <p>刪除</p>
-                </div>
-                <ul>
-                    <li>
-                        <p>姓名</p>
-                        <p>陳珍妮</p>
-                    </li>
-                    <li>
-                        <p>銀行代碼</p>
-                        <p>006</p>
-                    </li>
-                    <li>
-                        <p>銀行名稱</p>
-                        <p>合作金庫</p>
-                    </li>
-                    <li>
-                        <p>銀行帳號</p>
-                        <p>00088-8666-333</p>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <div>
-                    <p>銀行轉帳（台灣）</p>
-                    <p>編輯</p>
-                    <p>刪除</p>
-                </div>
-                <ul>
-                    <li>
-                        <p>姓名</p>
-                        <p>陳珍妮</p>
-                    </li>
-                    <li>
-                        <p>銀行代碼</p>
-                        <p>006</p>
-                    </li>
-                    <li>
-                        <p>銀行名稱</p>
-                        <p>合作金庫</p>
-                    </li>
-                    <li>
-                        <p>銀行帳號</p>
-                        <p>00088-8666-333</p>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <div>
-                    <p>LINE PAY</p>
-                    <p>編輯</p>
-                    <p>刪除</p>
-                </div>
-                <ul>
-                    <li>
-                        <p>姓名</p>
-                        <p>陳珍妮</p>
-                    </li>
-                    <li>
-                        <p>LINE ID</p>
-                        <p>qwqwkkk</p>
-                    </li>
-                    <li>
-                        <p>聯絡電話</p>
-                        <p>0900999888</p>
-                    </li>
-                    <li>
-                        <p>收款二維碼 (選填)</p>
-                        <img
-                            src=""
-                            alt=""
-                        />
-                    </li>
-                </ul>
-            </li>
-        </ul>
+        <div className='flex flex-col items-center gap-5'>
+            <ul className="ProfilePayment-view">
+                <CashPaymentList />
+                <BankPaymentList />
+                <BankPaymentList />
+                <LinePaymentList />
+            </ul>
+            <div className='md:hidden'>
+                <KeyboardArrowDown />
+            </div>
+        </div>
   )
 }

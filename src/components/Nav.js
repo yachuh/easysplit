@@ -5,9 +5,8 @@ import { ModalResetPwd, ModalPwdSuccess, ModalVerifySignup } from '../components
 import {
   CloseOutlined
 } from '@mui/icons-material'
-import HeaderUserNav from './HeaderUserNav'
 import ResetPwdPage from '../pages/ResetPwdPage'
-import SplitMainPage from '../pages/SplitMainPage'
+import ProfilePayment from '../components/profilePage/ProfilePayment'
 
 const Nav = () => {
   // const [isOpen, setIsOpen] = useState(false)
@@ -29,18 +28,6 @@ const Nav = () => {
         <nav className="viewContainer mt-5 mb-5 flex flex-col gap-x-4 list-none w-full">
             <li>
                 <Link to="/">Home</Link>
-            </li>
-            <li>
-                <Link to="/signup">Signup</Link>
-            </li>
-            <li>
-                <Link to="/login">Login</Link>
-            </li>
-            <li>
-                <Link to="/forgetpassword">忘記密碼</Link>
-            </li>
-            <li>
-                <Link to="/profile">會員資料</Link>
             </li>
             <li>
                 <div className="cursor-pointer" onClick={handleOpen}>重設密碼信已送出</div>
@@ -108,18 +95,13 @@ const Nav = () => {
                 </Modal>
             </li>
 
-            <li>
-                <HeaderUserNav />
-            </li>
-
             <li className='mb-16'>
                 <ResetPwdPage />
             </li>
 
             <li>
-              <SplitMainPage />
+              <ProfilePayment/>
             </li>
-
         </nav>
   )
 }

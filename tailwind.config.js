@@ -29,7 +29,8 @@ module.exports = {
         'colors-fifth': '#F0CC67',
         'colors-sixth': '#9EC1A3',
         'colors-seventh': '#70A9A1',
-        black: '#1F363D'
+        black: '#1F363D',
+        'line-pay': '#16A34A'
       }
 
     }
