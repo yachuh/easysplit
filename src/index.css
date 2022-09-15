@@ -33,9 +33,13 @@ code {
     @apply flex justify-center py-3 rounded text-gray-700 gap-5;
   }
 
-  /* .btn-addPayment {
+  .btn-addPayment {
     @apply py-2 px-8 sm:px-10 border-2 border-colors-primary rounded text-colors-primary font-bold hover:border-white hover:bg-colors-sixth hover:text-white focus:bg-colors-seventh;
-  } */
+  }
+  .btn-outline {
+    @apply py-2 px-6 bg-white border border-colors-primary rounded text-colors-primary font-bold hover:bg-colors-sixth focus:bg-colors-seventh;
+  }
+
 
   .footerLink {
     @apply flex flex-col items-center;
@@ -87,6 +91,14 @@ code {
 
   .modalCancel {
     @apply absolute top-[18px] right-[18px] text-gray-500 cursor-pointer;
+  }
+
+  .modalTitle {
+    @apply font-bold mb-4;
+  }
+
+  .modalHint {
+    @apply text-xs text-gray-500 text-center mt-4 mb-4;
   }
 
   .h1-logo {
