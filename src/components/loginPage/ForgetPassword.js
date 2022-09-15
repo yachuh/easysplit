@@ -15,11 +15,9 @@ export default function ForgetPassword ({ Open, onClose }) {
   })
 
   const onSubmit = async data => {
-    console.log(data)
+    console.log('form data', data)
 
-    const {
-      AccountMail
-    } = data
+    const { AccountMail } = data
 
     try {
       const res = await axios.post('https://easysplit.rocket-coding.com/api/User/ForgetPassword',
@@ -35,8 +33,8 @@ export default function ForgetPassword ({ Open, onClose }) {
       // if (res.status === 200 && res.data.Status === false) {
       //   Open()
       // }
-    } catch (err) {
-      console.log(err)
+    } catch (error) {
+      console.log(error)
       console.log('這個信箱還沒有註冊喔，請再確認看看！')
     }
   }
