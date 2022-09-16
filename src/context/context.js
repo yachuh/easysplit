@@ -10,3 +10,14 @@ export const UserDataContext = createContext({
 export const useUserData = () => {
   return useContext(UserDataContext)
 }
+
+/* User Profile payment 頁的 paydata */
+export const PayDataContext = createContext({
+  bank: [],
+  cash: [],
+  line: []
+})
+
+export const usePayData = () => {
+  return useContext(PayDataContext)
+}

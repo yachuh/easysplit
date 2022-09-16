@@ -30,6 +30,7 @@ const ACCOUNT_ACTIVATION_MAIL = '/User/AuthMail/AccountActivation?guid='
 const RESET_PWD = '/User/ResetPassword'
 const RESET_PWD_MAIL = '/User/AuthMail/ResetPassword'
 const UPLOAD_AVATAR = '/User/UploadAvatar'
+const GETALL = '/Payment/GetAll'
 
 /**
  * input an object with any keys
@@ -88,6 +89,7 @@ const getApi = async (url) => {
 }
 
 export const getProfileApi = () => getApi(GET_PROFILE)
+export const getPaymentAllApi = () => getApi(GETALL)
 
 /* PUT */
 const putApi = async (url, payload) => {
