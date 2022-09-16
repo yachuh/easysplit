@@ -236,6 +236,15 @@ code {
     content: "\f007";
   }
 
+  /* SideNav*/
+  .sideNavItem {
+    /* @apply block w-2/5 lg:w-[30%] lg:mr-10 xl:w-1/4; */
+    @apply block flex items-center py-4 px-2 text-black text-2xl font-medium hover:text-colors-sixth;
+  }
+  .sideNavItemIcon {
+    @apply mr-4 text-colors-primary w-[24px] hover:text-colors-sixth;
+  }
+
   /* Profile */
 
   .ProfileSidebars-tab {

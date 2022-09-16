@@ -32,7 +32,6 @@ module.exports = {
         black: '#1F363D',
         'line-pay': '#16A34A'
       }
-
     }
   },
   plugins: [
