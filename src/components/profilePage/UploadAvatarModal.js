@@ -52,17 +52,16 @@ export default function UploadAvatarModal ({ Open, onClose }) {
       <form className="w-full relative text-center">
         <label
           htmlFor="fileUpload"
-          // width="120px" height="120px"
-          className="inline-block box-border border border-color-white rounded-full bg-gray-300  drop-shadow-[2px_2px_5px_rgba(0,0,0,0.25)] shadow-inner
+          className="w-[120px] h-[120px] inline-block box-border border border-color-white rounded-full bg-gray-300 drop-shadow-[2px_2px_5px_rgba(0,0,0,0.25)] shadow-inner
                       hover:cursor-pointer"
         >
           {image.preview
             ? (
-              <img src={image.preview} alt="avatar" class="object-cover" width="120px" height="120px"/>
+              <img src={image.preview} alt="avatar" className="object-cover w-[120px] h-[120px] rounded-full"/>
               )
             : (
-              <div className="px-12 py-12">
-                <AddPhotoAlternateOutlinedIcon class="w-6 h-6" color="white" />
+              <div className="px-12 py-12 text-white">
+                <AddPhotoAlternateOutlinedIcon class="w-6 h-6" />
               </div>
               )}
         </label>
