@@ -30,10 +30,10 @@ export const HeaderHome = () => {
                     </li>
                     <li
                         className="p-2 headerNav-hover">
-                        <Link to="/">常見問題</Link>
+                        <Link to="/faq">常見問題</Link>
                     </li>
                 </ul>
-                <Link to="login">
+                <Link to="/login">
                     <button
                         className="btn-primary ml-8">
                         開始拆帳

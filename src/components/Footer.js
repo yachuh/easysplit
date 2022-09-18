@@ -79,7 +79,7 @@ export const FooterHome = () => {
                     <li className="footer-hover">
                         <Link
                             className="footerLink"
-                            to="/">
+                            to="/faq">
                             <div className="footerImg">
                                 <HelpCenterOutlined sx={{ fontSize: 45 }} />
                             </div>
