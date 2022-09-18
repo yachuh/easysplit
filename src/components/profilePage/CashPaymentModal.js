@@ -3,7 +3,7 @@ import Modal from '@mui/material/Modal'
 import { LocalAtm } from '@mui/icons-material'
 import AddPaymentCash from './AddPaymentCash'
 
-export default function CashPaymentModal () {
+export default function CashPaymentModal ({ getPaymentAll }) {
   const [open, setOpen] = useState(false)
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
@@ -28,6 +28,7 @@ export default function CashPaymentModal () {
                     className='modalCard-pay'>
 
                     <AddPaymentCash
+                        getPaymentAll={getPaymentAll}
                         open={open}
                         onClose={handleClose} />
 

@@ -51,12 +51,19 @@ export default function ProfilePayment () {
           </p>
         </label>
         <input className='ProfilePayment-input hidden' type="checkbox" id="switch" />
-        <ul className='ProfilePayment-menu card-shadow absolute top-[15%] md:top-[11%]'>
-          <CashPaymentModal />
-          <BankPaymentModal />
-          <LinePaymentModal />
+        <ul className='ProfilePayment-menu card-shadow absolute top-[15%] md:top-[66px]'>
+          <CashPaymentModal
+            getPaymentAll={getPaymentAll}
+          />
+          <BankPaymentModal
+            getPaymentAll={getPaymentAll}
+          />
+          <LinePaymentModal
+            getPaymentAll={getPaymentAll}
+          />
         </ul>
-        <ProfilePaymentList />
+        <ProfilePaymentList
+          getPaymentAll={getPaymentAll} />
       </div>
     </PayDataContext.Provider>
   )

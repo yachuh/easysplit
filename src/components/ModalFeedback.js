@@ -102,7 +102,7 @@ export const ModalVerifySignup = ({ onClose }) => {
   )
 }
 
-export const DeletePayment = ({ onClose }) => {
+export const DeletePayment = ({ onClose, onClick }) => {
   return (
         <>
             <div
@@ -124,7 +124,7 @@ export const DeletePayment = ({ onClose }) => {
                     取消
                 </button>
                 <button
-                    onClick={onClose}
+                    onClick={onClick}
                     className="btn-red w-full">
                     確定刪除
                 </button>

@@ -3,7 +3,7 @@ import Modal from '@mui/material/Modal'
 import AddPaymentLinePay from './AddPaymentLinePay'
 import linePayIcon from '../../image/linePay-sm.svg'
 
-export default function LinePaymentModal () {
+export default function LinePaymentModal ({ getPaymentAll }) {
   const [open, setOpen] = useState(false)
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
@@ -32,6 +32,7 @@ export default function LinePaymentModal () {
                     className='modalCard-pay'>
 
                     <AddPaymentLinePay
+                        getPaymentAll={getPaymentAll}
                         open={open}
                         onClose={handleClose} />
 

@@ -324,7 +324,7 @@ code {
   }
 
   .ProfilePayment-input:checked ~ .ProfilePayment-menu {
-    @apply max-h-full;
+    @apply max-h-[400px];
   }
 
   .ProfilePaymentModal-wrap {

@@ -31,6 +31,12 @@ const RESET_PWD = '/User/ResetPassword'
 const RESET_PWD_MAIL = '/User/AuthMail/ResetPassword'
 const UPLOAD_AVATAR = '/User/UploadAvatar'
 const GETALL = '/Payment/GetAll'
+const ADD_BANK = '/Payment/AddBank'
+const ADD_CASH = '/Payment/AddCash'
+const ADD_LINEPAY = '/Payment/AddLinePay'
+const DELETE_BANK = 'Payment/DeleteBank'
+const DELETE_LINE = 'Payment/DeleteLine'
+const DELETE_CASH = 'Payment/DeleteCash'
 
 /**
  * input an object with any keys
@@ -81,6 +87,9 @@ export const loginApi = (payload) => postApi(LOGIN, toUpperCamelCase(payload))
 export const accountActivateAPI = (payload) => postApi(ACCOUNT_ACTIVATION_MAIL, toUpperCamelCase(payload))
 export const resetPwdEmailApi = () => postApi(RESET_PWD)
 export const uploadAvatarApi = () => postApi(UPLOAD_AVATAR)
+export const addBankApi = (payload) => postApi(ADD_BANK, toUpperCamelCase(payload))
+export const addCashApi = (payload) => postApi(ADD_CASH, toUpperCamelCase(payload))
+export const addLinePayApi = (payload) => postApi(ADD_LINEPAY, toUpperCamelCase(payload))
 
 /* GET */
 const getApi = async (url) => {
@@ -99,3 +108,14 @@ const putApi = async (url, payload) => {
 
 export const editProfileApi = (param) => putApi(`${EDIT_PROFILE}?name=${param}`)
 export const resetPwdApi = (payload) => putApi(RESET_PWD_MAIL, toUpperCamelCase(payload))
+
+/* DELETE */
+const deleteApi = async (url, payload) => {
+  console.log(url)
+  const res = await axios.delete(url, payload)
+  return toCamelCase(res.data)
+}
+
+export const deleteBankApi = (param) => deleteApi(`${DELETE_BANK}/${param}`)
+export const deleteLineApi = (param) => deleteApi(`${DELETE_LINE}/${param}`)
+export const deleteCashApi = (param) => deleteApi(`${DELETE_CASH}/${param}`)

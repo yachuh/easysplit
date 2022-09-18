@@ -2,7 +2,9 @@ import React from 'react'
 import { useForm } from 'react-hook-form'
 import linePayIcon from '../../image/linePay-sm.svg'
 
-export default function EditPaymentLinePay ({ onClose }) {
+export default function EditPaymentLinePay ({ payLine, onClose }) {
+  //   const { id, name, phone, lineId, qrCode } = payLine
+  //   console.log(name, phone, lineId)
   const {
     register,
     handleSubmit,
@@ -10,8 +12,9 @@ export default function EditPaymentLinePay ({ onClose }) {
   } = useForm({
     defaultValues: {
       name: '',
-      account: '',
-      text: ''
+      lineid: '',
+      phone: '',
+      qrcode: ''
     }
   })
   const onSubmit = data => console.log(data)
@@ -35,7 +38,7 @@ export default function EditPaymentLinePay ({ onClose }) {
                     <div className='mb-8 md:w-full md:mb-0'>
                         <label
                             className='labelTitle mb-1'
-                            htmlFor="account">
+                            htmlFor="name">
                             姓名
                         </label>
                         <input
@@ -50,35 +53,35 @@ export default function EditPaymentLinePay ({ onClose }) {
 
                         <label
                             className='labelTitle mt-7 mb-1'
-                            htmlFor="account">
-                            電話
+                            htmlFor="lineid">
+                            LINE ID
                         </label>
                         <input
-                            id='tel'
+                            id='lineid'
                             className="inputInfo pl-2 mb-1"
-                            type="tel"
+                            type="text"
                             placeholder="請輸入電話"
-                            {...register('tel',
+                            {...register('lineid',
                               { required: '此為必填欄位' }
                             )} />
-                        <p className="text-xs text-rose-600">{errors.tel?.message}</p>
+                        <p className="text-xs text-rose-600">{errors.lineid?.message}</p>
                     </div>
 
                     <div className='mb-8 md:w-full md:mb-0'>
                         <label
                             className='labelTitle mb-1'
-                            htmlFor="tel">
+                            htmlFor="phone">
                             手機號碼
                         </label>
                         <input
-                            id='tel'
+                            id='phone"'
                             className="inputInfo pl-2 mb-1"
-                            type="tel"
+                            type="text"
                             placeholder="請輸入手機號碼"
-                            {...register('tel',
+                            {...register('phone',
                               { required: '此為必填欄位' }
                             )} />
-                        <p className="text-xs text-rose-600">{errors.tel?.message}</p>
+                        <p className="text-xs text-rose-600">{errors.phone?.message}</p>
 
                         <label
                             className='labelTitle mt-7 mb-1'
@@ -101,7 +104,7 @@ export default function EditPaymentLinePay ({ onClose }) {
                         <input
                             onClick={onClose}
                             type="button"
-                          className='btn-outline-linepay mb-4 w-full cursor-pointer md:mb-0'
+                            className='btn-outline-linepay mb-4 w-full cursor-pointer md:mb-0'
                             value='取消'
                         />
                         <input

@@ -1,9 +1,12 @@
 import React, { useState } from 'react'
+import { deleteBankApi } from '../../utils/api'
 import Modal from '@mui/material/Modal'
 import EditPaymentBank from './EditPaymentBank'
 import { DeletePayment } from '../ModalFeedback'
 
-export default function BankPaymentList () {
+export default function BankPaymentList ({ payBank, getPaymentAll }) {
+  const { id, bankName, bankAccountName, bankCode, bankAccount } = payBank
+
   const [open, setOpen] = useState(false)
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
@@ -12,12 +15,36 @@ export default function BankPaymentList () {
   const handleOpenDeleteItem = () => setOpenDeleteItem(true)
   const handleCloseDeleteItem = () => setOpenDeleteItem(false)
 
+  const deleteBank = async (id) => {
+    console.log(id)
+    try {
+      const { status: isSuccess, message } = await deleteBankApi(id)
+      if (!isSuccess) {
+        alert(message)
+        return
+      }
+      console.log(message)
+      getPaymentAll()
+      handleCloseDeleteItem()
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const delClick = () => {
+    deleteBank(id)
+  }
+
   return (
         <li className="ProfilePayment-item">
             <div className="ProfilePayment-bankWay">
                 <p>銀行轉帳（台灣）</p>
                 <ul className="ProfilePayment-edit">
-                    <li onClick={handleOpen}>編輯</li>
+                    <li
+                        id={id}
+                        onClick={handleOpen}>
+                        編輯
+                    </li>
                     <Modal
                         open={open}
                         onClose={handleClose}
@@ -34,10 +61,15 @@ export default function BankPaymentList () {
                         </div>
                     </Modal>
 
-                    <li onClick={handleOpenDeleteItem}>刪除</li>
+                    <li
+                        id={id}
+                        onClick={handleOpenDeleteItem}>
+                        刪除
+                    </li>
                     <Modal
                         open={openDeleteItem}
                         onClose={handleCloseDeleteItem}
+                        onClick={delClick}
                         className='modalCard-bg'
                     >
                         <div
@@ -46,8 +78,9 @@ export default function BankPaymentList () {
 
                             <DeletePayment
                                 open={openDeleteItem}
-                                onClose={handleCloseDeleteItem} />
-
+                                onClose={handleCloseDeleteItem}
+                                onClick={delClick}
+                            />
                         </div>
                     </Modal>
                 </ul>
@@ -55,19 +88,19 @@ export default function BankPaymentList () {
             <ul className="ProfilePayment-information">
                 <li className='md:w-1/4'>
                     <p>姓名</p>
-                    <p>陳珍妮</p>
+                    <p>{bankAccountName}</p>
                 </li>
                 <li className='md:w-1/4'>
                     <p>銀行代碼</p>
-                    <p>006</p>
+                    <p>{bankCode}</p>
                 </li>
                 <li className='md:w-1/4'>
                     <p>銀行名稱</p>
-                    <p>合作金庫</p>
+                    <p>{bankName}</p>
                 </li>
                 <li className='md:w-1/4'>
                     <p>銀行帳號</p>
-                    <p>00088-8666-333</p>
+                    <p>{bankAccount}</p>
                 </li>
             </ul>
         </li>
