@@ -61,7 +61,7 @@ export default function UploadAvatarModal ({ Open, onClose }) {
               )
             : (
               <div className="px-12 py-12 text-white">
-                <AddPhotoAlternateOutlinedIcon class="w-6 h-6" />
+                <AddPhotoAlternateOutlinedIcon className="w-6 h-6" />
               </div>
               )}
         </label>
@@ -79,7 +79,7 @@ export default function UploadAvatarModal ({ Open, onClose }) {
         />
         <p className="modalHint">圖片檔案須為 1 MB 以下</p>
         {/* <p className="text-xs mb-2 text-rose-600">{errors.AccountMail?.message}</p> */}
-        <div class="flex gap-4">
+        <div className="flex gap-4">
           <button type="submit" className="btn-outline  w-1/2" onClick={onClose}>
             取消
           </button>

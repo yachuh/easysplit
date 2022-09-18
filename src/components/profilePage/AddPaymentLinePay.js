@@ -1,8 +1,9 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
+import { addLinePayApi } from '../../utils/api'
 import linePayIcon from '../../image/linePay-sm.svg'
 
-export default function AddPaymentLinePay ({ onClose }) {
+export default function AddPaymentLinePay ({ onClose, getPaymentAll }) {
   const {
     register,
     handleSubmit,
@@ -10,12 +11,27 @@ export default function AddPaymentLinePay ({ onClose }) {
   } = useForm({
     defaultValues: {
       name: '',
-      account: '',
-      text: ''
+      lineid: '',
+      phone: '',
+      qrcode: ''
     }
+
   })
-  const onSubmit = data => console.log(data)
-  console.log(errors)
+  const onSubmit = async data => {
+    console.log(data)
+
+    try {
+      const { status: isSuccess, message, jwtToken } = await addLinePayApi(data)
+      if (!isSuccess) {
+        alert(message)
+        return
+      }
+      onClose()
+      getPaymentAll()
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   return (
         <>
@@ -35,7 +51,7 @@ export default function AddPaymentLinePay ({ onClose }) {
                     <div className='mb-8 md:w-full md:mb-0'>
                         <label
                             className='labelTitle mb-1'
-                            htmlFor="account">
+                            htmlFor="name">
                             姓名
                         </label>
                         <input
@@ -50,35 +66,35 @@ export default function AddPaymentLinePay ({ onClose }) {
 
                         <label
                             className='labelTitle mt-7 mb-1'
-                            htmlFor="account">
-                            電話
+                            htmlFor="lineid">
+                            LINE ID
                         </label>
                         <input
-                            id='tel'
+                            id='lineid'
                             className="inputInfo pl-2 mb-1"
-                            type="tel"
+                            type="text"
                             placeholder="請輸入電話"
-                            {...register('tel',
+                            {...register('lineid',
                               { required: '此為必填欄位' }
                             )} />
-                        <p className="text-xs text-rose-600">{errors.tel?.message}</p>
+                        <p className="text-xs text-rose-600">{errors.lineid?.message}</p>
                     </div>
 
                     <div className='mb-8 md:w-full md:mb-0'>
                         <label
                             className='labelTitle mb-1'
-                            htmlFor="tel">
+                            htmlFor="phone">
                             手機號碼
                         </label>
                         <input
-                            id='tel'
+                            id='phone"'
                             className="inputInfo pl-2 mb-1"
-                            type="tel"
+                            type="text"
                             placeholder="請輸入手機號碼"
-                            {...register('tel',
+                            {...register('phone',
                               { required: '此為必填欄位' }
                             )} />
-                        <p className="text-xs text-rose-600">{errors.tel?.message}</p>
+                        <p className="text-xs text-rose-600">{errors.phone?.message}</p>
 
                         <label
                             className='labelTitle mt-7 mb-1'

@@ -1,9 +1,12 @@
 import React, { useState } from 'react'
+import { deleteLineApi } from '../../utils/api'
 import Modal from '@mui/material/Modal'
 import EditPaymentLinePay from './EditPaymentLinePay'
 import { DeletePayment } from '../ModalFeedback'
 
-export default function LinePaymentList () {
+export default function LinePaymentList ({ payLine, getPaymentAll }) {
+  const { id, name, phone, lineId, qrCode } = payLine
+
   const [open, setOpen] = useState(false)
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
@@ -12,12 +15,36 @@ export default function LinePaymentList () {
   const handleOpenDeleteItem = () => setOpenDeleteItem(true)
   const handleCloseDeleteItem = () => setOpenDeleteItem(false)
 
+  const deleteLine = async (id) => {
+    console.log(id)
+    try {
+      const { status: isSuccess, message } = await deleteLineApi(id)
+      if (!isSuccess) {
+        alert(message)
+        return
+      }
+      console.log(message)
+      getPaymentAll()
+      handleCloseDeleteItem()
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const delClick = () => {
+    deleteLine(id)
+  }
+
   return (
         <li className="ProfilePayment-item">
             <div className="ProfilePayment-linepayWay">
                 <p>LINE PAY</p>
                 <ul className="ProfilePayment-edit">
-                    <li onClick={handleOpen}>編輯</li>
+                    <li
+                        id={id}
+                        onClick={handleOpen}>
+                        編輯
+                    </li>
                     <Modal
                         open={open}
                         onClose={handleClose}
@@ -34,10 +61,15 @@ export default function LinePaymentList () {
                         </div>
                     </Modal>
 
-                    <li onClick={handleOpenDeleteItem}>刪除</li>
+                    <li
+                        id={id}
+                        onClick={handleOpenDeleteItem}>
+                        刪除
+                    </li>
                     <Modal
                         open={openDeleteItem}
                         onClose={handleCloseDeleteItem}
+                        onClick={delClick}
                         className='modalCard-bg'
                     >
                         <div
@@ -46,8 +78,9 @@ export default function LinePaymentList () {
 
                             <DeletePayment
                                 open={openDeleteItem}
-                                onClose={handleCloseDeleteItem} />
-
+                                onClose={handleCloseDeleteItem}
+                                onClick={delClick}
+                            />
                         </div>
                     </Modal>
                 </ul>
@@ -55,20 +88,21 @@ export default function LinePaymentList () {
             <ul className="ProfilePayment-information">
                 <li className='md:w-1/4'>
                     <p>姓名</p>
-                    <p>陳珍妮</p>
+                    <p>{name}</p>
                 </li>
                 <li className='md:w-1/4'>
                     <p>LINE ID</p>
-                    <p>qwqwkkk</p>
+                    <p>{lineId}</p>
                 </li>
                 <li className='md:w-1/4'>
                     <p>聯絡電話</p>
-                    <p>0900999888</p>
+                    <p>{phone}</p>
                 </li>
                 <li className='md:w-1/4'>
                     <p>收款二維碼 (選填)</p>
                     <img
-                        src=""
+                        className='w-4 h-4'
+                        src={qrCode}
                         alt=""
                     />
                 </li>

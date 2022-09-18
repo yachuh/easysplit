@@ -3,7 +3,7 @@ import Modal from '@mui/material/Modal'
 import { CreditCard } from '@mui/icons-material'
 import AddPaymentBank from './AddPaymentBank'
 
-export default function BankPaymentModal () {
+export default function BankPaymentModal ({ getPaymentAll }) {
   const [open, setOpen] = useState(false)
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
@@ -28,9 +28,9 @@ export default function BankPaymentModal () {
                     className='modalCard-pay'>
 
                     <AddPaymentBank
+                        getPaymentAll={getPaymentAll}
                         open={open}
                         onClose={handleClose} />
-
                 </div>
             </Modal>
         </>

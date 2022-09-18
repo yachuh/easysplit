@@ -1,8 +1,9 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
+import { addCashApi } from '../../utils/api'
 import { LocalAtm } from '@mui/icons-material'
 
-export default function AddPaymentCash ({ onClose }) {
+export default function AddPaymentCash ({ onClose, getPaymentAll }) {
   const {
     register,
     handleSubmit,
@@ -10,12 +11,25 @@ export default function AddPaymentCash ({ onClose }) {
   } = useForm({
     defaultValues: {
       name: '',
-      account: '',
-      text: ''
+      phone: '',
+      method: ''
     }
   })
-  const onSubmit = data => console.log(data)
-  console.log(errors)
+  const onSubmit = async data => {
+    console.log(data)
+
+    try {
+      const { status: isSuccess, message, jwtToken } = await addCashApi(data)
+      if (!isSuccess) {
+        alert(message)
+        return
+      }
+      onClose()
+      getPaymentAll()
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   return (
     <>
@@ -31,7 +45,7 @@ export default function AddPaymentCash ({ onClose }) {
           <div className='mb-8 md:w-full md:mb-0'>
             <label
               className='labelTitle mb-1'
-              htmlFor="account">
+              htmlFor="name">
               姓名
             </label>
             <input
@@ -46,32 +60,32 @@ export default function AddPaymentCash ({ onClose }) {
 
             <label
               className='labelTitle mt-7 mb-1'
-              htmlFor="account">
+              htmlFor="phone">
               電話
             </label>
             <input
-              id='tel'
+              id='phone'
               className="inputInfo pl-2 mb-1"
-              type="tel"
+              type="text"
               placeholder="請輸入電話"
-              {...register('tel',
+              {...register('phone',
                 { required: '此為必填欄位' }
               )} />
-            <p className="text-xs text-rose-600">{errors.tel?.message}</p>
+            <p className="text-xs text-rose-600">{errors.phone?.message}</p>
           </div>
 
           <div className='md:w-full'>
             <label
               className='labelTitle mb-1'
-              htmlFor="account">
+              htmlFor="method">
               聯絡訊息
             </label>
             <textarea
               className="inputInfo pl-2 h-[75px] md:ProfilePaymentModal-textarea"
               placeholder="請輸入面交相關地址資訊或其他資訊。"
-              {...register('Developer',
-                { required: true }
-              )} />
+              {...register('method', {})}
+
+            />
           </div>
         </div>
 
