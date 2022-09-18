@@ -15,6 +15,7 @@ import NotificationPage from './pages/NotificationPage'
 import GroupPage from './pages/GroupPage'
 import StillMorePage from './pages/StillMorePage'
 import FaqPage from './pages/FaqPage'
+import ErrorPage from './pages/ErrorPage'
 
 function App () {
   const [token, setToken] = useState(null)
@@ -54,6 +55,7 @@ function App () {
         <Route path="/group/:id" element={<GroupPage />} />
         <Route path="/stillmore" element={<StillMorePage />} />
         <Route path="/faq" element={<FaqPage />} />
+        <Route path="*" element={<ErrorPage />} />
       </Routes>
     </>
   )
