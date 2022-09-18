@@ -31,7 +31,7 @@ export const FooterHome = () => {
                     <li className="footer-hover">
                         <Link
                             className="footerLink"
-                            to="/">
+                            to="/stillmore">
                             <div className="footerImg">
                                 <MoreOutlined sx={{ fontSize: 45 }} />
                             </div>
