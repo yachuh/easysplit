@@ -1,5 +1,5 @@
 import { HeaderHome } from '../components/Header'
-import ScrollArrow from '../components/homePage/ScrollArrow'
+import ScrollArrow from '../components/ScrollArrow'
 import Banner from '../components/homePage/Banner'
 import ThinkSplit from '../components/homePage/ThinkSplit'
 import Summary from '../components/homePage/Summary'

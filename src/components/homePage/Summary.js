@@ -20,11 +20,8 @@ export default function Summary () {
                         <br />
                         這邊預計有2~3行文字。
                     </p>
-                    <Link to="login">
-                        <button
-                            className="btn-primary w-full">
-                            開始拆帳
-                        </button>
+                    <Link to="login" className="btn-primary w-full">
+                        開始拆帳
                     </Link>
 
                 </div>

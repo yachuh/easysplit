@@ -26,7 +26,7 @@ export const HeaderHome = () => {
                     </li>
                     <li
                         className="p-2 headerNav-hover">
-                        <Link to="/">了解更多</Link>
+                        <Link to="/stillmore">了解更多</Link>
                     </li>
                     <li
                         className="p-2 headerNav-hover">
