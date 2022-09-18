@@ -336,11 +336,9 @@ code {
   }
 
   /* StillMorePage */
-  .StillMore-titleArea{ 
+  .StillMore-titleArea {
     @apply text-colors-primary font-black;
   }
-
-
 }
 
 .swiper-pagination-bullet {
@@ -439,4 +437,8 @@ code {
   background-color: #6ac1ac !important;
   color: #fff !important;
   border: 2px solid #fff !important;
+}
+
+.css-1elwnq4-MuiPaper-root-MuiAccordion-root {
+  box-shadow: none !important;
 }
