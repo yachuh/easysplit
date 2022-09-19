@@ -13,7 +13,7 @@ export default function Faq () {
   }
 
   return (
-        <div className='viewContainer mt-10'>
+        <div className='viewContainer pt-10'>
             <h2
                 className='text-black font-bold text-center mb-14 md:text-left'>
                 FAQ 常見問答

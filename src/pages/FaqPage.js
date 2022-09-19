@@ -4,13 +4,14 @@ import Faq from '../components/faqPage/Faq'
 
 export default function FaqPage () {
   return (
-    <>
+    <div className='h-screen'>
       <HeaderHome />
-      <Faq />
-      <div className='ProfileFitFooter'>
+      <div className='h-screen lg:ProfileFitFooter-md lg:h-auto'>
+        <Faq />
+      </div>
+      <div className='footer-sticky lg:static'>
         <FooterHome />
       </div>
-
-    </>
+    </div>
   )
 }

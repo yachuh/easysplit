@@ -1,9 +1,6 @@
 import { Link } from 'react-router-dom'
 import HeaderUserNav from './HeaderUserNav'
-import {
-  Notifications
-}
-  from '@mui/icons-material'
+import { Notifications } from '@mui/icons-material'
 
 export const HeaderHome = () => {
   return (

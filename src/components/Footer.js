@@ -95,7 +95,7 @@ export const FooterHome = () => {
                     <li className="footer-hover">
                         <Link
                             className="footerLink"
-                            to="/">
+                            to="/privacyPolicy">
                             <div className="footerImg">
                                 <SupervisedUserCircleOutlined sx={{ fontSize: 45 }} />
                             </div>
