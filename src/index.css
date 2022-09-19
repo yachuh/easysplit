@@ -263,8 +263,16 @@ code {
     min-height: calc(100vh - 150px);
   }
 
-  .footer-sm{
+  .footer-sm {
     min-height: calc(100vh - 181px);
+  }
+
+  .footer-vh {
+    min-height: calc(100vh - 150px);
+  }
+
+  .footer-sticky {
+    @apply sticky bottom-0;
   }
 
   .ProfileSideGroup {
@@ -342,6 +350,19 @@ code {
   /* StillMorePage */
   .StillMore-titleArea {
     @apply text-colors-primary font-black;
+  }
+
+  /* PrivacyPolicyPage */
+  .PrivacyPolicy-txt > p {
+    @apply mb-4 font-bold text-lg;
+  }
+
+  .PrivacyPolicy-txt > span {
+    @apply block mb-5 pl-9;
+  }
+
+  .PrivacyPolicy-txt-dot {
+    @apply indent-[-24px];
   }
 }
 

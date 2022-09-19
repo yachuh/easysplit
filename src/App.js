@@ -16,6 +16,7 @@ import GroupPage from './pages/GroupPage'
 import StillMorePage from './pages/StillMorePage'
 import FaqPage from './pages/FaqPage'
 import ErrorPage from './pages/ErrorPage'
+import PrivacyPolicyPage from './pages/PrivacyPolicyPage'
 
 function App () {
   const [token, setToken] = useState(null)
@@ -55,6 +56,7 @@ function App () {
         <Route path="/group/:id" element={<GroupPage />} />
         <Route path="/stillmore" element={<StillMorePage />} />
         <Route path="/faq" element={<FaqPage />} />
+        <Route path="/privacyPolicy" element={<PrivacyPolicyPage />} />
         <Route path="*" element={<ErrorPage />} />
       </Routes>
     </>
