@@ -2,8 +2,8 @@ import { useUserData } from '../context/context'
 // import userImg from '../image/userImg.svg'
 
 export const UserMenu = () => {
-  const { userData, setUserData } = useUserData()
-  const { name, image } = userData
+  const { userData } = useUserData()
+  const { name, imageUrl } = userData
   return (
         <ul
             className='hidden md:flex md:items-center md:gap-[20px]'>
@@ -13,7 +13,7 @@ export const UserMenu = () => {
             <li>
                 <img
                     className="rounded-full border card-shadow w-8"
-                    src={image}
+                    src={imageUrl}
                     alt="userImg"
                 />
             </li>

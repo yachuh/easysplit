@@ -9,6 +9,7 @@ import { ModalResetPwd } from '../ModalFeedback'
 export default function ProfileForm () {
   const { userData, setUserData } = useUserData()
   const { account, name } = userData
+  console.log(account, name)
 
   const [open, setOpen] = useState(false)
   const handleOpen = () => setOpen(true)
@@ -103,7 +104,7 @@ export default function ProfileForm () {
         <Modal open={open} onClose={handleClose} className="modalCard-bg">
           <div onClick={(e) => e.stopPropagation()} className="modalCard">
             <div onClick={handleClose} className="modalCancel"><CloseOutlined sx={{ fontSize: 14 }} /></div>
-            <ModalResetPwd open={open} onClose={handleClose} account={account}/>
+            <ModalResetPwd open={open} onClose={handleClose} account={account} />
           </div>
         </Modal>
         {/* Reset Password Modal END */}

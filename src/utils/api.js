@@ -1,7 +1,8 @@
 import axios from 'axios'
 import { getAuthToken } from './utils'
 
-/* Interceptors: addgin token to header */
+/* -- Interceptors -- */
+/* axios interceptors: add token to headers */
 axios.interceptors.request.use(function (config) {
   // Do something before request is sent
   const newConfig = {
@@ -11,14 +12,35 @@ axios.interceptors.request.use(function (config) {
       authorization: `Bearer ${getAuthToken()}`
     }
   }
-  console.log('newConfig', newConfig.headers.authorization)
+  // console.log('newConfig', newConfig.headers.authorization)
   return newConfig
 }, function (error) {
   // Do something with request error
   return Promise.reject(error)
 })
 
-/* API config */
+/* img interceptors: set content-type to headers */
+const imgInstance = axios.create({
+  baseURL: 'https://easysplit.rocket-coding.com/api',
+  headers: {
+    'Content-Type': 'multipart/form-data'
+  }
+})
+imgInstance.interceptors.request.use(function (config) {
+  const newConfig = {
+    ...config,
+    headers: {
+      ...config.headers,
+      authorization: `Bearer ${getAuthToken()}`,
+      'Content-Type': 'multipart/form-data'
+    }
+  }
+  return newConfig
+}, function (error) {
+  return Promise.reject(error)
+})
+
+/* -- API config -- */
 const baseApiEndpoint = 'https://easysplit.rocket-coding.com/api'
 axios.defaults.baseURL = baseApiEndpoint
 
@@ -86,10 +108,15 @@ const toCamelCase = (payload) => {
   return result
 }
 
-/* --- APIs --- */
+/* -- APIs -- */
 /* POST */
-const postApi = async (url, payload) => {
-  const res = await axios.post(url, payload)
+const postApi = async (url, payload, config) => {
+  const res = await axios.post(url, payload, config)
+  return toCamelCase(res.data)
+}
+
+const imgPostApi = async (url, payload) => {
+  const res = await imgInstance.post(url, payload)
   return toCamelCase(res.data)
 }
 export const signupApi = (payload) => postApi(SINGN_UP, toUpperCamelCase(payload))
@@ -97,7 +124,7 @@ export const loginApi = (payload) => postApi(LOGIN, toUpperCamelCase(payload))
 export const accountActivateAPI = (payload) => postApi(ACCOUNT_ACTIVATION_MAIL, toUpperCamelCase(payload))
 export const forgetPwdApi = (payload) => postApi(FORGET_PWD, toUpperCamelCase(payload))
 export const resetPwdEmailApi = () => postApi(RESET_PWD)
-export const uploadAvatarApi = () => postApi(UPLOAD_AVATAR)
+export const uploadAvatarApi = (payload) => imgPostApi(UPLOAD_AVATAR, payload)
 export const addBankApi = (payload) => postApi(ADD_BANK, toUpperCamelCase(payload))
 export const addCashApi = (payload) => postApi(ADD_CASH, toUpperCamelCase(payload))
 export const addLinePayApi = (payload) => postApi(ADD_LINEPAY, toUpperCamelCase(payload))

@@ -9,7 +9,7 @@ export default function AppLayout ({ children }) {
   const [userData, setUserData] = useState({
     name: '',
     account: '',
-    image: ''
+    imageUrl: ''
   })
 
   const getUserProfile = async () => {
@@ -21,10 +21,11 @@ export default function AppLayout ({ children }) {
       }
       setUserData(userData => ({
         ...userData,
-        name: userdata.Name,
-        account: userdata.Account,
-        image: userdata.Image
+        name: userdata.namet,
+        account: userdata.account,
+        imageUrl: userdata.imageUrl
       }))
+      console.log(userData)
     } catch (error) {
       console.log(error)
     }
