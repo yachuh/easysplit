@@ -4,8 +4,7 @@ import AddPhotoAlternateOutlinedIcon from '@mui/icons-material/AddPhotoAlternate
 import { uploadAvatarApi } from '../../utils/api'
 
 export default function UploadAvatarModal ({ Open, onClose }) {
-  const { setUserData } = useUserData()
-
+  const { userData, setUserData } = useUserData()
   const [image, setImage] = useState({ preview: '', raw: '' })
 
   const handleChange = e => {
@@ -22,29 +21,30 @@ export default function UploadAvatarModal ({ Open, onClose }) {
     const formData = new FormData()
     formData.append('image', image.raw)
 
-    // const res = await uploadAvatarApi()
+    try {
+      const { status: isSuccess, message, data } = await uploadAvatarApi(formData)
+      console.log(data)
+      if (!isSuccess) {
+        console.log(message)
+        return
+      }
+      setUserData(userData => ({
+        ...userData,
+        imageUrl: data.Image // formData.image
+      }))
+      console.log(message)
+    } catch (error) {
+      console.log(error)
+    }
 
-    const res = await fetch('https://easysplit.rocket-coding.com/api/User/UploadAvatar', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      },
-      body: formData
-    })
-
-    setUserData(userData => ({
-      ...userData,
-      image: formData.image
-    }))
-
-    console.log(res)
+    // const res = await fetch('https://easysplit.rocket-coding.com/api/User/UploadAvatar', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'multipart/form-data'
+    //   },
+    //   body: formData
+    // })
   }
-
-  // const { register, handleSubmit, formState: { errors } } = useForm({
-  //   defaultValues: {
-  //     image: ''
-  //   }
-  // })
 
   return (
     <>
@@ -57,7 +57,7 @@ export default function UploadAvatarModal ({ Open, onClose }) {
         >
           {image.preview
             ? (
-              <img src={image.preview} alt="avatar" className="object-cover w-[120px] h-[120px] rounded-full"/>
+              <img src={image.preview} alt="avatar" className="object-cover w-[120px] h-[120px] rounded-full" />
               )
             : (
               <div className="px-12 py-12 text-white">
@@ -70,15 +70,8 @@ export default function UploadAvatarModal ({ Open, onClose }) {
           type="file"
           className="hidden"
           onChange={handleChange}
-        // {...register('file', {
-        //   required: {
-        //     value: true,
-        //     message: '請選擇圖片'
-        //   }
-        // })}
         />
         <p className="modalHint">圖片檔案須為 1 MB 以下</p>
-        {/* <p className="text-xs mb-2 text-rose-600">{errors.AccountMail?.message}</p> */}
         <div className="flex gap-4">
           <button type="submit" className="btn-outline  w-1/2" onClick={onClose}>
             取消

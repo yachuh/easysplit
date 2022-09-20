@@ -32,7 +32,6 @@ function App () {
   useEffect(() => {
     if (getAuthToken()) {
       setToken(getAuthToken())
-      console.log('app.js', token)
     }
   }, [token, setToken])
 
