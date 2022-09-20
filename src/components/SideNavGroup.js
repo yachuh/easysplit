@@ -1,6 +1,7 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import SideNavGroupItem from './SideNavGroupItem'
 import { Add } from '@mui/icons-material'
+import { getAllGroupApi } from '../utils/api'
 
 // fake data: group
 const group = [
@@ -19,10 +20,26 @@ const group = [
 ]
 
 export default function SideNavGroup () {
-  const [groupData, setGroupData] = useState({
-    groupId: '',
-    groupName: ''
-  })
+  const [groupList, setGroupList] = useState([])
+
+  useEffect(() => {
+    getAllGroup()
+  }, [])
+
+  const getAllGroup = async () => {
+    try {
+      const { status: isSuccess, message, group: groupList } = await getAllGroupApi()
+      if (!isSuccess) {
+        console.log(message)
+        return
+      }
+      console.log('groupList', groupList)
+      setGroupList(groupList)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
         <div className="flex flex-col mb-10">
             {/* add group */}
@@ -35,13 +52,13 @@ export default function SideNavGroup () {
             </div>
             {/* group list */}
             <ul className="flex flex-col gap-5 w-full">
-              {
-                  group.map((group, i) => {
-                    return (
-                          <SideNavGroupItem key={i} {...group} />
-                    )
-                  })
-              }
+                {
+                    groupList.map((group, i) => {
+                      return (
+                            <SideNavGroupItem key={i} {...group} />
+                      )
+                    })
+                }
             </ul>
         </div>
   )
