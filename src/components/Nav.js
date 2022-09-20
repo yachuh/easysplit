@@ -1,12 +1,26 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import {
+  getGroupAllSettlementApi,
+  getPersonalSettlementApi,
+  getPaymentTypeApi,
+  settleUpApi,
+  getAllSettledApi,
+  getSettledDetailApi,
+  deleteSettlemetApi,
+  getReminderApi,
+  sendReminderApi
+} from '../utils/api'
 import Modal from '@mui/material/Modal'
+import Accordion from '@mui/material/Accordion'
+import AccordionDetails from '@mui/material/AccordionDetails'
+import AccordionSummary from '@mui/material/AccordionSummary'
+import Typography from '@mui/material/Typography'
 import { ModalResetPwd, ModalPwdSuccess, ModalVerifySignup } from '../components/ModalFeedback'
 import {
-  CloseOutlined
+  CloseOutlined,
+  Add
 } from '@mui/icons-material'
-import ResetPwdPage from '../pages/ResetPwdPage'
-import ProfilePayment from '../components/profilePage/ProfilePayment'
 
 const Nav = () => {
   // const [isOpen, setIsOpen] = useState(false)
@@ -23,6 +37,226 @@ const Nav = () => {
 
   const handleOpen3 = () => setOpen3(true)
   const handleClose3 = () => setOpen3(false)
+
+  // 結算明細
+  const [expanded, setExpanded] = useState(false)
+
+  const handleChange = (panel) => (event, isExpanded) => {
+    setExpanded(isExpanded ? panel : false)
+  }
+
+  // 5.1.1 檢視所有待結算金額(尚未結清的費用) API
+
+  const [groupAllSettlementData, setGroupAllSettlementData] = useState({
+    settlementList: [],
+    payerList: [],
+    ownerList: [],
+    notInvolvedList: []
+  })
+
+  const getGroupAllSettlement = async () => {
+    try {
+      const { status: isSuccess, message, settlementList, payerList, ownerList, notInvolvedList } = await getGroupAllSettlementApi()
+      if (!isSuccess) {
+        console.log(message)
+        return
+      }
+      setGroupAllSettlementData(groupAllSettlementData => ({
+        ...groupAllSettlementData,
+        settlementList,
+        payerList,
+        ownerList,
+        notInvolvedList
+      }))
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  console.log(groupAllSettlementData)
+
+  // 5.1.2 檢視個人待結算金額(尚未結清的費用) API
+  const [personalSettlementData, setPersonalSettlementData] = useState({
+    settlement: [],
+    notInvolvedList: []
+  })
+
+  const getPersonalSettlement = async () => {
+    try {
+      const { status: isSuccess, message, settlement, notInvolvedList } = await getPersonalSettlementApi()
+      if (!isSuccess) {
+        console.log(message)
+        return
+      }
+      setPersonalSettlementData(personalSettlementData => ({
+        ...personalSettlementData,
+        settlement,
+        notInvolvedList
+      }))
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  console.log(personalSettlementData)
+
+  // 5.1.3 檢視收款方式的種類 API
+  const [paymentTypeData, setPaymentTypeData] = useState({
+    paymentType: []
+  })
+
+  const getPaymentType = async () => {
+    try {
+      const { paymentType } = await getPaymentTypeApi()
+      setPaymentTypeData(paymentTypeData => ({
+        ...paymentTypeData,
+        paymentType
+      }))
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  console.log(paymentTypeData)
+
+  // 5.2進行結算 API
+  const [settleUpData, setSettleUpData] = useState({
+    groupid: 11,
+    ownermemberid: 26,
+    payermemberid: 24,
+    ownerpaytopayeramount: 40,
+    paymentmethod: 0,
+    memo: '銀行轉帳'
+  })
+
+  const settleUp = async () => {
+    try {
+      const { groupid, ownermemberid, payermemberid, ownerpaytopayeramount, paymentmethod, memo } = await settleUpApi(settleUpData)
+      //   getGroupAllSettlement()
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  console.log(settleUpData)
+  console.log(settleUp())
+
+  // 5.3取得所有結算紀錄(已結完) API
+  const [allSettledData, setAllSettledData] = useState({
+    paymentType: []
+  })
+
+  const getAllSettled = async () => {
+    try {
+      const { status: isSuccess, message, setlledList } = await getAllSettledApi()
+      if (!isSuccess) {
+        console.log(message)
+        return
+      }
+      setAllSettledData(allSettledData => ({
+        ...allSettledData,
+        setlledList
+      }))
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  console.log(allSettledData)
+
+  // 5.4取得單筆結算紀錄明細(已結完) API
+  const [settledDetailData, setSettledDetailData] = useState({
+    setllementDetail: []
+  })
+
+  const getSettledDetail = async () => {
+    try {
+      const { status: isSuccess, message, setllementDetail } = await getSettledDetailApi()
+      if (!isSuccess) {
+        console.log(message)
+        return
+      }
+      setSettledDetailData(settledDetailData => ({
+        ...settledDetailData,
+        setllementDetail
+      }))
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  console.log(settledDetailData)
+
+  // 5.5刪除單筆結算紀錄 API
+  const deleteSettlemet = async (id) => {
+    console.log(id)
+    try {
+      const { status: isSuccess, message } = await deleteSettlemetApi(id)
+      if (!isSuccess) {
+        console.log(message)
+        return
+      }
+      console.log(message)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const deleteSettlemetClick = () => {
+    deleteSettlemet()
+  }
+  //   console.log(deleteSettlemetClick())
+
+  // 5.6取得還款提醒資訊 API
+  const [reminderdData, setReminderData] = useState({
+    settlementReminder: []
+  })
+
+  const getReminder = async () => {
+    try {
+      const { status: isSuccess, message, settlementReminder } = await getReminderApi()
+      if (!isSuccess) {
+        console.log(message)
+        return
+      }
+      setReminderData(reminderdData => ({
+        ...reminderdData,
+        settlementReminder
+      }))
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  console.log(reminderdData)
+
+  // 5.7發送還款提醒 API
+  const [sendReminderData, setSendReminderData] = useState(
+    {
+      OwnerId: 21,
+      PayerId: 26
+    }
+  )
+
+  const sendReminder = async () => {
+    try {
+      const { status: isSuccess, message, OwnerId, PayerId } = await sendReminderApi(sendReminderData)
+      if (!isSuccess) {
+        console.log(message)
+        return
+      }
+      console.log(message)
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  console.log(sendReminderData)
+  console.log(sendReminder())
+
+  // useEffect API
+  useEffect(() => {
+    getGroupAllSettlement()
+    getPersonalSettlement()
+    getPaymentType()
+    getAllSettled()
+    getSettledDetail()
+    getReminder()
+  }, [])
 
   return (
         <nav className="viewContainer mt-5 mb-5 flex flex-col gap-x-4 list-none w-full">
@@ -96,11 +330,41 @@ const Nav = () => {
             </li>
 
             <li className='mb-16'>
-                <ResetPwdPage />
-            </li>
+                <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
+                    <AccordionSummary
+                        expandIcon={<Add sx={{ fontSize: 20 }} />}
+                        aria-controls="panel1bh-content"
+                        id="panel1bh-header"
+                    >
+                        <Typography
+                            sx={{ width: '100%', fontSize: 20, fontWeight: 600 }}>
+                            所有人都可以使用拆帳趣嗎?
+                        </Typography>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                        <Typography>
+                            是的，除了主邀者需為拆帳趣的會員外，邀請的其他人員可以無需註冊使用。
+                        </Typography>
+                    </AccordionDetails>
+                </Accordion>
 
-            <li>
-              <ProfilePayment/>
+                <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
+                    <AccordionSummary
+                        expandIcon={<Add sx={{ fontSize: 20 }} />}
+                        aria-controls="panel2bh-content"
+                        id="panel2bh-header"
+                    >
+                        <Typography
+                            sx={{ width: '100%', fontSize: 20, fontWeight: 600 }}>
+                            拆帳趣須付費嗎?
+                        </Typography>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                        <Typography>
+                            免費! 拆帳趣無須付費，若您喜歡拆帳趣，可斗內我們作為支持，我們將萬分感謝。
+                        </Typography>
+                    </AccordionDetails>
+                </Accordion>
             </li>
         </nav>
   )

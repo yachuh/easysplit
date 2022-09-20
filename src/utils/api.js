@@ -38,6 +38,15 @@ const ADD_LINEPAY = '/Payment/AddLinePay'
 const DELETE_BANK = 'Payment/DeleteBank'
 const DELETE_LINE = 'Payment/DeleteLine'
 const DELETE_CASH = 'Payment/DeleteCash'
+const GET_ALL_SETTLEMENT = 'Settlement/GetAllSettlement'
+const GET_SETTLEMENT = 'Settlement/GetSettlement'
+const GET_PAYMENT_TYPE = 'Settlement/GetPaymentType'
+const SETTLEUP = 'Settlement/SettleUp'
+const GET_ALL_SETTLED = 'Settlement/GetAllSettled'
+const GET_SETTLED_DETAIL = 'Settlement/GetSettledDetail'
+const DELETE_SETTLEMENT = 'Settlement/DeleteSettlemet'
+const GET_REMINDER = 'Settlement/GetReminder'
+const SEND_REMINDER = 'Settlement/SendReminder'
 
 /**
  * input an object with any keys
@@ -92,6 +101,8 @@ export const uploadAvatarApi = () => postApi(UPLOAD_AVATAR)
 export const addBankApi = (payload) => postApi(ADD_BANK, toUpperCamelCase(payload))
 export const addCashApi = (payload) => postApi(ADD_CASH, toUpperCamelCase(payload))
 export const addLinePayApi = (payload) => postApi(ADD_LINEPAY, toUpperCamelCase(payload))
+export const settleUpApi = (payload) => postApi(SETTLEUP, toUpperCamelCase(payload))
+export const sendReminderApi = (payload) => postApi(SEND_REMINDER, toUpperCamelCase(payload))
 
 /* GET */
 const getApi = async (url) => {
@@ -101,6 +112,14 @@ const getApi = async (url) => {
 
 export const getProfileApi = () => getApi(GET_PROFILE)
 export const getPaymentAllApi = () => getApi(GETALL)
+
+// 5.X 須將後面數字改變數 ${param}，測試功能暫寫死
+export const getGroupAllSettlementApi = (param) => getApi(`${GET_ALL_SETTLEMENT}/11`)
+export const getPersonalSettlementApi = (param) => getApi(`${GET_SETTLEMENT}/21`)
+export const getPaymentTypeApi = () => getApi(GET_PAYMENT_TYPE)
+export const getAllSettledApi = (param) => getApi(`${GET_ALL_SETTLED}/11`)
+export const getSettledDetailApi = (param) => getApi(`${GET_SETTLED_DETAIL}10`)
+export const getReminderApi = (param) => getApi(`${GET_REMINDER}/21`)
 
 /* PUT */
 const putApi = async (url, payload) => {
@@ -121,3 +140,6 @@ const deleteApi = async (url, payload) => {
 export const deleteBankApi = (param) => deleteApi(`${DELETE_BANK}/${param}`)
 export const deleteLineApi = (param) => deleteApi(`${DELETE_LINE}/${param}`)
 export const deleteCashApi = (param) => deleteApi(`${DELETE_CASH}/${param}`)
+
+// 5.X 須將後面數字改變數 ${param}，測試功能暫寫死
+export const deleteSettlemetApi = (param) => deleteApi(`${DELETE_SETTLEMENT}/${param}`)
