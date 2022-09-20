@@ -44,20 +44,15 @@ export default function LoginForm () {
   }
 
   return (
-      <div className='viewContainer flex justify-center gap-16 mb-10 lg:mb-0'>
-        <div className='hidden lg:block lg:group_beforeImg lg:mt-20' />
-        <div className='formCard card-shadow'>
+      <div className="viewContainer flex justify-center gap-16 mb-10 lg:mb-0">
+        <div className="hidden lg:block lg:group_beforeImg lg:mt-20" />
+        <div className="formCard card-shadow">
           <h3 className="font-bold text-center mb-10">登入</h3>
-          <form
-            className="flex flex-col"
-            onSubmit={handleSubmit(onSubmit)}>
+          <form className="flex flex-col" onSubmit={handleSubmit(onSubmit)}>
             {/* Email */}
-            <label className='labelTitle' htmlFor="account">電子郵件</label>
+            <label className="labelTitle" htmlFor="account">電子郵件</label>
             <div className="relative">
-              <div
-                className='inputImg'>
-                <EmailOutlined sx={{ fontSize: 16 }} />
-              </div>
+              <div className="inputImg"><EmailOutlined sx={{ fontSize: 16 }} /></div>
               <input
                 id="account"
                 className="inputInfo mb-2"
@@ -74,12 +69,9 @@ export default function LoginForm () {
               <p className="text-xs mb-2 text-rose-600">{errors.account?.message}</p>
             </div>
             {/* 密碼 */}
-            <label className='labelTitle mt-11' htmlFor="password">密碼</label>
+            <label className="labelTitle mt-11" htmlFor="password">密碼</label>
             <div className="relative">
-              <div
-                className='inputImg'>
-                <HttpsOutlined sx={{ fontSize: 16 }} />
-              </div>
+              <div className="inputImg"><HttpsOutlined sx={{ fontSize: 16 }} /></div>
               <input
                 id="password"
                 className="inputInfo mb-2"
@@ -98,43 +90,28 @@ export default function LoginForm () {
               />
               <p className="text-xs mb-2 text-rose-600">{errors.password?.message}</p>
               <div>
-                <p onClick={handleOpen} className="text-sm text-gray-500 block text-right mb-10 cursor-pointer">忘記密碼？</p>
-                <Modal
-                open={open}
-                onClose={handleClose}
-                className='modalCard-bg'
-              >
-                <div
-                  onClick={(e) => e.stopPropagation()}
-                  className='modalCard'>
-                  <div
-                    onClick={handleClose}
-                    className="modalCancel">
-                    <CloseOutlined sx={{ fontSize: 14 }} />
+                <p onClick={handleOpen} className="text-sm text-gray-500 block text-right mb-10 cursor-pointer">
+                  忘記密碼？
+                </p>
+                {/* 忘記密碼 Modal START */}
+                <Modal open={open} onClose={handleClose} className="modalCard-bg">
+                  <div onClick={(e) => e.stopPropagation()} className="modalCard">
+                    <div onClick={handleClose} className="modalCancel"><CloseOutlined sx={{ fontSize: 14 }} /></div>
+                    <ForgetPassword open={open} onClose={handleClose} />
                   </div>
-                  <ForgetPassword
-                    open={open}
-                    onClose={handleClose} />
-                </div>
-              </Modal>
-              {/* <Modal
-                open={isOpen}
-                onClose={() => setIsOpen(false)}>
-                <ForgetPassword
-                  open={isOpen}
-                  onClose={() => setIsOpen(false)} />
-              </Modal> */}
+                </Modal>
+              {/* 忘記密碼 Modal END */}
               </div>
             </div>
             {/* 確認 BTN */}
             <input className="btn-primary mb-5" type="submit" value="登入"/>
           </form>
-          <p className='flex before:line-bilateral after:line-bilateral mb-5'><span className='text-gray-400 px-[20px]'>或</span></p>
-          <button className='btn-google btn-shadow w-full mb-12'>
-            <img className='w-[20px]' src={googleIcon} alt='googleIcon'/>
-            <p className='text-sm'>使用 Google 帳號登入</p>
+          <p className="flex before:line-bilateral after:line-bilateral mb-5"><span className="text-gray-400 px-[20px]">或</span></p>
+          <button className="btn-google btn-shadow w-full mb-12">
+            <img className="w-[20px]" src={googleIcon} alt="googleIcon"/>
+            <p className="text-sm">使用 Google 帳號登入</p>
           </button>
-          <div className='text-center text-xs'>
+          <div className="text-center text-xs">
             <p>還沒有帳號嗎？<Link className="font-black" to="/signup">註冊</Link></p>
           </div>
       </div>
