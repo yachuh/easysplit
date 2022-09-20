@@ -1,86 +1,74 @@
-import React from 'react'
-import axios from 'axios'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import {
-  EmailOutlined
-} from '@mui/icons-material'
-// import Modal from '../components/Modal'
-// import { ModalFeedback } from '../components/ModalFeedback.js'
+import { forgetPwdApi } from '../../utils/api'
+import { EmailOutlined, CloseOutlined } from '@mui/icons-material'
+import Modal from '@mui/material/Modal'
+import { ModalResetPwd } from '../ModalFeedback'
 
 export default function ForgetPassword ({ Open, onClose }) {
-  const { register, handleSubmit, formState: { errors } } = useForm({
+  const {
+    register,
+    getValues,
+    handleSubmit,
+    formState: { errors }
+  } = useForm({
     defaultValues: {
-      AccountMail: ''
+      accountMail: ''
     }
   })
 
+  const [open, setOpen] = useState(false)
+  const handleOpen = () => setOpen(true)
+  const handleClose = () => setOpen(false)
+
   const onSubmit = async data => {
     console.log('form data', data)
-
-    const { AccountMail } = data
-
     try {
-      const res = await axios.post('https://easysplit.rocket-coding.com/api/User/ForgetPassword',
-        {
-          AccountMail
-        })
-      console.log(res)
-      console.log(res.data.Status)
-      console.log('忘記密碼傳送郵件成功')
-      if (res.status === 200 && res.data.Status === true) {
-        onClose()
+      const { status: isSuccess, message } = await forgetPwdApi(data)
+      if (!isSuccess) {
+        console.log(message)
+        return
       }
-      // if (res.status === 200 && res.data.Status === false) {
-      //   Open()
-      // }
+      console.log(message)
+      handleOpen()
     } catch (error) {
       console.log(error)
-      console.log('這個信箱還沒有註冊喔，請再確認看看！')
     }
   }
 
   return (
     <>
-      <h4
-        className='font-bold mb-4'>
-        忘記密碼
-      </h4>
-      <p
-        className='mb-4'>
-        請輸入你註冊時的電子郵件信箱
-      </p>
-      <form
-        className="w-full relative"
-        onSubmit={handleSubmit(onSubmit)}>
-        <div
-          className='inputImg'>
-          <EmailOutlined sx={{ fontSize: 16 }} />
-        </div>
+      <h4 className="font-bold mb-4">忘記密碼</h4>
+      <p className="mb-4">請輸入你的會員電子郵件信箱</p>
+      <form className="w-full relative" onSubmit={handleSubmit(onSubmit)}>
+        <div className="inputImg"><EmailOutlined sx={{ fontSize: 16 }} /></div>
         <input
           className="inputInfo mb-2"
           type="email"
-          placeholder="請輸入Email"
-          {...register('AccountMail',
+          placeholder="請輸入你的會員電子郵件"
+          {...register('accountMail',
             {
               required: {
                 value: true,
-                message: '請輸入資料內容!'
+                message: '此為必填欄位'
               },
               pattern: {
                 value: /^\S+@\S+$/i,
-                message: '格式有誤!'
+                message: '電子郵件格式有誤，請重新確認'
               }
             }
           )}
         />
-        <p
-          className="text-xs mb-2 text-rose-600">
-          {errors.AccountMail?.message}
-        </p>
-        <input
-          className="btn-primary w-full mt-8"
-          value="發送重設密碼信"
-          type="submit" />
+        <p className="text-xs mb-2 text-rose-600">{errors.accountMail?.message}</p>
+        <input className="btn-primary w-full mt-8" value="發送重設密碼信" type="submit" />
+        <Modal open={open} onClose={handleClose} className="modalCard-bg" >
+          <div onClick={(e) => e.stopPropagation()} className="modalCard">
+            <div onClick={handleClose} className="modalCancel">
+              <CloseOutlined sx={{ fontSize: 14 }} />
+            </div>
+            <ModalResetPwd open={open} onClose={handleClose} />
+          </div>
+        </Modal>
       </form>
     </>
   )

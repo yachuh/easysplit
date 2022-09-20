@@ -27,6 +27,7 @@ const LOGIN = '/User/Login'
 const GET_PROFILE = '/User/GetProfile'
 const EDIT_PROFILE = '/User/EditProfile'
 const ACCOUNT_ACTIVATION_MAIL = '/User/AuthMail/AccountActivation?guid='
+const FORGET_PWD = '/User/ForgetPassword'
 const RESET_PWD = '/User/ResetPassword'
 const RESET_PWD_MAIL = '/User/AuthMail/ResetPassword'
 const UPLOAD_AVATAR = '/User/UploadAvatar'
@@ -85,6 +86,7 @@ const postApi = async (url, payload) => {
 export const signupApi = (payload) => postApi(SINGN_UP, toUpperCamelCase(payload))
 export const loginApi = (payload) => postApi(LOGIN, toUpperCamelCase(payload))
 export const accountActivateAPI = (payload) => postApi(ACCOUNT_ACTIVATION_MAIL, toUpperCamelCase(payload))
+export const forgetPwdApi = (payload) => postApi(FORGET_PWD, toUpperCamelCase(payload))
 export const resetPwdEmailApi = () => postApi(RESET_PWD)
 export const uploadAvatarApi = () => postApi(UPLOAD_AVATAR)
 export const addBankApi = (payload) => postApi(ADD_BANK, toUpperCamelCase(payload))
