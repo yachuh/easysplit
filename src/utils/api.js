@@ -69,6 +69,8 @@ const GET_SETTLED_DETAIL = 'Settlement/GetSettledDetail'
 const DELETE_SETTLEMENT = 'Settlement/DeleteSettlemet'
 const GET_REMINDER = 'Settlement/GetReminder'
 const SEND_REMINDER = 'Settlement/SendReminder'
+/* Group 相關 */
+const GET_ALL_GROUP = '/Group/GetAllGroup'
 
 /**
  * input an object with any keys
@@ -147,6 +149,9 @@ export const getPaymentTypeApi = () => getApi(GET_PAYMENT_TYPE)
 export const getAllSettledApi = (param) => getApi(`${GET_ALL_SETTLED}/11`)
 export const getSettledDetailApi = (param) => getApi(`${GET_SETTLED_DETAIL}10`)
 export const getReminderApi = (param) => getApi(`${GET_REMINDER}/21`)
+
+// Group 相關
+export const getAllGroupApi = () => getApi(GET_ALL_GROUP)
 
 /* PUT */
 const putApi = async (url, payload) => {
