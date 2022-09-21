@@ -223,11 +223,45 @@ code {
     background: url("./image/Carousel-img04.svg") no-repeat center / cover;
   }
 
+  .verticalCarousel01 {
+    background: url("./image/Carousel-list01.svg") no-repeat center / contain;
+  }
+
+  .verticalCarousel02 {
+    background: url("./image/Carousel-list02.svg") no-repeat center / contain;
+  }
+
+  .verticalCarousel03 {
+    background: url("./image/Carousel-list03.svg") no-repeat center / contain;
+  }
+
+  .verticalCarousel04 {
+    background: url("./image/Carousel-list04.svg") no-repeat center / contain;
+  }
+
   .bg-circle {
-    background-image: url("./image/phone.svg"), url("./image/bgEllipse.svg");
+    background-image: url("./image/bgEllipse.svg");
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center bottom;
+  }
+
+  .bg-phone {
+    background-image: url("./image/phone.svg");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center bottom;
+  }
+
+  .bg-circle-sm {
+    background-image: url("./image/bgEllipse.svg");
+    background-repeat: no-repeat;
+    background-size: auto 230px;
+    background-position: center bottom;
+  }
+
+  .bg-container {
+    @apply flex items-center justify-center;
   }
 
   .loginInputMail {
@@ -377,6 +411,28 @@ code {
   background: #40798c !important;
   border: 1px solid #fff !important;
   opacity: 1 !important;
+}
+
+.bg-container .swiper-pagination-bullet {
+  width: 20px !important;
+  height: 20px !important;
+  background: #d2d5da !important;
+  opacity: 1 !important;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25) !important;
+}
+
+.bg-container .swiper-pagination-bullet-active {
+  background: #40798c !important;
+  border: 1px solid #fff !important;
+  opacity: 1 !important;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25) !important;
+}
+
+.bg-container
+  .swiper-pagination-vertical.swiper-pagination-bullets
+  .swiper-pagination-bullet,
+.swiper-vertical > .swiper-pagination-bullets .swiper-pagination-bullet {
+  margin: var(--swiper-pagination-bullet-vertical-gap, 20px) 0;
 }
 
 .css-1h9z7r5-MuiButtonBase-root-MuiTab-root {
