@@ -1,9 +1,44 @@
 import { Link } from 'react-router-dom'
+
+// Import Swiper React components
+import { Swiper, SwiperSlide } from 'swiper/react'
+
+// Import Swiper styles
+import 'swiper/css'
+import 'swiper/css/pagination'
+import 'swiper/css/navigation'
+
+// import required modules
+import { Autoplay, Pagination } from 'swiper'
+
 import whoareyou from '../../image/whoareyou.svg'
 import how from '../../image/how.svg'
 import joinImg from '../../image/join-img.svg'
 
 export default function StillMore () {
+  const verticalCarousel = (
+        <Swiper
+            direction={'vertical'}
+            spaceBetween={30}
+            centeredSlides={true}
+            autoplay={{
+              delay: 2500,
+              disableOnInteraction: false
+            }}
+            pagination={{
+              el: '.vertica-pagination',
+              clickable: true
+            }}
+            modules={[Autoplay, Pagination]}
+            className="w-full h-full"
+        >
+            <SwiperSlide className="verticalCarousel01 max-w-[230px] lg:max-w-[395px] mx-auto" />
+            <SwiperSlide className="verticalCarousel02 max-w-[230px] lg:max-w-[395px] mx-auto" />
+            <SwiperSlide className="verticalCarousel03 max-w-[230px] lg:max-w-[395px] mx-auto" />
+            <SwiperSlide className="verticalCarousel04 max-w-[230px] lg:max-w-[395px] mx-auto" />
+        </Swiper>
+  )
+
   return (
         <div className="viewContainer mt-10">
             <div className='mb-24 lg:flex lg:flex-col lg:items-center'>
@@ -108,7 +143,7 @@ export default function StillMore () {
             </div>
 
             <div>
-                <div className='mb-10 lg:mb-0 lg:flex lg:items-center lg:justify-between lg:gap-[10%]'>
+                <div className='lg:flex lg:items-center lg:justify-between lg:gap-[10%]'>
                     <div
                         data-aos="fade-right"
                         className='StillMore-titleArea text-center mb-10'>
@@ -120,15 +155,20 @@ export default function StillMore () {
                         </Link>
                     </div>
 
-                    <div
-                        className="hidden lg:block bg-circle lg:w-[660px]">
-                        <div
-                            className="lg:h-[480px]" />
+                  <div className='bg-container lg:bg-circle items-end bg-circle-sm'>
+                        <div className='bg-phone h-[280px] w-[345px] lg:h-[480px] lg:w-[590px] flex justify-center relative'>
+                            <div className='absolute top-[80px] lg:top-[140px] flex items-center justify-center'>
+                                <div className='w-[280px] h-[56px] rounded-[10px] lg:w-[480px] lg:h-[96px] lg:rounded-[20px] bg-white card-shadow'>
+                                    {verticalCarousel}
+                                </div>
+                            </div>
+                        </div>
+                        <div className='mt-[20%]'>
+                            <div className="vertica-pagination" />
+                        </div>
                     </div>
                 </div>
-                <div className="lg:hidden bg-circle w-full">
-                    <div className="h-[280px]" />
-                </div>
+                {/* <div className='lg:hidden h-[188px] w-full bg-colors-secondary rounded-t-full mt-[-243px]' /> */}
             </div>
 
         </div>
