@@ -8,11 +8,13 @@ export default function AddNewGroupModal ({ Open, onClose }) {
 
   const {
     register,
+    setValue,
     handleSubmit,
     formState: { errors }
   } = useForm({
     defaultValues: {
-      name: ''
+      name: '',
+      fileName: ''
     }
   })
 
@@ -30,27 +32,25 @@ export default function AddNewGroupModal ({ Open, onClose }) {
   const handleUpload = async () => {
     const formData = new FormData()
     formData.append('image', image.raw)
-    console.log(image.raw.length)
-
-    // if (!image.raw.length) {
-    //   console.log('圖片為空')
-    //   return
-    // }
+    // if img is empty, set payload to null
+    const payload = image.raw ? formData : null
 
     try {
-      const { status: isSuccess, message, data } = await addGroupCoverApi(formData)
-      console.log(data)
+      const { status: isSuccess, message, fileName } = await addGroupCoverApi(payload)
       if (!isSuccess) {
         console.log(message)
         return
       }
       console.log('照片', message)
+      setValue('fileName', fileName) // 好像沒有作用
+      return fileName
     } catch (error) {
       console.log(error)
     }
   }
   // addAGroupApi: 群組名稱
-  const onSubmit = async (data) => {
+  const onSubmit = async (data, fileName) => {
+    data.fileName = fileName
     console.log('form data', data)
     try {
       const { status: isSuccess, message } = await addGroupApi(data)
@@ -60,6 +60,7 @@ export default function AddNewGroupModal ({ Open, onClose }) {
         return
       }
       console.log('群組名稱', message)
+      onClose()
     } catch (error) {
       console.log(error)
     }
@@ -71,9 +72,9 @@ export default function AddNewGroupModal ({ Open, onClose }) {
                 <h4>新增群組</h4>
             </div>
       <form className="w-full relative text-center"
-        onSubmit={handleSubmit((data) => {
-          onSubmit(data)
-          handleUpload()
+        onSubmit={handleSubmit(async (data) => {
+          const fileName = await handleUpload()
+          await onSubmit(data, fileName)
         })}>
                 <label htmlFor="fileUpload" className="groupModalCard-coverPhoto mt-2">
                     {image.preview
