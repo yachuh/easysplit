@@ -21,7 +21,7 @@ export default function AppLayout ({ children }) {
       }
       setUserData(userData => ({
         ...userData,
-        name: userdata.namet,
+        name: userdata.name,
         account: userdata.account,
         imageUrl: userdata.imageUrl
       }))
@@ -45,7 +45,7 @@ export default function AppLayout ({ children }) {
           <div className="w-[269px] hidden md:block relative px-2 py-10">
             <SideNav />
           </div>
-          <main className="ml-5 w-full">
+          <main className="w-full md:ml-5">
             {children}
           </main>
         </div>

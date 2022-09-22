@@ -4,7 +4,7 @@ import AddPhotoAlternateOutlinedIcon from '@mui/icons-material/AddPhotoAlternate
 import { uploadAvatarApi } from '../../utils/api'
 
 export default function UploadAvatarModal ({ Open, onClose }) {
-  const { userData, setUserData } = useUserData()
+  const { setUserData } = useUserData()
   const [image, setImage] = useState({ preview: '', raw: '' })
 
   const handleChange = e => {

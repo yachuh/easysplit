@@ -21,3 +21,14 @@ export const PayDataContext = createContext({
 export const usePayData = () => {
   return useContext(PayDataContext)
 }
+
+/* Group 頁的 groupData */
+export const GroupDataContext = createContext({
+  id: '',
+  name: '',
+  imageUrl: ''
+})
+
+export const useGroupData = () => {
+  return useContext(GroupDataContext)
+}
