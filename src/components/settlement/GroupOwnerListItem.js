@@ -3,60 +3,50 @@ import Accordion from '@mui/material/Accordion'
 import AccordionDetails from '@mui/material/AccordionDetails'
 import AccordionSummary from '@mui/material/AccordionSummary'
 import Typography from '@mui/material/Typography'
-import { ExpandMore, AttachMoney } from '@mui/icons-material'
+import { ExpandMore } from '@mui/icons-material'
+import { usePersonalSettlementData } from '../../context/context'
+import { PersonalOwnerItem, SettlementOwnerItem } from './SettlemenItem'
 import userSettlement from '../../image/userSettlement.svg'
 
-export default function GroupOwnerListItem ({ ownerListItem }) {
-  const { OwnAmount, MemberId, GaveAmount } = ownerListItem
+export default function GroupOwnerListItem ({ ownerListItem, getPersonalSettlement, num }) {
+  const { MemberId } = ownerListItem
+  const { personalSettlementData } = usePersonalSettlementData()
+  const { settlement } = personalSettlementData
 
   const [expanded, setExpanded] = useState(false)
 
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false)
+    getPersonalSettlement(MemberId)
   }
 
-  const SettlementOwnerItem = () => {
+  const mapPersonalOwnerItem = settlement.map((settlementItem, i) => {
     return (
-            <div className='flex gap-4 text-base'>
-                <img
-                    className='w-12'
-                    src={userSettlement}
-                    alt='userSettlement'
-                />
-                <ul className='flex flex-col gap-1'>
-                    <li>{MemberId}</li>
-                    <li>
-                        應支付
-                        <span className='ml-3 mr-2 text-red-700'>
-                            <AttachMoney sx={{ fontSize: 16 }} />
-                        </span>
-                        <span className='text-red-700 text-right'>
-                            {GaveAmount}
-                        </span>
-                    </li>
-                </ul>
-            </div>
+            <PersonalOwnerItem
+                key={i}
+                settlementItem={settlementItem}
+            />
     )
-  }
+  })
 
   return (
         <>
-            <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
+            <Accordion expanded={expanded === `panel${num + 1}`} onChange={handleChange(`panel${num + 1}`)}>
                 <AccordionSummary
                     expandIcon={<ExpandMore sx={{ fontSize: 20 }} />}
-                    aria-controls="panel1bh-content"
-                    id="panel1bh-header"
+                    aria-controls={`panel${num + 1}bh-content`}
+                    id={`panel${num + 1}bh-header`}
                 >
                     <Typography
                         component={'div'}
                         sx={{ width: '100%', fontSize: 20, fontWeight: 600 }}>
-                        <SettlementOwnerItem />
+                        <SettlementOwnerItem ownerListItem={ownerListItem} />
                     </Typography>
                 </AccordionSummary>
 
                 <AccordionDetails>
-                    <Typography>
-                        是的，除了主邀者需為拆帳趣的會員外，邀請的其他人員可以無需註冊使用。
+                    <Typography component={'div'}>
+                        {mapPersonalOwnerItem}
                     </Typography>
                 </AccordionDetails>
             </Accordion>
