@@ -13,6 +13,9 @@ import ProfilePage from './pages/ProfilePage'
 import ResetPwdPage from './pages/ResetPwdPage'
 import NotificationPage from './pages/NotificationPage'
 import GroupPage from './pages/GroupPage'
+import GroupListPage from './pages/GroupListPage'
+import GroupMemberPage from './pages/GroupMemberPage'
+import GroupSettingPage from './pages/GroupSettingPage'
 import StillMorePage from './pages/StillMorePage'
 import FaqPage from './pages/FaqPage'
 import ErrorPage from './pages/ErrorPage'
@@ -43,8 +46,14 @@ function App () {
     <>
       {/* <Nav handleLogout={handleLogout} /> */}
       <Routes>
+        {/* index 相關 */}
         <Route index element={<HomePage />} />
+        <Route path="/stillmore" element={<StillMorePage />} />
+        <Route path="/faq" element={<FaqPage />} />
+        <Route path="/privacyPolicy" element={<PrivacyPolicyPage />} />
+        <Route path="*" element={<ErrorPage />} />
         <Route path="nav" handleLogout={handleLogout} element={<Nav />} />
+        {/* user 相關 */}
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/forgetpassword" element={<ForgetPasswordPage />} />
@@ -52,11 +61,12 @@ function App () {
         <Route path="/AuthMail/ResetPassword" element={<ResetPwdPage />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/notifications" element={<NotificationPage />} />
-        <Route path="/group/:id" element={<GroupPage />} />
-        <Route path="/stillmore" element={<StillMorePage />} />
-        <Route path="/faq" element={<FaqPage />} />
-        <Route path="/privacyPolicy" element={<PrivacyPolicyPage />} />
-        <Route path="*" element={<ErrorPage />} />
+        {/* group 相關 */}
+        <Route path="/group" element={<GroupListPage />} />
+        <Route path="/group/:groupId" element={<GroupPage />}>
+          <Route path="member" element={<GroupMemberPage />} />
+          <Route path="setting" element={<GroupSettingPage />} />
+        </Route>
       </Routes>
     </>
   )
