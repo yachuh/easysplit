@@ -14,7 +14,7 @@ export default function SideNavGroup () {
 
   useEffect(() => {
     getAllGroup()
-  }, [])
+  }, [open])
 
   const getAllGroup = async () => {
     try {

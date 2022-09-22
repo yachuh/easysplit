@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form'
 import AddPhotoAlternateOutlinedIcon from '@mui/icons-material/AddPhotoAlternateOutlined'
 import { addGroupApi, addGroupCoverApi } from '../utils/api'
 
-export default function AddNewGroupModal ({ Open, onClose }) {
+export default function AddNewGroupModal ({ onClose }) {
   const [image, setImage] = useState({ preview: '', raw: '' })
 
   const {
