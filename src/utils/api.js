@@ -68,7 +68,7 @@ const GET_A_GROUP = '/Group/GetAGroup'
 const ADD_GROUP = '/Group/AddGroup'
 const ADD_GROUP_COVER = '/Group/AddGroupCover'
 const EDIT_GROUP = '/Group/EditGroup'
-const DELETE_GROUP = 'DELETE/Group/'
+const DELETE_GROUP = '/Group/DeleteGroup'
 const GET_ALL_MEMBER = '/Group/GetAllMember'
 const ADD_MEMBER = '/Group/AddMember'
 
