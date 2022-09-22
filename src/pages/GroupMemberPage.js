@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import GroupMemberList from '../components/group/GroupMemberList'
+import AddNewMemberModal from '../components/group/AddNewMemberModal'
 import { Add, CloseOutlined } from '@mui/icons-material'
 import Modal from '@mui/material/Modal'
-import AddNewMemberModal from '../components/group/AddNewMemberModal'
 
 export default function GroupMemberPage () {
   const [open, setOpen] = useState(false)
