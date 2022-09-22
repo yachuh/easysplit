@@ -7,16 +7,19 @@ import { ExpandMore } from '@mui/icons-material'
 import { usePersonalSettlementData } from '../../context/context'
 import { SettlementPayerItem, PersonalPayerItem } from './SettlemenItem'
 
-export default function GroupPayerListItem ({ payerListItem, getPersonalSettlement }) {
-  const { MemberId, i } = payerListItem
-  const { personalSettlementData, setPersonalSettlementData } = usePersonalSettlementData()
+export default function GroupPayerListItem ({ payerListItem, getPersonalSettlement, num }) {
+  const { MemberId } = payerListItem
+  const { personalSettlementData } = usePersonalSettlementData()
   const { settlement } = personalSettlementData
-  //   const { ownerMemberId, owenerName, ownAmountresult, payerMemberId, payerName, status } = settlementItem
 
   const [expanded, setExpanded] = useState(false)
 
+  const handleChange = (panel) => (event, isExpanded) => {
+    setExpanded(isExpanded ? panel : false)
+    getPersonalSettlement(MemberId)
+  }
+
   const mapPersonalItem = settlement.map((settlementItem, i) => {
-    console.log(settlementItem)
     return (
             <PersonalPayerItem
                 key={i}
@@ -25,24 +28,14 @@ export default function GroupPayerListItem ({ payerListItem, getPersonalSettleme
     )
   })
 
-  console.log(mapPersonalItem)
-
-  const handleChange = (panel) => (event, isExpanded) => {
-    getPersonalSettlement(MemberId)
-
-    setExpanded(isExpanded ? panel : false)
-  }
-
-  console.log(personalSettlementData)
-
   return (
         <Accordion
-            expanded={expanded === 'panel'}
-            onChange={handleChange('panel')}>
+            expanded={expanded === `panel${num + 1}`}
+            onChange={handleChange(`panel${num + 1}`)}>
             <AccordionSummary
                 expandIcon={<ExpandMore sx={{ fontSize: 20 }} />}
-                aria-controls="panelbh-content"
-                id={MemberId}>
+                aria-controls={`panel${num + 1}bh-content`}
+                id={`panel${num + 1}bh-header`}>
                 <Typography
                     component={'div'}
                     sx={{ width: '100%', fontSize: 20, fontWeight: 600 }}>

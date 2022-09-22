@@ -36,7 +36,6 @@ export default function GroupAllSettlement () {
   }
 
   const getPersonalSettlement = async (id) => {
-    console.log(id)
     try {
       const { status: isSuccess, message, settlement, notInvolvedList } = await getPersonalSettlementApi(id)
       if (!isSuccess) {
@@ -52,11 +51,9 @@ export default function GroupAllSettlement () {
       console.log(error)
     }
   }
-  console.log(personalSettlementData)
 
   useEffect(() => {
     getGroupAllSettlement()
-    getPersonalSettlement()
   }, [])
 
   return (

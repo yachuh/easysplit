@@ -5,26 +5,26 @@ import GroupOwnerListItem from './GroupOwnerListItem'
 
 export default function GroupAllSettlementList ({ getPersonalSettlement }) {
   const { groupAllSettlementData } = useGroupAllSettlementData()
-  const { settlementList, payerList, ownerList } = groupAllSettlementData
+  const { payerList, ownerList } = groupAllSettlementData
 
   const mapPayerItem = payerList.map((payerListItem, i) => {
-    console.log(payerListItem)
-
     return (
         <GroupPayerListItem
             key={i}
             payerListItem={payerListItem}
             getPersonalSettlement={getPersonalSettlement}
+            num={i}
         />
     )
   })
-  console.log(mapPayerItem)
 
   const mapOwnerItem = ownerList.map((ownerListItem, i) => {
     return (
         <GroupOwnerListItem
             key={i}
             ownerListItem={ownerListItem}
+            getPersonalSettlement={getPersonalSettlement}
+            num={i}
         />
     )
   })
