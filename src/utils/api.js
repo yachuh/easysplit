@@ -165,7 +165,7 @@ export const getPaymentAllApi = () => getApi(GETALL)
 
 // 5.X 須將後面數字改變數 ${param}，測試功能暫寫死
 export const getGroupAllSettlementApi = (param) => getApi(`${GET_ALL_SETTLEMENT}/11`)
-export const getPersonalSettlementApi = (param) => getApi(`${GET_SETTLEMENT}/21`)
+export const getPersonalSettlementApi = (param) => getApi(`${GET_SETTLEMENT}/${param}`)
 export const getPaymentTypeApi = () => getApi(GET_PAYMENT_TYPE)
 export const getAllSettledApi = (param) => getApi(`${GET_ALL_SETTLED}/11`)
 export const getSettledDetailApi = (param) => getApi(`${GET_SETTLED_DETAIL}10`)

@@ -50,7 +50,7 @@ code {
   }
 
   .btn-outline {
-    @apply block text-center py-2 px-6 bg-white border border-colors-primary rounded text-colors-primary font-bold hover:bg-colors-sixth focus:bg-colors-seventh;
+    @apply block text-center py-2 px-6 bg-white border border-colors-primary rounded text-colors-primary font-bold hover:bg-colors-sixth hover:text-white hover:border-white focus:bg-colors-seventh;
   }
 
   .btn-outline-fifth {
@@ -343,7 +343,7 @@ code {
     @apply flex items-center gap-4;
   }
 
-  .ProfilePayment-view {
+  .overflow-scroll-view {
     @apply h-[240px] overflow-y-scroll w-full md:h-auto md:overflow-y-auto;
   }
 
@@ -427,6 +427,11 @@ code {
 
   .PrivacyPolicy-txt-dot {
     @apply indent-[-24px];
+  }
+
+  /* Settlement */
+  .settlement-card {
+    @apply w-full md:w-[43%] bg-white px-4 py-11 pb-4 md:rounded-[20px] md:border md:border-colors-primary;
   }
 
   /* Group */
@@ -608,4 +613,8 @@ code {
 
 .css-1elwnq4-MuiPaper-root-MuiAccordion-root {
   box-shadow: none !important;
+}
+
+.settlement-card .css-1elwnq4-MuiPaper-root-MuiAccordion-root:before {
+  background-color: #fff !important;
 }
