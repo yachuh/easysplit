@@ -20,7 +20,7 @@ export default function BankPaymentList ({ payBank, getPaymentAll }) {
     try {
       const { status: isSuccess, message } = await deleteBankApi(id)
       if (!isSuccess) {
-        alert(message)
+        console.log(message)
         return
       }
       console.log(message)

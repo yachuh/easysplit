@@ -32,3 +32,27 @@ export const GroupDataContext = createContext({
 export const useGroupData = () => {
   return useContext(GroupDataContext)
 }
+
+/* Settlement 頁的 groupAllSettlementData */
+/* 5.1.1 檢視所有待結算金額(尚未結清的費用) */
+export const GroupAllSettlementDataContext = createContext({
+  settlementList: [],
+  payerList: [],
+  ownerList: [],
+  notInvolvedList: []
+})
+
+export const useGroupAllSettlementData = () => {
+  return useContext(GroupAllSettlementDataContext)
+}
+
+/* Settlement 頁的 personalSettlementData */
+/* 5.1.2 檢視個人待結算金額(尚未結清的費用) */
+export const PersonalSettlementDataContext = createContext({
+  settlement: [],
+  notInvolvedList: []
+})
+
+export const usePersonalSettlementData = () => {
+  return useContext(PersonalSettlementDataContext)
+}

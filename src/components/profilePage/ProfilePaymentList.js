@@ -45,7 +45,7 @@ export default function ProfilePaymentList ({ getPaymentAll }) {
 
   return (
     <div className='flex flex-col items-center gap-5'>
-      <ul className="ProfilePayment-view">
+      <ul className="overflow-scroll-view">
         {mapCashPaymentList}
         {mapBankPaymentList}
         {mapLinePaymentList}
