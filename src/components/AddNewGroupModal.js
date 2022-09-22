@@ -41,14 +41,14 @@ export default function AddNewGroupModal ({ onClose }) {
         console.log(message)
         return
       }
-      console.log('照片', message)
+      console.log('addGroupCoverApi:::', message)
       setValue('fileName', fileName) // 好像沒有作用
       return fileName
     } catch (error) {
       console.log(error)
     }
   }
-  // addAGroupApi: 群組名稱
+  // addAGroupApi: 群組名稱、圖片 fileName
   const onSubmit = async (data, fileName) => {
     data.fileName = fileName
     console.log('form data', data)
@@ -59,7 +59,7 @@ export default function AddNewGroupModal ({ onClose }) {
         console.log(message)
         return
       }
-      console.log('群組名稱', message)
+      console.log('addGroupApi:::', message)
       onClose()
     } catch (error) {
       console.log(error)

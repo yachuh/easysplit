@@ -68,6 +68,7 @@ const GET_A_GROUP = '/Group/GetAGroup'
 const ADD_GROUP = '/Group/AddGroup'
 const ADD_GROUP_COVER = '/Group/AddGroupCover'
 const EDIT_GROUP = '/Group/EditGroup'
+const EDIT_GROUP_COVER = '/Group/EditGroupCover'
 const DELETE_GROUP = '/Group/DeleteGroup'
 const GET_ALL_MEMBER = '/Group/GetAllMember'
 const ADD_MEMBER = '/Group/AddMember'
@@ -148,6 +149,7 @@ export const addLinePayApi = (payload) => postApi(ADD_LINEPAY, toUpperCamelCase(
 // group 相關
 export const addGroupApi = (payload) => postApi(ADD_GROUP, toUpperCamelCase(payload))
 export const addGroupCoverApi = (formData) => imgPostApi(ADD_GROUP_COVER, formData)
+export const editGroupCoverApi = (formData) => imgPostApi(EDIT_GROUP_COVER, formData)
 export const addMemberApi = (payload) => postApi(ADD_MEMBER, toUpperCamelCase(payload))
 
 // settle 相關
@@ -186,7 +188,7 @@ export const editProfileApi = (param) => putApi(`${EDIT_PROFILE}?name=${param}`)
 export const resetPwdApi = (payload) => putApi(RESET_PWD_MAIL, toUpperCamelCase(payload))
 
 // group 相關
-export const editGroupApi = (groupId, payload) => putApi(`${EDIT_GROUP}/${groupId}`, toUpperCamelCase(payload))
+export const editGroupApi = (payload) => putApi(EDIT_GROUP, toUpperCamelCase(payload))
 
 /* DELETE */
 const deleteApi = async (url) => {

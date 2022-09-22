@@ -120,6 +120,13 @@ code {
   .groupModalCard-title {
     @apply py-2 font-bold border-b text-center mb-4;
   }
+  .groupModalCard-text {
+    @apply text-center;
+  }
+  
+  .groupModalCard-btns {
+    @apply flex gap-4;
+  }
 
   .groupModalCard-coverPhoto {
     @apply w-[88px] h-[88px] inline-block box-border rounded-[20px] bg-gray-300 hover:cursor-pointer;
@@ -477,17 +484,18 @@ code {
     @apply flex items-center;
   }
 
-  .member-item-icon {
-    @apply w-[18.67px] h-[18.67px];
+  .member-item-avatar {
+    @apply w-8 h-8;
   }
 
   .member-item-info {
-    @apply ml-[18.67px] flex-col items-center md:flex-row md:items-start;
+    @apply ml-[18.67px] ;
   }
 
-  .member-item-sm-icon {
+  .member-item-icon {
     @apply w-5 h-5;
   }
+
 }
 
 .swiper-pagination-bullet {

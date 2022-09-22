@@ -12,10 +12,13 @@ import ForgetPasswordPage from './pages/ForgetPasswordPage'
 import ProfilePage from './pages/ProfilePage'
 import ResetPwdPage from './pages/ResetPwdPage'
 import NotificationPage from './pages/NotificationPage'
+// Group 相關
 import GroupPage from './pages/GroupPage'
 import GroupListPage from './pages/GroupListPage'
+import GroupHomePage from './pages/GroupHomePage'
 import GroupMemberPage from './pages/GroupMemberPage'
 import GroupSettingPage from './pages/GroupSettingPage'
+// landing page 相關
 import StillMorePage from './pages/StillMorePage'
 import FaqPage from './pages/FaqPage'
 import ErrorPage from './pages/ErrorPage'
@@ -64,6 +67,8 @@ function App () {
         {/* group 相關 */}
         <Route path="/group" element={<GroupListPage />} />
         <Route path="/group/:groupId" element={<GroupPage />}>
+          <Route index element={<GroupHomePage />} />
+          <Route path="home" element={<GroupHomePage />} />
           <Route path="member" element={<GroupMemberPage />} />
           <Route path="setting" element={<GroupSettingPage />} />
         </Route>
