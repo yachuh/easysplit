@@ -126,7 +126,7 @@ export const PersonalOwnerItem = ({ settlementItem }) => {
                 src={ownerImageUrl}
                 alt='userSettlement'
             />
-            <div>
+            <div className='w-full'>
                 <ul className='flex items-center gap-3 mb-2'>
                     <li className='font-bold'>{owenerName}</li>
                     <li className='text-xs'>應支付</li>

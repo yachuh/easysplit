@@ -438,7 +438,7 @@ code {
 
   /* Settlement */
   .settlement-card {
-    @apply w-full md:w-[43%] bg-white px-4 py-11 pb-4 md:rounded-[20px] md:border md:border-colors-primary;
+    @apply w-full lg:w-[43%] bg-white px-4 py-11 pb-4 lg:rounded-[20px] lg:border lg:border-colors-primary;
   }
 
   .settlement-userImg {
@@ -633,4 +633,8 @@ code {
 
 .settlement-card .css-1elwnq4-MuiPaper-root-MuiAccordion-root:before {
   background-color: #fff !important;
+}
+
+.css-15v22id-MuiAccordionDetails-root{
+  @apply pt-4 border-t border-gray-400 !important;
 }

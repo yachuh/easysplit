@@ -15,12 +15,7 @@ export default function GroupAllSettlementList ({ getPersonalSettlement }) {
   const handleClose = () => setOpen(false)
 
   const [openMd, setOpenMd] = useState(false)
-  const handleOpenMd = () => {
-    getPersonalSettlement(78)
-    setOpenMd(true)
-  }
-
-  console.log(settlement)
+  const handleOpenMd = () => setOpenMd(true)
   const handleCloseMd = () => setOpenMd(false)
 
   return (
@@ -31,7 +26,7 @@ export default function GroupAllSettlementList ({ getPersonalSettlement }) {
                 </h4>
                 <button
                     onClick={handleOpenMd}
-                    className='hidden md:block btn-primary '>
+                    className='hidden lg:block btn-primary '>
                     結算
                 </button>
                 <Modal
@@ -54,7 +49,7 @@ export default function GroupAllSettlementList ({ getPersonalSettlement }) {
                     </div>
                 </Modal>
             </div>
-            <div className='overflow-scroll-view'>
+            <div className='overflow-scroll-view md:h-[240px] md:overflow-y-auto lg:overflow-y-scroll lg:h-[38vh]'>
                 <GroupPayerListItem
                     getPersonalSettlement={getPersonalSettlement}
                 />
@@ -65,7 +60,7 @@ export default function GroupAllSettlementList ({ getPersonalSettlement }) {
 
             <button
                 onClick={handleOpen}
-                className='md:hidden btn-primary w-full'>
+                className='lg:hidden btn-primary w-full'>
                 結算
             </button>
             <Modal
