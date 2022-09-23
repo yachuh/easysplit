@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import { AttachMoney } from '@mui/icons-material'
+import { AttachMoney, ArrowCircleDown } from '@mui/icons-material'
+
 import { usePersonalSettlementData, useGroupAllSettlementData } from '../../context/context'
-import { SettlementPayerItem } from './SettlemenItem'
+// import { SettlementPayerItem } from './SettlemenItem'
+import userSettlement from '../../image/userSettlement.svg'
 
 export const ModalSettlement = ({ onClose, getPersonalSettlement }) => {
   const { groupAllSettlementData } = useGroupAllSettlementData()
@@ -128,5 +130,66 @@ export const ModalSettlement = ({ onClose, getPersonalSettlement }) => {
                 </button>
             </div>
         </>
+  )
+}
+
+export const ModalDetailSettlement = () => {
+  return (
+        <div className='w-full'>
+            <p className='modalSettlement-title'>結算</p>
+            <div className='flex justify-between items-center'>
+                <p className='font-bold text-colors-primary'>From</p>
+                <div className='flex gap-3 items-center'>
+                    <img
+                        className='settlement-userImg'
+                        src={userSettlement}
+                        alt='userSettlement'
+                    />
+                    <p className='font-bold text-black'>蔡一零</p>
+                </div>
+            </div>
+            <p className='text-gray-400 text-left'>支付</p>
+            <div className='flex justify-between items-center mb-4 gap-1'>
+                <p className='w-[25%] font-bold text-colors-primary'>NTD $</p>
+                <input
+                    id="account"
+                    className="inputInfo pl-4 w-[75%]"
+                    type="text"
+                    value='不能改'
+                />
+            </div>
+            <div className='py-4 text-center text-colors-primary'>
+                <ArrowCircleDown sx={{ fontSize: 30 }} />
+            </div>
+            <div className='flex justify-between items-center'>
+                <p className='font-bold text-colors-primary'>To</p>
+                <div className='flex gap-3 items-center'>
+                    <img
+                        className='settlement-userImg'
+                        src={userSettlement}
+                        alt='userSettlement'
+                    />
+                    <p className='font-bold text-black'>粥杰倫</p>
+                </div>
+            </div>
+            <p className='text-gray-400 text-left mb-2'>的收款方式</p>
+            <select id="area" className="inputInfo px-4 text-black">
+                <option value='0'>銀行轉帳</option>
+                <option value='1'>現金面交</option>
+                <option value='2'>LinePay</option>
+            </select>
+
+            <div className='w-full flex justify-between gap-4'>
+                <button
+                    // onClick={onClose}
+                    className="btn-outline w-full">
+                    取消
+                </button>
+                <button
+                    className="btn-primary w-full">
+                    確認
+                </button>
+            </div>
+        </div>
   )
 }

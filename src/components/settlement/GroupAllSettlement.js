@@ -1,9 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import { GroupAllSettlementDataContext, PersonalSettlementDataContext } from '../../context/context'
+import { GroupAllSettlementDataContext, PersonalSettlementDataContext, useGroupData } from '../../context/context'
 import { getGroupAllSettlementApi, getPersonalSettlementApi } from '../../utils/api'
 import GroupAllSettlementList from './GroupAllSettlementList'
 
 export default function GroupAllSettlement () {
+  const { groupData } = useGroupData()
+  const { groupId, groupName, imageUrl } = groupData
+  // console.log(groupData)
+  // console.log(groupId)
+
   const [groupAllSettlementData, setGroupAllSettlementData] = useState({
     settlementList: [],
     payerList: [],
@@ -16,9 +21,9 @@ export default function GroupAllSettlement () {
     notInvolvedList: []
   })
 
-  const getGroupAllSettlement = async () => {
+  const getGroupAllSettlement = async (groupId) => {
     try {
-      const { status: isSuccess, message, settlementList, payerList, ownerList, notInvolvedList } = await getGroupAllSettlementApi()
+      const { status: isSuccess, message, settlementList, payerList, ownerList, notInvolvedList } = await getGroupAllSettlementApi(groupId)
       if (!isSuccess) {
         console.log(message)
         return
@@ -34,6 +39,8 @@ export default function GroupAllSettlement () {
       console.log(error)
     }
   }
+
+  // console.log(groupAllSettlementData)
 
   const getPersonalSettlement = async (id) => {
     try {
@@ -53,8 +60,11 @@ export default function GroupAllSettlement () {
   }
 
   useEffect(() => {
-    getGroupAllSettlement()
-  }, [])
+    getGroupAllSettlement(groupId)
+    console.log('groupID :>> ', groupId)
+  }, [groupId])
+
+  if (groupAllSettlementData.payerList === undefined) return null
 
   return (
     <GroupAllSettlementDataContext.Provider

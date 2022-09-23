@@ -18,7 +18,7 @@ export default function SideNavGroup () {
 
   const getAllGroup = async () => {
     try {
-      const { status: isSuccess, message, group: groupList } = await getAllGroupApi()
+      const { status: isSuccess, message, groupList } = await getAllGroupApi()
       if (!isSuccess) {
         console.log(message)
         return
@@ -33,7 +33,7 @@ export default function SideNavGroup () {
   return (
     <div className="flex flex-col mb-10">
       {/* add group */}
-      <div className="flex items-center justify-between font-bold mb-12">
+      <div className="flex items-center justify-between font-bold mb-6">
         <h4>群組</h4>
         <div onClick={handleOpen} className="flex items-center gap-2 text-colors-primary cursor-pointer">
           <Add sx={{ fontSize: 20 }} />新增群組
@@ -48,7 +48,7 @@ export default function SideNavGroup () {
         </div>
       </div>
       {/* group list */}
-      <ul className="flex flex-col gap-5 w-full">
+      <ul className="flex flex-col gap-5 w-full md:h-[30vh] md:overflow-y-scroll">
         {
           groupList.map((group, i) => {
             return (

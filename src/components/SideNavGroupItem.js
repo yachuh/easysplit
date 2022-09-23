@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 export default function SideNavGroupItem ({ groupId, groupName, imageUrl }) {
   return (
-    <li className="ProfileSideGroup">
+    <li id={groupId} className="ProfileSideGroup">
       <img className="w-8" src={imageUrl} alt="GroupCoverPhoto"/>
         <Link to={`/group/${groupId}`}>{groupName}</Link>
     </li>

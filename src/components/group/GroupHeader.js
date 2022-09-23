@@ -13,7 +13,7 @@ export default function GroupHeader () {
         <h2 className="text-2xl">{groupName}</h2>
       </div>
       {/* group nav list */}
-      <ul className="flex w-full">
+      <ul className="flex w-full justify-between lg:justify-start mb-5">
         <li className="nav-item"><Link to={`/group/${groupId}/home`}>總覽</Link></li>
         <li className="nav-item"><Link to={`/group/${groupId}/member`}>成員</Link></li>
         <li className="nav-item"><Link to={`/group/${groupId}/setting`}>設定</Link></li>
