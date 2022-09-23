@@ -55,7 +55,7 @@ export default function GroupPage () {
 
   return (
     <AppLayout>
-      <GroupDataContext.Provider value={{ groupData, setGroupData, memberList, setMemberList, getGroupData }}>
+      <GroupDataContext.Provider value={{ groupData, setGroupData, memberList, setMemberList, getGroupData, getMemberList }}>
         <GroupHeader />
         <Outlet />
       </GroupDataContext.Provider>

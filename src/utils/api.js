@@ -72,6 +72,9 @@ const EDIT_GROUP_COVER = '/Group/EditGroupCover'
 const DELETE_GROUP = '/Group/DeleteGroup'
 const GET_ALL_MEMBER = '/Group/GetAllMember'
 const ADD_MEMBER = '/Group/AddMember'
+const CHANGE_MEMBER_ROLE = '/Group/ChangeMemberRole'
+const EDIT_MEMBER = '/Group/EditMember'
+const DELETE_MEMBER = '/Group/DeleteMember'
 
 // settle 相關
 const GET_ALL_SETTLEMENT = 'Settlement/GetAllSettlement'
@@ -189,6 +192,8 @@ export const resetPwdApi = (payload) => putApi(RESET_PWD_MAIL, toUpperCamelCase(
 
 // group 相關
 export const editGroupApi = (payload) => putApi(EDIT_GROUP, toUpperCamelCase(payload))
+export const editMemberApi = (payload) => putApi(EDIT_MEMBER, toUpperCamelCase(payload))
+export const changeMemberRoleApi = (memberId) => putApi(`${CHANGE_MEMBER_ROLE}/${memberId}`)
 
 /* DELETE */
 const deleteApi = async (url) => {
@@ -202,6 +207,7 @@ export const deleteCashApi = (param) => deleteApi(`${DELETE_CASH}/${param}`)
 
 // group 相關
 export const delGroupApi = (groupId) => deleteApi(`${DELETE_GROUP}/${groupId}`)
+export const delMemberApi = (memberId) => deleteApi(`${DELETE_MEMBER}/${memberId}`)
 
 // 5.X 須將後面數字改變數 ${param}，測試功能暫寫死
 export const deleteSettlemetApi = (param) => deleteApi(`${DELETE_SETTLEMENT}/${param}`)

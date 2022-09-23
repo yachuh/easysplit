@@ -6,10 +6,6 @@ export default function GroupMemberList () {
 
   return (
     <div>
-        <div className="p-4">
-            <p className="text- text-gray-500">共 {memberList.length} 位成員</p>
-        </div>
-
         <ul className="flex flex-col gap-[23px] p-4">
             {
                 memberList.map((member, i) => {
