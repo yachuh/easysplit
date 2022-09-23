@@ -1,17 +1,18 @@
 import React, { useState } from 'react'
-import { AttachMoney } from '@mui/icons-material'
-import userSettlement from '../../image/userSettlement.svg'
+import Modal from '@mui/material/Modal'
+import { AttachMoney, CloseOutlined } from '@mui/icons-material'
+import { ModalSettlement } from './ModalSettlement'
 
 export const SettlementPayerItem = ({ payerListItem }) => {
-  const { PayAmount, MemberId, PayerName, ReceivedAmount } = payerListItem
+  const { PayerImageUrl, PayAmount, MemberId, PayerName, ReceivedAmount } = payerListItem
 
   return (
         <div
             id={MemberId}
             className='flex gap-4 text-base'>
             <img
-                className='w-12'
-                src={userSettlement}
+                className='settlement-userImg'
+                src={PayerImageUrl}
                 alt='userSettlement'
             />
             <ul className='flex flex-col gap-1'>
@@ -31,12 +32,12 @@ export const SettlementPayerItem = ({ payerListItem }) => {
 }
 
 export const SettlementOwnerItem = ({ ownerListItem }) => {
-  const { OwnerName, MemberId, GaveAmount } = ownerListItem
+  const { OwnerImageUrl, OwnerName, MemberId, GaveAmount } = ownerListItem
   return (
         <div className='flex gap-4 text-base'>
             <img
-                className='w-12'
-                src={userSettlement}
+                className='settlement-userImg'
+                src={OwnerImageUrl}
                 alt='userSettlement'
             />
             <ul className='flex flex-col gap-1'>
@@ -56,18 +57,23 @@ export const SettlementOwnerItem = ({ ownerListItem }) => {
 }
 
 export const PersonalPayerItem = ({ settlementItem }) => {
-  const { ownerMemberId, owenerName, ownAmountresult, payerMemberId, payerName, status } = settlementItem
+  const { payerImageUrl, ownerMemberId, owenerName, ownAmountresult, payerMemberId, payerName, status } = settlementItem
+
+  const [open, setOpen] = useState(false)
+  const handleOpen = () => setOpen(true)
+  const handleClose = () => setOpen(false)
+
   return (
         <div
             id={payerMemberId}
-            className='flex gap-4 text-base'>
+            className='flex gap-4 text-base mb-4'>
             <img
-                className='w-12'
-                src={userSettlement}
+                className='settlement-userImg'
+                src={payerImageUrl}
                 alt='userSettlement'
             />
-            <div>
-                <ul className='flex items-center gap-3 mb-4'>
+            <div className='w-full'>
+                <ul className='flex items-center gap-3 mb-2'>
                     <li className='font-bold'>{payerName}</li>
                     <li className='text-xs'>應取回</li>
                     <li className='text-colors-fourth font-bold'><AttachMoney sx={{ fontSize: 16 }} /></li>
@@ -75,8 +81,28 @@ export const PersonalPayerItem = ({ settlementItem }) => {
                     <li className='text-xs'>從</li>
                     <li className='text-xs'>{owenerName}</li>
                 </ul>
-                <div className='flex gap-3.5'>
-                    <button className='w-full btn-outline p-2 text-xs'>結算</button>
+                <div
+                    onClick={handleOpen}
+                    className='flex gap-3.5'>
+                    <button
+                        className='w-full btn-outline p-2 text-xs'>
+                        結算
+                    </button>
+                    <Modal
+                        open={open}
+                        onClose={handleClose}
+                        className="modalCard-bg">
+                        <div
+                            onClick={(e) => e.stopPropagation()}
+                            className="modalCard">
+                            <div
+                                onClick={handleClose}
+                                className="modalCancel">
+                                <CloseOutlined sx={{ fontSize: 14 }} />
+                            </div>
+                            <ModalSettlement open={open} onClose={handleClose} />
+                        </div>
+                    </Modal>
                     <button className='w-full btn-outline p-2 text-xs'>發送提醒</button>
                 </div>
             </div>
@@ -85,18 +111,23 @@ export const PersonalPayerItem = ({ settlementItem }) => {
 }
 
 export const PersonalOwnerItem = ({ settlementItem }) => {
-  const { ownerMemberId, owenerName, ownAmountresult, payerMemberId, payerName, status } = settlementItem
+  const { ownerImageUrl, ownerMemberId, owenerName, ownAmountresult, payerMemberId, payerName, status } = settlementItem
+
+  const [open, setOpen] = useState(false)
+  const handleOpen = () => setOpen(true)
+  const handleClose = () => setOpen(false)
+
   return (
         <div
             id={ownerMemberId}
-            className='flex gap-4 text-base'>
+            className='flex gap-4 text-base mb-4'>
             <img
-                className='w-12'
-                src={userSettlement}
+                className='settlement-userImg'
+                src={ownerImageUrl}
                 alt='userSettlement'
             />
             <div>
-                <ul className='flex items-center gap-3 mb-4'>
+                <ul className='flex items-center gap-3 mb-2'>
                     <li className='font-bold'>{owenerName}</li>
                     <li className='text-xs'>應支付</li>
                     <li className='text-red-700 font-bold'><AttachMoney sx={{ fontSize: 16 }} /></li>
@@ -105,7 +136,26 @@ export const PersonalOwnerItem = ({ settlementItem }) => {
                     <li className='text-xs'>{payerName}</li>
                 </ul>
                 <div className='flex gap-3.5'>
-                    <button className='w-full btn-outline p-2 text-xs'>結算</button>
+                    <button
+                        onClick={handleOpen}
+                        className='w-full btn-outline p-2 text-xs'>
+                        結算
+                    </button>
+                    <Modal
+                        open={open}
+                        onClose={handleClose}
+                        className="modalCard-bg">
+                        <div
+                            onClick={(e) => e.stopPropagation()}
+                            className="modalCard">
+                            <div
+                                onClick={handleClose}
+                                className="modalCancel">
+                                <CloseOutlined sx={{ fontSize: 14 }} />
+                            </div>
+                            <ModalSettlement open={open} onClose={handleClose} />
+                        </div>
+                    </Modal>
                     <button className='w-full btn-outline p-2 text-xs'>發送提醒</button>
                 </div>
             </div>

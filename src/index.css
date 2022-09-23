@@ -374,7 +374,7 @@ code {
     @apply flex gap-9;
   }
 
-  .ProfilePayment-edit>li {
+  .ProfilePayment-edit > li {
     @apply cursor-pointer;
   }
 
@@ -406,7 +406,7 @@ code {
     @apply p-4 flex justify-center w-full gap-2 md:justify-start;
   }
 
-  .ProfilePayment-input:checked~.ProfilePayment-menu {
+  .ProfilePayment-input:checked ~ .ProfilePayment-menu {
     @apply max-h-[400px];
   }
 
@@ -424,11 +424,11 @@ code {
   }
 
   /* PrivacyPolicyPage */
-  .PrivacyPolicy-txt>p {
+  .PrivacyPolicy-txt > p {
     @apply mb-4 font-bold text-lg;
   }
 
-  .PrivacyPolicy-txt>span {
+  .PrivacyPolicy-txt > span {
     @apply block mb-5 pl-9;
   }
 
@@ -439,6 +439,14 @@ code {
   /* Settlement */
   .settlement-card {
     @apply w-full md:w-[43%] bg-white px-4 py-11 pb-4 md:rounded-[20px] md:border md:border-colors-primary;
+  }
+
+  .settlement-userImg {
+    @apply w-12 h-12;
+  }
+
+  .modalSettlement-title {
+    @apply w-full font-bold pb-2 border-b border-gray-300 text-center mb-4;
   }
 
   /* Group */
@@ -460,7 +468,7 @@ code {
   }
 
   .nav-item {
-    @apply w-20 h-[39px] p-2 font-bold text-center hover:text-colors-primary hover:border-b-2 hover:border-colors-primary ;
+    @apply w-20 h-[39px] p-2 font-bold text-center hover:text-colors-primary hover:border-b-2 hover:border-colors-primary;
   }
 
   .member-sm {
@@ -468,7 +476,7 @@ code {
   }
 
   .button-lg {
-    @apply w-[194px] h-10 p-2 text-white text-center bg-colors-primary rounded-[4px] hover:bg-colors-sixth ;
+    @apply w-[194px] h-10 p-2 text-white text-center bg-colors-primary rounded-[4px] hover:bg-colors-sixth;
   }
 
   .button-icon-lg {
@@ -480,7 +488,7 @@ code {
     @apply flex items-center justify-between px-4 py-2;
   }
 
-  .member-item-user{
+  .member-item-user {
     @apply flex items-center;
   }
 
@@ -594,7 +602,7 @@ code {
   align-items: center !important;
 }
 
-.css-6hp17o-MuiList-root-MuiMenu-list li+li {
+.css-6hp17o-MuiList-root-MuiMenu-list li + li {
   border-top: 1px solid rgba(31, 54, 61, 1) !important;
   padding-top: 16px !important;
 }
