@@ -56,3 +56,15 @@ export const PersonalSettlementDataContext = createContext({
 export const usePersonalSettlementData = () => {
   return useContext(PersonalSettlementDataContext)
 }
+
+/* Settlement 頁的 personalSettlementData */
+/* 5.1.3 檢視個人(登入會員本人)待結算金額(尚未結清的費用) */
+export const selfSettlementDataContext = createContext({
+  userMemberId: null,
+  settlement: [],
+  notInvolved: []
+})
+
+export const useSelfSettlementData = () => {
+  return useContext(selfSettlementDataContext)
+}

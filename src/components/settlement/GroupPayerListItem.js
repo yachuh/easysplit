@@ -31,7 +31,7 @@ export default function GroupPayerListItem ({ getPersonalSettlement }) {
 
   return (
     <>
-      {payerList.map((payerListItem, i) => {
+      {payerList?.map((payerListItem, i) => {
         const { MemberId } = payerListItem
         return (
           <Accordion
