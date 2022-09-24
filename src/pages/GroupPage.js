@@ -18,15 +18,22 @@ export default function GroupPage () {
 
   // Runs everytime after groupId changes
   useEffect(() => {
-    getGroupData()
-    getMemberList()
-    getAllExpense()
-    getAllSettled()
-    console.log('groupData', groupData)
-    console.log('memberList', memberList)
-    console.log('expenseData', expenseData)
-    console.log('settledData', settledData)
-  }, [])
+    async function fetchData () {
+      await getGroupData()
+      await getMemberList()
+      await getAllExpense()
+      await getAllSettled()
+    }
+    fetchData()
+    // getGroupData()
+    // getMemberList()
+    // getAllExpense()
+    // getAllSettled()
+    console.log('groupData:::', groupData)
+    console.log('memberList:::', memberList)
+    console.log('expenseData:::', expenseData)
+    console.log('settledData:::', settledData)
+  }, [groupId])
 
   const getMemberList = async () => {
     try {

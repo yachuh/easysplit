@@ -2,9 +2,10 @@ import { useEffect, useState } from 'react'
 import { useGroupData } from '../../context/context'
 import { getExpenseTypeApi } from '../../utils/api'
 import { PaymentRecordItem, SettledRecordItem } from './RecordListItem'
+import { Add } from '@mui/icons-material'
 
 export default function PaymentRecordList () {
-  const { groupData, expenseData, settledData } = useGroupData()
+  const { expenseData, settledData } = useGroupData()
   const [expenseTypeList, setExpenseTypeList] = useState([])
 
   const getExpenseType = async () => {
@@ -21,17 +22,16 @@ export default function PaymentRecordList () {
   }, [])
 
   return (
-    <div className='settlement-card w-full'>
-      <div className='flex justify-between mb-9 font-bold text-black'>
-        <h4>
-          費用
-        </h4>
+    <div className="settlement-card w-full">
+      <div className="flex justify-between mb-9 font-bold text-black">
+        <h3 className="text-2xl font-medium">費用</h3>
         <button
-          className='hidden lg:block btn-primary '>
+          className="hidden lg:block btn-primary">
+          <Add sx={{ fontSize: 20 }} />
           新增費用
         </button>
       </div>
-      <ul className="flex flex-col gap-[23px] p-4 overflow-scroll-view md:h-[240px] md:overflow-y-auto lg:overflow-y-scroll lg:h-[38vh]">
+      <ul className="flex flex-col gap-[23px] p-4 h-[280px] overflow-scroll md:h-[240px] md:overflow-y-auto lg:overflow-y-scroll lg:h-[38vh]">
         {
           // expense record
           expenseData.map((item, i) => {
