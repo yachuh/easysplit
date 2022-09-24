@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { CloseOutlined } from '@mui/icons-material'
 import Modal from '@mui/material/Modal'
 import 'react-datepicker/dist/react-datepicker.css'
@@ -8,8 +8,15 @@ import { ModalDetailSettlement } from './ModalDetailSettlement'
 import { SelfSettlementPayerItem, SelfSettlementOwnerItem } from './SettlemenItem'
 
 export default function ModalSettlement ({ onClose, getPersonalSettlement }) {
-  const { selfSettlementData } = useSelfSettlementData()
+  const { selfSettlementData, setSelfSettlementData } = useSelfSettlementData()
   const { userMemberId, settlement } = selfSettlementData
+
+  const [settlementClickData, setSettlementClickData] = useState(
+    {
+      id: '',
+      dataset: ''
+    }
+  )
 
   const { groupData } = useGroupData()
   const { groupName } = groupData
@@ -20,11 +27,30 @@ export default function ModalSettlement ({ onClose, getPersonalSettlement }) {
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
 
+  const settlementClick = (e) => {
+    console.log('e :>> ', e)
+    console.log('e :>> ', e.target.id)
+    console.log('e :>> ', e.target.dataset.tab)
+    console.log('e.target.className :>> ', e.target.className)
+    // if ((e.target.className !== 'cursor-pointer') && (e.target.nodeName !== 'DIV')) {
+    //   return
+    // }
+    setSettlementClickData(
+      {
+        ...settlementClickData,
+        id: e.target.id,
+        dataset: e.target.dataset.tab
+      }
+    )
+  }
+
+  console.log('settlementClickData:>> ', settlementClickData)
+
   const mapSettlementItem = settlement.map((selfSettlementItem, i) => {
     const { payerMemberId } = selfSettlementItem
 
     return (
-      (payerMemberId !== userMemberId) ? <SelfSettlementPayerItem key={i} selfSettlementItem={selfSettlementItem} /> : <SelfSettlementOwnerItem key={i} selfSettlementItem={selfSettlementItem} />
+      (payerMemberId !== userMemberId) ? <SelfSettlementOwnerItem key={i} selfSettlementItem={selfSettlementItem} /> : <SelfSettlementPayerItem key={i} selfSettlementItem={selfSettlementItem} />
     )
   })
 
@@ -41,7 +67,9 @@ export default function ModalSettlement ({ onClose, getPersonalSettlement }) {
                 placeholder={groupName}
                 disabled="disabled"
             />
-            <div className='overflow-scroll-view h-[190px] mb-8 w-full border border-colors-primary rounded'>
+            <div
+                onClick={settlementClick}
+                className='overflow-scroll-view h-[190px] mb-8 w-full border border-colors-primary rounded useEven'>
                 {mapSettlementItem}
             </div>
             <div className='w-full flex justify-between gap-4'>

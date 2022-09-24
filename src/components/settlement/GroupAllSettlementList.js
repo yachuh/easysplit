@@ -55,7 +55,7 @@ export default function GroupAllSettlementList ({ getPersonalSettlement }) {
 
   return (
     <selfSettlementDataContext.Provider value={{ selfSettlementData, setSelfSettlementData }}>
-      <div className='settlement-card'>
+      <div className='settlement-card w-full'>
         <div className='flex justify-between mb-9 font-bold text-black'>
           <h4>
             結算明細

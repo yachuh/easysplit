@@ -33,7 +33,7 @@ export const ModalDetailSettlement = () => {
   const mapPaymentType = paymentTypeData.paymentType.map((paymentType, i) => {
     const { paymentMethod } = paymentType
 
-    return <option>{paymentMethod}</option>
+    return <option key={i}>{paymentMethod}</option>
   })
 
   return (

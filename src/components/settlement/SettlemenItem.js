@@ -165,22 +165,26 @@ export const PersonalOwnerItem = ({ settlementItem }) => {
 
 export const SelfSettlementPayerItem = ({ selfSettlementItem }) => {
   const {
+    ownerMemberId,
+    owenerName,
     ownAmountresult,
+    ownerImageUrl,
     payerMemberId,
     payerName,
     payerImageUrl
   } = selfSettlementItem
   return (
         <div
-            id={payerMemberId}
+            id={ownerMemberId}
+            data-tab={payerName}
             className='flex w-full justify-between text-base pt-2 pb-3 px-4 font-bold cursor-pointer hover:bg-colors-fifth/20' >
             <div className='flex gap-3 items-center'>
                 <img
                     className='settlement-userImg w-10 h-10'
-                    src={payerImageUrl}
+                    src={ownerImageUrl}
                     alt='userSettlement'
                 />
-                <p>{payerName}</p>
+                <p>{owenerName}</p>
             </div>
 
             <ul className='flex flex-col items-end'>
@@ -202,6 +206,9 @@ export const SelfSettlementPayerItem = ({ selfSettlementItem }) => {
 
 export const SelfSettlementOwnerItem = ({ selfSettlementItem }) => {
   const {
+    payerMemberId,
+    payerName,
+    payerImageUrl,
     ownerMemberId,
     owenerName,
     ownerImageUrl,
@@ -209,20 +216,21 @@ export const SelfSettlementOwnerItem = ({ selfSettlementItem }) => {
   } = selfSettlementItem
   return (
         <div
-            id={ownerMemberId}
+            id={payerMemberId}
+            data-tab={owenerName}
             className='flex w-full justify-between text-base pt-2 pb-3 px-4 font-bold cursor-pointer hover:bg-colors-fifth/20'>
             <div className='flex gap-3 items-center'>
                 <img
                     className='settlement-userImg'
-                    src={ownerImageUrl}
+                    src={payerImageUrl}
                     alt='userSettlement'
                 />
-                <p>{owenerName}</p>
+                <p>{payerName}</p>
             </div>
 
             <ul className='flex flex-col items-end'>
                 <li>
-                    需支付你
+                    你需支付
                 </li>
                 <li>
                     <span className='ml-3 mr-2 text-red-700'>
