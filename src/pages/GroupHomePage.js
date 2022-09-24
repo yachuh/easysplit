@@ -7,7 +7,7 @@ export default function GroupHomePage () {
   const { groupData } = useGroupData()
   console.log(groupData)
   return (
-    <div className='flex flex-col gap-10 w-full lg:flex-row lg:gap-[5%]'>
+    <div className='flex flex-col gap-10 w-full justify-between lg:flex-row lg:gap-[2%] lg:h-[60vh]'>
       <RecordList />
       <GroupAllSettlement />
     </div>

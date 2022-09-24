@@ -21,8 +21,17 @@ export default function PaymentRecordList () {
   }, [])
 
   return (
-    <div>
-      <ul className="flex flex-col gap-[23px] p-4">
+    <div className='settlement-card w-full'>
+      <div className='flex justify-between mb-9 font-bold text-black'>
+        <h4>
+          費用
+        </h4>
+        <button
+          className='hidden lg:block btn-primary '>
+          新增費用
+        </button>
+      </div>
+      <ul className="flex flex-col gap-[23px] p-4 overflow-scroll-view md:h-[240px] md:overflow-y-auto lg:overflow-y-scroll lg:h-[38vh]">
         {
           // expense record
           expenseData.map((item, i) => {
