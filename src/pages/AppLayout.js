@@ -25,7 +25,6 @@ export default function AppLayout ({ children }) {
         account: userdata.account,
         imageUrl: userdata.imageUrl
       }))
-      console.log(userData)
     } catch (error) {
       console.log(error)
     }
@@ -33,6 +32,7 @@ export default function AppLayout ({ children }) {
 
   useEffect(() => {
     getUserProfile()
+    console.log('userData', userData)
   }, [])
 
   return (
