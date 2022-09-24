@@ -123,3 +123,19 @@ export const DeletePayment = ({ onClose, onClick }) => {
         </>
   )
 }
+
+export const ModalSettlementSuccess = ({ onClose }) => {
+  return (
+        <>
+          <div className="flex flex-col items-center gap-4 mb-4">
+              <img className="w-[45px]" src={successIcon} alt="successIcon" />
+              <h4 className="font-bold">太棒了！</h4>
+              <p className='text-center'>恭喜你結算成功，<br/>對方也會收到你的結算通知！</p>
+          </div>
+          <a href="/login" className="btn-primary w-full">
+              查看紀錄
+          </a>
+        </>
+
+  )
+}

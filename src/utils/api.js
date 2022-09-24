@@ -86,6 +86,7 @@ const GET_SETTLED_DETAIL = 'Settlement/GetSettledDetail'
 const DELETE_SETTLEMENT = 'Settlement/DeleteSettlemet'
 const GET_REMINDER = 'Settlement/GetReminder'
 const SEND_REMINDER = 'Settlement/SendReminder'
+const GET_SELF_SETTLEMENT = 'Settlement/GetSelfSettlement'
 
 /**
  * input an object with any keys
@@ -175,6 +176,7 @@ export const getPaymentTypeApi = () => getApi(GET_PAYMENT_TYPE)
 export const getAllSettledApi = (param) => getApi(`${GET_ALL_SETTLED}/${param}`)
 export const getSettledDetailApi = (param) => getApi(`${GET_SETTLED_DETAIL}${param}`)
 export const getReminderApi = (param) => getApi(`${GET_REMINDER}/${param}`)
+export const getSelfSettlementApi = (param) => getApi(`${GET_SELF_SETTLEMENT}/${param}`)
 
 // Group 相關
 export const getAllGroupApi = () => getApi(GET_ALL_GROUP)

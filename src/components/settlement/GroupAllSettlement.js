@@ -5,7 +5,7 @@ import GroupAllSettlementList from './GroupAllSettlementList'
 
 export default function GroupAllSettlement () {
   const { groupData } = useGroupData()
-  const { groupId, groupName, imageUrl } = groupData
+  const { groupId } = groupData
   // console.log(groupData)
   // console.log(groupId)
 
@@ -40,8 +40,6 @@ export default function GroupAllSettlement () {
     }
   }
 
-  // console.log(groupAllSettlementData)
-
   const getPersonalSettlement = async (id) => {
     try {
       const { status: isSuccess, message, settlement, notInvolvedList } = await getPersonalSettlementApi(id)
@@ -60,13 +58,16 @@ export default function GroupAllSettlement () {
   }
 
   useEffect(() => {
-    getGroupAllSettlement(groupId)
-    console.log('groupID :>> ', groupId)
+    if (groupId) {
+      getGroupAllSettlement(groupId)
+      console.log('groupID :>> ', groupId)
+    }
   }, [groupId])
 
-  if (groupAllSettlementData.payerList === undefined) return null
+  // if (groupAllSettlementData.payerList === undefined) return null
 
   return (
+    { groupAllSettlementData } &&
     <GroupAllSettlementDataContext.Provider
       value={{ groupAllSettlementData, setGroupAllSettlementData }}>
       <PersonalSettlementDataContext.Provider

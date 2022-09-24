@@ -16,12 +16,12 @@ import Modal from '@mui/material/Modal'
 // import AccordionDetails from '@mui/material/AccordionDetails'
 // import AccordionSummary from '@mui/material/AccordionSummary'
 // import Typography from '@mui/material/Typography'
-import { ModalResetPwd, ModalPwdSuccess, ModalVerifySignup } from '../components/ModalFeedback'
+import { ModalResetPwd, ModalPwdSuccess, ModalVerifySignup, ModalSettlementSuccess } from '../components/ModalFeedback'
 import {
   CloseOutlined,
   Add
 } from '@mui/icons-material'
-import { ModalDetailSettlement } from '../components/settlement/ModalSettlement'
+import { ModalDetailSettlement } from '../components/settlement/ModalDetailSettlement'
 
 import GroupAllSettlement from '../components/settlement/GroupAllSettlement'
 
@@ -361,6 +361,28 @@ const Nav = () => {
             <ModalDetailSettlement
               open={settleopen}
               onClose={settleHandleClose} />
+          </div>
+        </Modal>
+      </li>
+
+      <li>
+        <div className="cursor-pointer" onClick={handleOpen2}>結算成功</div>
+        <Modal
+          open={open2}
+          onClose={handleClose2}
+          className='modalCard-bg'
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className='modalCard'>
+            <div
+              onClick={handleClose2}
+              className="modalCancel">
+              <CloseOutlined sx={{ fontSize: 14 }} />
+            </div>
+            <ModalSettlementSuccess
+              open={open}
+              onClose={handleClose2} />
           </div>
         </Modal>
       </li>

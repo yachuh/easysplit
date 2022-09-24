@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Modal from '@mui/material/Modal'
 import { AttachMoney, CloseOutlined } from '@mui/icons-material'
-import { ModalSettlement } from './ModalSettlement'
+import ModalSettlement from './ModalSettlement'
 
 export const SettlementPayerItem = ({ payerListItem }) => {
   const { PayerImageUrl, PayAmount, MemberId, PayerName, ReceivedAmount } = payerListItem
@@ -159,6 +159,80 @@ export const PersonalOwnerItem = ({ settlementItem }) => {
                     <button className='w-full btn-outline p-2 text-xs'>發送提醒</button>
                 </div>
             </div>
+        </div>
+  )
+}
+
+export const SelfSettlementPayerItem = ({ selfSettlementItem }) => {
+  const {
+    ownAmountresult,
+    payerMemberId,
+    payerName,
+    payerImageUrl
+  } = selfSettlementItem
+  return (
+        <div
+            id={payerMemberId}
+            className='flex w-full justify-between text-base pt-2 pb-3 px-4 font-bold cursor-pointer hover:bg-colors-fifth/20' >
+            <div className='flex gap-3 items-center'>
+                <img
+                    className='settlement-userImg w-10 h-10'
+                    src={payerImageUrl}
+                    alt='userSettlement'
+                />
+                <p>{payerName}</p>
+            </div>
+
+            <ul className='flex flex-col items-end'>
+                <li>
+                    需支付你
+                </li>
+                <li>
+                    <span className='ml-3 mr-2 text-colors-fourth'>
+                        <AttachMoney sx={{ fontSize: 16 }} />
+                    </span>
+                    <span className='text-colors-fourth'>
+                        {ownAmountresult}
+                    </span>
+                </li>
+            </ul>
+        </div>
+  )
+}
+
+export const SelfSettlementOwnerItem = ({ selfSettlementItem }) => {
+  const {
+    ownerMemberId,
+    owenerName,
+    ownerImageUrl,
+    ownAmountresult
+  } = selfSettlementItem
+  return (
+        <div
+            id={ownerMemberId}
+            className='flex w-full justify-between text-base pt-2 pb-3 px-4 font-bold cursor-pointer hover:bg-colors-fifth/20'>
+            <div className='flex gap-3 items-center'>
+                <img
+                    className='settlement-userImg'
+                    src={ownerImageUrl}
+                    alt='userSettlement'
+                />
+                <p>{owenerName}</p>
+            </div>
+
+            <ul className='flex flex-col items-end'>
+                <li>
+                    需支付你
+                </li>
+                <li>
+                    <span className='ml-3 mr-2 text-red-700'>
+                        <AttachMoney sx={{ fontSize: 16 }} />
+                    </span>
+                    <span className='text-red-700'>
+                        {ownAmountresult}
+                    </span>
+                </li>
+            </ul>
         </div>
   )
 }

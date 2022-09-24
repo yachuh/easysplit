@@ -30,7 +30,7 @@ export default function GroupOwnerListItem ({ getPersonalSettlement }) {
 
   return (
     <>
-      {ownerList.map((ownerListItem, i) => {
+      {ownerList?.map((ownerListItem, i) => {
         const { MemberId } = ownerListItem
         return (
           <Accordion
