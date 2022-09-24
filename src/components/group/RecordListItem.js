@@ -4,12 +4,13 @@ export function PaymentRecordItem ({ expenseTypeList, expenseId, item, cost, cre
   const toExpenseTypeIcon = (expenseType) => {
     // get expense type imageUrl
     const filterExpenseTypeList = expenseTypeList.filter(type => {
-      const { id, expenseMethod, imageUrl } = type
+      const { expenseMethod, imageUrl } = type
       if (expenseMethod === expenseType) {
         return imageUrl
       }
     })
-    return (filterExpenseTypeList[0].imageUrl)
+    // console.log(filterExpenseTypeList[0]?.imageUrl)
+    return (filterExpenseTypeList[0]?.imageUrl)
   }
 
   // turn time into date formnat, e.g. Sep 23

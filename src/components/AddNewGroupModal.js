@@ -1,10 +1,13 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import AddPhotoAlternateOutlinedIcon from '@mui/icons-material/AddPhotoAlternateOutlined'
 import { addGroupApi, addGroupCoverApi } from '../utils/api'
 
 export default function AddNewGroupModal ({ onClose }) {
   const [image, setImage] = useState({ preview: '', raw: '' })
+
+  const navigate = useNavigate()
 
   const {
     register,
@@ -53,13 +56,15 @@ export default function AddNewGroupModal ({ onClose }) {
     data.fileName = fileName
     console.log('form data', data)
     try {
-      const { status: isSuccess, message } = await addGroupApi(data)
+      const { status: isSuccess, message, groupDetail } = await addGroupApi(data)
+      const { groupId } = groupDetail
       console.log(data)
       if (!isSuccess) {
         console.log(message)
         return
       }
-      console.log('addGroupApi:::', message)
+      console.log('addGroupApi:::', message, `group detail:::${groupDetail}`)
+      navigate(`/group/${groupId}`)
       onClose()
     } catch (error) {
       console.log(error)

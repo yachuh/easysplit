@@ -1,5 +1,3 @@
-import { useState } from 'react'
-
 export default function GroupMemberListItem ({ memberId, memberName, userId, imageUrl, email, setNewMemberId }) {
   const handleOnClick = (e) => {
     setNewMemberId(e.currentTarget.id)
