@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Outlet, useParams } from 'react-router-dom'
 import { GroupDataContext } from '../context/context'
-import { getAGroupApi, getAllMemberApi } from '../utils/api'
+import { getAGroupApi, getAllMemberApi, getAllExpenseApi, getAllSettledApi } from '../utils/api'
 import AppLayout from './AppLayout'
 import GroupHeader from '../components/group/GroupHeader'
 
@@ -13,14 +13,20 @@ export default function GroupPage () {
     imageUrl: ''
   })
   const [memberList, setMemberList] = useState([])
+  const [expenseData, setExpenseData] = useState([])
+  const [settledData, setSettledData] = useState([])
 
   // Runs everytime after groupId changes
   useEffect(() => {
     getGroupData()
     getMemberList()
+    getAllExpense()
+    getAllSettled()
     console.log('groupData', groupData)
     console.log('memberList', memberList)
-  }, [groupId])
+    console.log('expenseData', expenseData)
+    console.log('settledData', settledData)
+  }, [])
 
   const getMemberList = async () => {
     try {
@@ -53,9 +59,49 @@ export default function GroupPage () {
     }
   }
 
+  const getAllExpense = async () => {
+    try {
+      const { status: isSuccess, message, expenseData } = await getAllExpenseApi(groupId)
+      if (!isSuccess) {
+        console.log(message)
+        return
+      }
+      setExpenseData(expenseData)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const getAllSettled = async () => {
+    try {
+      const { status: isSuccess, message, settledArrayList: settledData } = await getAllSettledApi(groupId)
+      if (!isSuccess) {
+        console.log(message)
+        return
+      }
+      setSettledData(settledData)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <AppLayout>
-      <GroupDataContext.Provider value={{ groupData, setGroupData, memberList, setMemberList, getGroupData, getMemberList }}>
+      <GroupDataContext.Provider
+        value={{
+          groupData,
+          setGroupData,
+          memberList,
+          setMemberList,
+          expenseData,
+          setExpenseData,
+          settledData,
+          setSettledData,
+          getGroupData,
+          getMemberList,
+          getAllExpense,
+          getAllSettled
+        }}>
         <GroupHeader />
         <Outlet />
       </GroupDataContext.Provider>

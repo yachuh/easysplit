@@ -76,6 +76,10 @@ const CHANGE_MEMBER_ROLE = '/Group/ChangeMemberRole'
 const EDIT_MEMBER = '/Group/EditMember'
 const DELETE_MEMBER = '/Group/DeleteMember'
 
+// expense 相關
+const GET_EXPENSE_TYPE = '/Expense/GetExpenseType'
+const GET_ALL_EXPENSE = '/Expense/GetAllExpense'
+
 // settle 相關
 const GET_ALL_SETTLEMENT = 'Settlement/GetAllSettlement'
 const GET_SETTLEMENT = 'Settlement/GetSettlement'
@@ -173,15 +177,19 @@ export const getPaymentAllApi = () => getApi(GETALL)
 export const getGroupAllSettlementApi = (param) => getApi(`${GET_ALL_SETTLEMENT}/${param}`)
 export const getPersonalSettlementApi = (param) => getApi(`${GET_SETTLEMENT}/${param}`)
 export const getPaymentTypeApi = () => getApi(GET_PAYMENT_TYPE)
-export const getAllSettledApi = (param) => getApi(`${GET_ALL_SETTLED}/${param}`)
 export const getSettledDetailApi = (param) => getApi(`${GET_SETTLED_DETAIL}${param}`)
 export const getReminderApi = (param) => getApi(`${GET_REMINDER}/${param}`)
 export const getSelfSettlementApi = (param) => getApi(`${GET_SELF_SETTLEMENT}/${param}`)
+export const getAllSettledApi = (groupId) => getApi(`${GET_ALL_SETTLED}/${groupId}`)
 
-// Group 相關
+// group 相關
 export const getAllGroupApi = () => getApi(GET_ALL_GROUP)
 export const getAGroupApi = (groupId) => getApi(`${GET_A_GROUP}/${groupId}`)
 export const getAllMemberApi = (groupId) => getApi(`${GET_ALL_MEMBER}/${groupId}`)
+
+// expense 相關
+export const getExpenseTypeApi = () => getApi(GET_EXPENSE_TYPE)
+export const getAllExpenseApi = (groupId) => getApi(`${GET_ALL_EXPENSE}/${groupId}`)
 
 /* PUT */
 const putApi = async (url, payload) => {
