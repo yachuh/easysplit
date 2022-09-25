@@ -23,7 +23,6 @@ export default function GroupAllSettlementList ({ getPersonalSettlement, getGrou
 
   const [openMd, setOpenMd] = useState(false)
   const handleOpenMd = () => setOpenMd(true)
-
   const handleCloseMd = () => setOpenMd(false)
 
   const getSelfSettlement = async (groupId) => {
@@ -81,12 +80,14 @@ export default function GroupAllSettlementList ({ getPersonalSettlement, getGrou
             </div>
           </Modal>
         </div>
-        <div className='overflow-scroll-view md:h-[240px] md:overflow-y-auto lg:overflow-y-scroll lg:h-[38vh]'>
+        <div className='overflow-scroll-view md:h-[240px] md:overflow-y-auto lg:overflow-y-scroll lg:h-[38vh'>
           <GroupPayerListItem
             getPersonalSettlement={getPersonalSettlement}
+            getGroupAllSettlement={getGroupAllSettlement}
           />
           <GroupOwnerListItem
             getPersonalSettlement={getPersonalSettlement}
+            getGroupAllSettlement={getGroupAllSettlement}
           />
         </div>
 
@@ -107,7 +108,12 @@ export default function GroupAllSettlementList ({ getPersonalSettlement, getGrou
               className="modalCancel">
               <CloseOutlined sx={{ fontSize: 14 }} />
             </div>
-            <ModalSettlement open={open} onClose={handleClose} />
+            <ModalSettlement
+              open={open}
+              onClose={handleClose}
+              getPersonalSettlement={getPersonalSettlement}
+              getGroupAllSettlement={getGroupAllSettlement}
+            />
           </div>
         </Modal>
       </div>

@@ -7,26 +7,26 @@ import { getPaymentTypeApi, settleUpApi } from '../../utils/api'
 import { useSettlementClickData, useGroupData } from '../../context/context'
 import { ModalSettlementSuccess } from '../ModalFeedback'
 
-export const ModalDetailSettlement = ({ onClose, getPersonalSettlement, getGroupAllSettlement }) => {
+export const ModalSingelDetailSettlement = ({ onClose, getPersonalSettlement, getGroupAllSettlement }) => {
   const [startDate, setStartDate] = useState(new Date())
 
   const { groupData } = useGroupData()
   const { groupId } = groupData
 
   const { settlementClickData } = useSettlementClickData()
-  const { ownerMemberId, owenerName, ownerImageUrl, ownAmountresult, payerMemberId, payerName, payerImageUrl } = settlementClickData[0]
+  const { ownerMemberId, owenerName, ownerImageUrl, ownAmountresult, payerMemberId, payerName, payerImageUrl } = settlementClickData
 
   const [paymentTypeData, setPaymentTypeData] = useState({
     paymentType: []
   })
 
-  const [paymentTypeValue, setPaymentTypeValue] = useState(null)
+  const [paymentTypeValue, setPaymentTypeValue] = useState(0)
   const [textValue, setTextValue] = useState('')
 
-  const [openSuccess, setOpenSuccess] = useState(false)
+  const [open, setOpen] = useState(false)
 
-  const handleOpenSuccess = () => setOpenSuccess(true)
-  const handleCloseSuccess = () => setOpenSuccess(false)
+  const handleOpen = () => setOpen(true)
+  const handleClose = () => setOpen(false)
 
   const getPaymentType = async () => {
     try {
@@ -87,7 +87,7 @@ export const ModalDetailSettlement = ({ onClose, getPersonalSettlement, getGroup
 
   const clickSettleUp = () => {
     settleUp(settleUpData)
-    handleOpenSuccess()
+    handleOpen()
   }
 
   useEffect(() => {
@@ -159,7 +159,9 @@ export const ModalDetailSettlement = ({ onClose, getPersonalSettlement, getGroup
             onChange={textValueChange}
             className="inputInfo pl-2 h-[40px]"
             placeholder="備註或其他"
-            value={textValue} />
+            value={textValue}>
+            {textValue}
+          </textarea>
         </div>
         <div className='w-1/2'>
           <label
@@ -188,20 +190,20 @@ export const ModalDetailSettlement = ({ onClose, getPersonalSettlement, getGroup
           確認
         </button>
         <Modal
-          open={openSuccess}
-          onClose={handleCloseSuccess}
+          open={open}
+          onClose={handleClose}
           className='modalCard-bg'>
           <div
             onClick={(e) => e.stopPropagation()}
             className='modalCard'>
             <div
-              onClick={handleCloseSuccess}
+              onClick={handleClose}
               className="modalCancel">
               <CloseOutlined sx={{ fontSize: 14 }} />
             </div>
             <ModalSettlementSuccess
-              open={openSuccess}
-              onClose={handleCloseSuccess} />
+              open={open}
+              onClose={handleClose} />
           </div>
         </Modal>
       </div>

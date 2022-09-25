@@ -3,6 +3,7 @@ import Modal from '@mui/material/Modal'
 import { AttachMoney, CloseOutlined } from '@mui/icons-material'
 import { useSettlementClickData, useSelfSettlementData } from '../../context/context'
 import ModalSettlement from './ModalSettlement'
+import { ModalSingelDetailSettlement } from './ModalSingelDetailSettlement'
 
 export const SettlementPayerItem = ({ payerListItem }) => {
   const { PayerImageUrl, MemberId, PayerName, ReceivedAmount } = payerListItem
@@ -58,12 +59,19 @@ export const SettlementOwnerItem = ({ ownerListItem }) => {
   )
 }
 
-export const PersonalPayerItem = ({ settlementItem }) => {
+export const PersonalPayerItem = ({ settlementItem, getPersonalSettlement, getGroupAllSettlement }) => {
   const { payerImageUrl, owenerName, ownAmountresult, payerMemberId, payerName } = settlementItem
+
+  const { settlementClickData, setSettlementClickData } = useSettlementClickData()
 
   const [open, setOpen] = useState(false)
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
+
+  const settlementClick = () => {
+    setSettlementClickData(settlementItem)
+    handleOpen()
+  }
 
   return (
         <div
@@ -84,9 +92,9 @@ export const PersonalPayerItem = ({ settlementItem }) => {
                     <li className='text-xs'>{owenerName}</li>
                 </ul>
                 <div
-                    onClick={handleOpen}
                     className='flex gap-3.5'>
                     <button
+                        onClick={settlementClick}
                         className='w-full btn-outline p-2 text-xs'>
                         結算
                     </button>
@@ -102,7 +110,12 @@ export const PersonalPayerItem = ({ settlementItem }) => {
                                 className="modalCancel">
                                 <CloseOutlined sx={{ fontSize: 14 }} />
                             </div>
-                            <ModalSettlement open={open} onClose={handleClose} />
+                            <ModalSingelDetailSettlement
+                                open={open}
+                                onClose={handleClose}
+                                getPersonalSettlement={getPersonalSettlement}
+                                getGroupAllSettlement={getGroupAllSettlement}
+                            />
                         </div>
                     </Modal>
                     <button className='w-full btn-outline p-2 text-xs'>發送提醒</button>
@@ -112,12 +125,19 @@ export const PersonalPayerItem = ({ settlementItem }) => {
   )
 }
 
-export const PersonalOwnerItem = ({ settlementItem }) => {
+export const PersonalOwnerItem = ({ settlementItem, getPersonalSettlement, getGroupAllSettlement }) => {
   const { ownerImageUrl, ownerMemberId, owenerName, ownAmountresult, payerName } = settlementItem
+
+  const { settlementClickData, setSettlementClickData } = useSettlementClickData()
 
   const [open, setOpen] = useState(false)
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
+
+  const settlementClick = () => {
+    setSettlementClickData(settlementItem)
+    handleOpen()
+  }
 
   return (
         <div
@@ -139,7 +159,7 @@ export const PersonalOwnerItem = ({ settlementItem }) => {
                 </ul>
                 <div className='flex gap-3.5'>
                     <button
-                        onClick={handleOpen}
+                        onClick={settlementClick}
                         className='w-full btn-outline p-2 text-xs'>
                         結算
                     </button>
@@ -155,7 +175,12 @@ export const PersonalOwnerItem = ({ settlementItem }) => {
                                 className="modalCancel">
                                 <CloseOutlined sx={{ fontSize: 14 }} />
                             </div>
-                            <ModalSettlement open={open} onClose={handleClose} />
+                            <ModalSingelDetailSettlement
+                                open={open}
+                                onClose={handleClose}
+                                getPersonalSettlement={getPersonalSettlement}
+                                getGroupAllSettlement={getGroupAllSettlement}
+                            />
                         </div>
                     </Modal>
                     <button className='w-full btn-outline p-2 text-xs'>發送提醒</button>
@@ -186,16 +211,13 @@ export const SelfSettlementPayerItem = ({ selfSettlementItem }) => {
     setSettlementClickData(filterUser)
   }
 
-  console.log('settlementClickData:>> ', settlementClickData)
-
   return (
         <div
             id={ownerMemberId}
             onClick={settlementClick}
-            className='flex w-full justify-between text-base pt-2 pb-3 px-4 font-bold cursor-pointer hover:bg-colors-fifth/20 useEven' >
+            className='flex w-full justify-between text-base pt-2 pb-3 px-4 font-bold cursor-pointer hover:bg-colors-fifth/20' >
             <div className='flex gap-3 items-center'>
                 <img
-
                     className='settlement-userImg w-10 h-10'
                     src={ownerImageUrl}
                     alt='userSettlement'
@@ -207,7 +229,7 @@ export const SelfSettlementPayerItem = ({ selfSettlementItem }) => {
                 <li>
                     需支付你
                 </li>
-                <li >
+                <li>
                     <span className='ml-3 mr-2 text-colors-fourth'>
                         <AttachMoney sx={{ fontSize: 16 }} />
                     </span>
@@ -247,26 +269,25 @@ export const SelfSettlementOwnerItem = ({ selfSettlementItem }) => {
             id={ownerMemberId}
             data-tab={owenerName}
             onClick={settlementClick}
-            className='flex w-full justify-between text-base pt-2 pb-3 px-4 font-bold cursor-pointer hover:bg-colors-fifth/20 useEven'>
-            <div id={payerMemberId} className='flex gap-3 items-center'>
+            className='flex w-full justify-between text-base pt-2 pb-3 px-4 font-bold cursor-pointer hover:bg-colors-fifth/20'>
+            <div className='flex gap-3 items-center act'>
                 <img
-                    id={payerMemberId}
                     className='settlement-userImg'
                     src={payerImageUrl}
                     alt='userSettlement'
                 />
-                <p id={payerMemberId}>{payerName}</p>
+                <p>{payerName}</p>
             </div>
 
-            <ul id={payerMemberId} className='flex flex-col items-end'>
-                <li id={payerMemberId}>
+            <ul className='flex flex-col items-end'>
+                <li>
                     你需支付
                 </li>
-                <li id={payerMemberId}>
-                    <span id={payerMemberId} className='ml-3 mr-2 text-red-700'>
+                <li>
+                    <span className='ml-3 mr-2 text-red-700'>
                         <AttachMoney sx={{ fontSize: 16 }} />
                     </span>
-                    <span id={payerMemberId} className='text-red-700'>
+                    <span className='text-red-700'>
                         {ownAmountresult}
                     </span>
                 </li>

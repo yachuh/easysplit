@@ -123,7 +123,7 @@ code {
   .groupModalCard-text {
     @apply text-center;
   }
-  
+
   .groupModalCard-btns {
     @apply flex gap-4;
   }
@@ -497,13 +497,12 @@ code {
   }
 
   .member-item-info {
-    @apply ml-[18.67px] ;
+    @apply ml-[18.67px];
   }
 
   .member-item-icon {
     @apply w-5 h-5;
   }
-
 }
 
 .swiper-pagination-bullet {
@@ -635,6 +634,6 @@ code {
   background-color: #fff !important;
 }
 
-.css-15v22id-MuiAccordionDetails-root{
+.css-15v22id-MuiAccordionDetails-root {
   @apply pt-4 border-t border-gray-400 !important;
 }

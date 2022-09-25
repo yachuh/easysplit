@@ -7,7 +7,7 @@ import { ExpandMore } from '@mui/icons-material'
 import { usePersonalSettlementData, useGroupAllSettlementData } from '../../context/context'
 import { PersonalOwnerItem, SettlementOwnerItem } from './SettlemenItem'
 
-export default function GroupOwnerListItem ({ getPersonalSettlement }) {
+export default function GroupOwnerListItem ({ getPersonalSettlement, getGroupAllSettlement }) {
   const { personalSettlementData } = usePersonalSettlementData()
   const { settlement } = personalSettlementData
   const { groupAllSettlementData } = useGroupAllSettlementData()
@@ -24,6 +24,8 @@ export default function GroupOwnerListItem ({ getPersonalSettlement }) {
       <PersonalOwnerItem
         key={i}
         settlementItem={settlementItem}
+        getPersonalSettlement={getPersonalSettlement}
+        getGroupAllSettlement={getGroupAllSettlement}
       />
     )
   })
