@@ -56,7 +56,7 @@ export default function GroupAllSettlementList ({ getPersonalSettlement, getGrou
           <h4>結算明細</h4>
           <button
             onClick={handleOpenMd}
-            className='hidden lg:block btn-primary '>
+            className='hidden md:block btn-primary '>
             結算
           </button>
           <Modal
@@ -93,7 +93,7 @@ export default function GroupAllSettlementList ({ getPersonalSettlement, getGrou
 
         <button
           onClick={handleOpen}
-          className='lg:hidden btn-primary w-full'>
+          className='md:hidden btn-primary w-full'>
           結算
         </button>
         <Modal

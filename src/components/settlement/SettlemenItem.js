@@ -215,7 +215,7 @@ export const SelfSettlementPayerItem = ({ selfSettlementItem }) => {
         <div
             id={ownerMemberId}
             onClick={settlementClick}
-            className='flex w-full justify-between text-base pt-2 pb-3 px-4 font-bold cursor-pointer hover:bg-colors-fifth/20' >
+            className='flex w-full justify-between text-base pt-2 pb-3 px-4 font-bold cursor-pointer hover:bg-colors-fifth/20'>
             <div className='flex gap-3 items-center'>
                 <img
                     className='settlement-userImg w-10 h-10'

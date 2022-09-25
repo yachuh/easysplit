@@ -84,3 +84,25 @@ export const settlementClickDataContext = createContext({
 export const useSettlementClickData = () => {
   return useContext(settlementClickDataContext)
 }
+
+/* Settlement 頁的 personalSettlementData */
+/* 5.4取得單筆結算紀錄明細(已結完) */
+export const settledDetailDataContext = createContext({
+  settledId: null,
+  ownerMemberId: null,
+  owenerName: '',
+  ownerImageUrl: '',
+  ownerPaytoPayerAmount: null,
+  payerMemberId: null,
+  payerName: '',
+  payerImageUrl: '',
+  status: '',
+  creatDate: '',
+  paymentMethod: '',
+  memo: '',
+  imageUrl: ''
+})
+
+export const useSettledDetailData = () => {
+  return useContext(settledDetailDataContext)
+}
