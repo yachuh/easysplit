@@ -31,7 +31,8 @@ module.exports = {
         'colors-seventh': '#70A9A1',
         black: '#1F363D',
         'line-pay': '#16A34A'
-      }
+      },
+      backgroundColor: ['active']
     }
   },
   plugins: [
