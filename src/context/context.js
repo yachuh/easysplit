@@ -68,3 +68,19 @@ export const selfSettlementDataContext = createContext({
 export const useSelfSettlementData = () => {
   return useContext(selfSettlementDataContext)
 }
+
+/* 5.1.3 傳遞資料 */
+export const settlementClickDataContext = createContext({
+  ownerMemberId: null,
+  owenerName: '',
+  ownerImageUrl: '',
+  ownAmountresult: null,
+  payerMemberId: null,
+  payerName: '',
+  payerImageUrl: '',
+  status: ''
+})
+
+export const useSettlementClickData = () => {
+  return useContext(settlementClickDataContext)
+}
