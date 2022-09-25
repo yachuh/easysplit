@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import Modal from '@mui/material/Modal'
 import { AttachMoney, CloseOutlined } from '@mui/icons-material'
+import { useSettlementClickData, useSelfSettlementData } from '../../context/context'
 import ModalSettlement from './ModalSettlement'
 
 export const SettlementPayerItem = ({ payerListItem }) => {
-  const { PayerImageUrl, PayAmount, MemberId, PayerName, ReceivedAmount } = payerListItem
+  const { PayerImageUrl, MemberId, PayerName, ReceivedAmount } = payerListItem
 
   return (
         <div
@@ -32,7 +33,8 @@ export const SettlementPayerItem = ({ payerListItem }) => {
 }
 
 export const SettlementOwnerItem = ({ ownerListItem }) => {
-  const { OwnerImageUrl, OwnerName, MemberId, GaveAmount } = ownerListItem
+  const { OwnerImageUrl, OwnerName, GaveAmount } = ownerListItem
+
   return (
         <div className='flex gap-4 text-base'>
             <img
@@ -57,7 +59,7 @@ export const SettlementOwnerItem = ({ ownerListItem }) => {
 }
 
 export const PersonalPayerItem = ({ settlementItem }) => {
-  const { payerImageUrl, ownerMemberId, owenerName, ownAmountresult, payerMemberId, payerName, status } = settlementItem
+  const { payerImageUrl, owenerName, ownAmountresult, payerMemberId, payerName } = settlementItem
 
   const [open, setOpen] = useState(false)
   const handleOpen = () => setOpen(true)
@@ -111,7 +113,7 @@ export const PersonalPayerItem = ({ settlementItem }) => {
 }
 
 export const PersonalOwnerItem = ({ settlementItem }) => {
-  const { ownerImageUrl, ownerMemberId, owenerName, ownAmountresult, payerMemberId, payerName, status } = settlementItem
+  const { ownerImageUrl, ownerMemberId, owenerName, ownAmountresult, payerName } = settlementItem
 
   const [open, setOpen] = useState(false)
   const handleOpen = () => setOpen(true)
@@ -164,22 +166,36 @@ export const PersonalOwnerItem = ({ settlementItem }) => {
 }
 
 export const SelfSettlementPayerItem = ({ selfSettlementItem }) => {
+  const { selfSettlementData, setSelfSettlementData } = useSelfSettlementData()
+  const { settlement } = selfSettlementData
+
+  const { settlementClickData, setSettlementClickData } = useSettlementClickData()
+
   const {
+    payerMemberId,
     ownerMemberId,
     owenerName,
-    ownAmountresult,
     ownerImageUrl,
-    payerMemberId,
-    payerName,
-    payerImageUrl
+    ownAmountresult
   } = selfSettlementItem
+
+  const settlementClick = () => {
+    const filterUser = settlement.filter(item => {
+      return (ownerMemberId === item.ownerMemberId && payerMemberId === item.payerMemberId)
+    })
+    setSettlementClickData(filterUser)
+  }
+
+  console.log('settlementClickData:>> ', settlementClickData)
+
   return (
         <div
             id={ownerMemberId}
-            data-tab={payerName}
-            className='flex w-full justify-between text-base pt-2 pb-3 px-4 font-bold cursor-pointer hover:bg-colors-fifth/20' >
+            onClick={settlementClick}
+            className='flex w-full justify-between text-base pt-2 pb-3 px-4 font-bold cursor-pointer hover:bg-colors-fifth/20 useEven' >
             <div className='flex gap-3 items-center'>
                 <img
+
                     className='settlement-userImg w-10 h-10'
                     src={ownerImageUrl}
                     alt='userSettlement'
@@ -191,7 +207,7 @@ export const SelfSettlementPayerItem = ({ selfSettlementItem }) => {
                 <li>
                     需支付你
                 </li>
-                <li>
+                <li >
                     <span className='ml-3 mr-2 text-colors-fourth'>
                         <AttachMoney sx={{ fontSize: 16 }} />
                     </span>
@@ -205,38 +221,52 @@ export const SelfSettlementPayerItem = ({ selfSettlementItem }) => {
 }
 
 export const SelfSettlementOwnerItem = ({ selfSettlementItem }) => {
+  const { selfSettlementData, setSelfSettlementData } = useSelfSettlementData()
+  const { settlement } = selfSettlementData
+
+  const { settlementClickData, setSettlementClickData } = useSettlementClickData()
+
   const {
     payerMemberId,
     payerName,
     payerImageUrl,
     ownerMemberId,
     owenerName,
-    ownerImageUrl,
     ownAmountresult
   } = selfSettlementItem
+
+  const settlementClick = () => {
+    const filterUser = settlement.filter(item => {
+      return (ownerMemberId === item.ownerMemberId && payerMemberId === item.payerMemberId)
+    })
+    setSettlementClickData(filterUser)
+  }
+
   return (
         <div
-            id={payerMemberId}
+            id={ownerMemberId}
             data-tab={owenerName}
-            className='flex w-full justify-between text-base pt-2 pb-3 px-4 font-bold cursor-pointer hover:bg-colors-fifth/20'>
-            <div className='flex gap-3 items-center'>
+            onClick={settlementClick}
+            className='flex w-full justify-between text-base pt-2 pb-3 px-4 font-bold cursor-pointer hover:bg-colors-fifth/20 useEven'>
+            <div id={payerMemberId} className='flex gap-3 items-center'>
                 <img
+                    id={payerMemberId}
                     className='settlement-userImg'
                     src={payerImageUrl}
                     alt='userSettlement'
                 />
-                <p>{payerName}</p>
+                <p id={payerMemberId}>{payerName}</p>
             </div>
 
-            <ul className='flex flex-col items-end'>
-                <li>
+            <ul id={payerMemberId} className='flex flex-col items-end'>
+                <li id={payerMemberId}>
                     你需支付
                 </li>
-                <li>
-                    <span className='ml-3 mr-2 text-red-700'>
+                <li id={payerMemberId}>
+                    <span id={payerMemberId} className='ml-3 mr-2 text-red-700'>
                         <AttachMoney sx={{ fontSize: 16 }} />
                     </span>
-                    <span className='text-red-700'>
+                    <span id={payerMemberId} className='text-red-700'>
                         {ownAmountresult}
                     </span>
                 </li>

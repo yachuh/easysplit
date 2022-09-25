@@ -7,7 +7,7 @@ import GroupOwnerListItem from './GroupOwnerListItem'
 import ModalSettlement from './ModalSettlement'
 import { getSelfSettlementApi } from '../../utils/api'
 
-export default function GroupAllSettlementList ({ getPersonalSettlement }) {
+export default function GroupAllSettlementList ({ getPersonalSettlement, getGroupAllSettlement }) {
   const { groupData } = useGroupData()
   const { groupId } = groupData
 
@@ -33,7 +33,6 @@ export default function GroupAllSettlementList ({ getPersonalSettlement }) {
         return
       }
       console.log(message)
-      console.log(userMemberId)
       setSelfSettlementData(selfSettlementData => ({
         ...selfSettlementData,
         userMemberId,
@@ -44,8 +43,6 @@ export default function GroupAllSettlementList ({ getPersonalSettlement }) {
       console.log(error)
     }
   }
-
-  console.log(selfSettlementData)
 
   useEffect(() => {
     if (groupId) {
@@ -79,6 +76,7 @@ export default function GroupAllSettlementList ({ getPersonalSettlement }) {
                 open={openMd}
                 onClose={handleCloseMd}
                 getPersonalSettlement={getPersonalSettlement}
+                getGroupAllSettlement={getGroupAllSettlement}
               />
             </div>
           </Modal>

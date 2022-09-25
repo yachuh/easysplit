@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { GroupAllSettlementDataContext, PersonalSettlementDataContext, useGroupData } from '../../context/context'
+import { GroupAllSettlementDataContext, PersonalSettlementDataContext, useGroupData, settlementClickDataContext } from '../../context/context'
 import { getGroupAllSettlementApi, getPersonalSettlementApi } from '../../utils/api'
 import GroupAllSettlementList from './GroupAllSettlementList'
 
 export default function GroupAllSettlement () {
   const { groupData } = useGroupData()
   const { groupId } = groupData
-  // console.log(groupData)
-  // console.log(groupId)
 
   const [groupAllSettlementData, setGroupAllSettlementData] = useState({
     settlementList: [],
@@ -20,6 +18,19 @@ export default function GroupAllSettlement () {
     settlement: [],
     notInvolvedList: []
   })
+
+  const [settlementClickData, setSettlementClickData] = useState(
+    {
+      ownerMemberId: null,
+      owenerName: '',
+      ownerImageUrl: '',
+      ownAmountresult: null,
+      payerMemberId: null,
+      payerName: '',
+      payerImageUrl: '',
+      status: ''
+    }
+  )
 
   const getGroupAllSettlement = async (groupId) => {
     try {
@@ -60,7 +71,6 @@ export default function GroupAllSettlement () {
   useEffect(() => {
     if (groupId) {
       getGroupAllSettlement(groupId)
-      console.log('groupID :>> ', groupId)
     }
   }, [groupId])
 
@@ -72,7 +82,13 @@ export default function GroupAllSettlement () {
       value={{ groupAllSettlementData, setGroupAllSettlementData }}>
       <PersonalSettlementDataContext.Provider
         value={{ personalSettlementData, setPersonalSettlementData }}>
-        <GroupAllSettlementList getPersonalSettlement={getPersonalSettlement} />
+        <settlementClickDataContext.Provider
+          value={{ settlementClickData, setSettlementClickData }}>
+          <GroupAllSettlementList
+            getPersonalSettlement={getPersonalSettlement}
+            getGroupAllSettlement={getGroupAllSettlement}
+          />
+        </settlementClickDataContext.Provider>
       </PersonalSettlementDataContext.Provider>
     </GroupAllSettlementDataContext.Provider>
   )
