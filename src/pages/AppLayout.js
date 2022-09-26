@@ -36,7 +36,7 @@ export default function AppLayout ({ children }) {
   }, [])
 
   return (
-    <UserDataContext.Provider value={{ userData, setUserData }}>
+    <UserDataContext.Provider value={{ userData, setUserData, getUserProfile }}>
       {/* header */}
       <HeaderUser />
       {/* sideNav */}

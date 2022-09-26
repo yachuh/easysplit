@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form'
 import { useGroupData } from '../../context/context'
 import { editGroupApi, editGroupCoverApi } from '../../utils/api'
 import Modal from '@mui/material/Modal'
-import DeleteGroupModal from './DeleteGroupModal'
+import { DeleteGroupModal } from './GroupModal'
 import { CloseOutlined, AddPhotoAlternateOutlined } from '@mui/icons-material'
 
 export default function GroupSettingForm () {

@@ -56,12 +56,13 @@ function App () {
         <Route path="/privacyPolicy" element={<PrivacyPolicyPage />} />
         <Route path="*" element={<ErrorPage />} />
         <Route path="nav" handleLogout={handleLogout} element={<Nav />} />
-        {/* user 相關 */}
+        {/* signup & login 相關 */}
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/forgetpassword" element={<ForgetPasswordPage />} />
         <Route path="/AuthMail/AccountActivation" element={<AccountActivationPage />} />
         <Route path="/AuthMail/ResetPassword" element={<ResetPwdPage />} />
+        {/* user 相關 */}
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/notifications" element={<NotificationPage />} />
         {/* group 相關 */}

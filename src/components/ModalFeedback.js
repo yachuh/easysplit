@@ -8,7 +8,8 @@ import successIcon from '../image/successIcon.svg'
 import deleteIcon from '../image/deleteIcon.svg'
 import SettledDetail from '../components/settlement/SettledDetail'
 
-export const ModalResetPwd = ({ onClose, accountMail }) => {
+// profile 頁點擊「重設密碼」：重設密碼信發送成功 modal
+export const ModalResetPwd = ({ onClose, account }) => {
   return (
         <>
             <div className="flex flex-col items-center gap-4 mb-4">
@@ -16,11 +17,11 @@ export const ModalResetPwd = ({ onClose, accountMail }) => {
                 <h4 className="font-bold">
                     重設密碼信已送出
                 </h4>
-                <p className='text-gray-500'>至 {accountMail}</p>
+                <p className='text-gray-500'>至 {account}</p>
                 <p>請點擊信件中的連結以進行重設密碼</p>
                 <p
                     className="text-xs text-gray-400 text-center">
-                    找不到信件嗎？請檢查「垃圾郵件」分類或在信箱搜尋「EasySplit拆帳趣」
+                    找不到信件嗎？<br></br>請檢查「垃圾郵件」分類，或在信箱搜尋「EasySplit拆帳趣」
                 </p>
             </div>
             <button onClick={onClose} className="btn-primary w-full">
@@ -30,6 +31,7 @@ export const ModalResetPwd = ({ onClose, accountMail }) => {
   )
 }
 
+// 重設密碼頁：重設密碼成功 modal
 export const ModalPwdSuccess = ({ onClose }) => {
   return (
         <>
@@ -46,6 +48,7 @@ export const ModalPwdSuccess = ({ onClose }) => {
   )
 }
 
+// 重設密碼頁：重設密碼失敗 modal
 export const ModalPwdfail = ({ onClose }) => {
   return (
         <>
