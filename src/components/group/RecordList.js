@@ -24,9 +24,9 @@ export default function PaymentRecordList () {
   return (
     <div className="settlement-card w-full">
       <div className="flex justify-between mb-9 font-bold text-black">
-        <h3 className="text-2xl font-medium">費用</h3>
+        <h3 className="text-2xl font-bold">費用</h3>
         <button
-          className="hidden lg:block btn-primary">
+          className="hidden md:block btn-primary">
           <Add sx={{ fontSize: 20 }} />
           新增費用
         </button>

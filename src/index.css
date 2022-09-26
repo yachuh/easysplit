@@ -438,7 +438,7 @@ code {
 
   /* Settlement */
   .settlement-card {
-    @apply w-full lg:w-[43%] bg-white px-4 py-11 pb-4 lg:rounded-[20px] lg:border lg:border-colors-primary;
+    @apply w-full bg-white px-4 py-11 pb-4 md:rounded-[20px] md:border md:border-colors-primary;
   }
 
   .settlement-userImg {

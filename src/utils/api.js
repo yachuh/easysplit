@@ -173,11 +173,11 @@ const getApi = async (url) => {
 export const getProfileApi = () => getApi(GET_PROFILE)
 export const getPaymentAllApi = () => getApi(GETALL)
 
-// 5.X 須將後面數字改變數 ${param}，測試功能暫寫死
+// Settlement 相關
 export const getGroupAllSettlementApi = (param) => getApi(`${GET_ALL_SETTLEMENT}/${param}`)
 export const getPersonalSettlementApi = (param) => getApi(`${GET_SETTLEMENT}/${param}`)
 export const getPaymentTypeApi = () => getApi(GET_PAYMENT_TYPE)
-export const getSettledDetailApi = (param) => getApi(`${GET_SETTLED_DETAIL}${param}`)
+export const getSettledDetailApi = (param) => getApi(`${GET_SETTLED_DETAIL}/${param}`)
 export const getReminderApi = (param) => getApi(`${GET_REMINDER}/${param}`)
 export const getSelfSettlementApi = (param) => getApi(`${GET_SELF_SETTLEMENT}/${param}`)
 export const getAllSettledApi = (groupId) => getApi(`${GET_ALL_SETTLED}/${groupId}`)
