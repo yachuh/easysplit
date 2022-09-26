@@ -106,3 +106,13 @@ export const settledDetailDataContext = createContext({
 export const useSettledDetailData = () => {
   return useContext(settledDetailDataContext)
 }
+
+/* Settlement 頁的 personalSettlementData */
+/* 5.6取得還款提醒資訊 */
+export const reminderdDataContext = createContext({
+  settlementReminder: []
+})
+
+export const useReminderData = () => {
+  return useContext(reminderdDataContext)
+}

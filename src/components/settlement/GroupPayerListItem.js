@@ -7,7 +7,7 @@ import { ExpandMore } from '@mui/icons-material'
 import { usePersonalSettlementData, useGroupAllSettlementData } from '../../context/context'
 import { SettlementPayerItem, PersonalPayerItem } from './SettlemenItem'
 
-export default function GroupPayerListItem ({ getPersonalSettlement, getGroupAllSettlement }) {
+export default function GroupPayerListItem ({ getPersonalSettlement, getGroupAllSettlement, getReminder }) {
   const { personalSettlementData } = usePersonalSettlementData()
   const { settlement } = personalSettlementData
   const { groupAllSettlementData } = useGroupAllSettlementData()
@@ -26,6 +26,7 @@ export default function GroupPayerListItem ({ getPersonalSettlement, getGroupAll
         settlementItem={settlementItem}
         getPersonalSettlement={getPersonalSettlement}
         getGroupAllSettlement={getGroupAllSettlement}
+        getReminder={getReminder}
       />
     )
   })

@@ -42,7 +42,7 @@ export function PaymentRecordItem ({ expenseTypeList, expenseId, item, cost, cre
   )
 }
 
-export function SettledRecordItem ({ settledId, ownerName, payerName, ownerPaytoPayerAmount }) {
+export function SettledRecordItem ({ settledId, ownerName, payerName, creatDate, ownerPaytoPayerAmount }) {
   const [open, setOpen] = useState(false)
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
@@ -90,8 +90,8 @@ export function SettledRecordItem ({ settledId, ownerName, payerName, ownerPayto
       <div
         onClick={SettledRecordClick}
         id={settledId}
-        className="flex flex-col justify-center cursor-pointer gap-2 md:flex-row md:justify-start md:items-center">
-        <div className='flex items-center gap-2 font-bold md:flex-col'>
+        className="flex flex-col justify-center cursor-pointer gap-2 mb-4 md:flex-row md:justify-start md:items-center">
+        <div className='flex items-center gap-1 font-bold md:flex-col'>
           <p className=' text-gray-500 md:text-black'>Sep</p>
           <p className='md:text-2xl'>23</p>
         </div>
@@ -127,6 +127,5 @@ export function SettledRecordItem ({ settledId, ownerName, payerName, ownerPayto
         </div>
       </Modal>
     </settledDetailDataContext.Provider>
-
   )
 }
