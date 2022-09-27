@@ -23,15 +23,15 @@ export default function PaymentRecordList () {
 
   return (
     <div className="settlement-card w-full">
-      <div className="flex justify-between mb-9 font-bold text-black">
-        <h3 className="text-2xl font-bold">費用</h3>
+      <div className="flex justify-between mb-3 font-bold text-black">
+        <h4>費用</h4>
         <button
           className="hidden md:block btn-primary">
           <Add sx={{ fontSize: 20 }} />
           新增費用
         </button>
       </div>
-      <ul className="flex flex-col gap-[23px] p-4 h-[280px] overflow-scroll md:h-[240px] md:overflow-y-auto lg:overflow-y-scroll lg:h-[38vh]">
+      <ul className='overflow-scroll-view md:h-[25vh] lg:overflow-y-scroll lg:h-[85%]'>
         {
           // expense record
           expenseData.map((item, i) => {
@@ -48,7 +48,6 @@ export default function PaymentRecordList () {
             )
           })
         }
-
       </ul>
     </div>
   )

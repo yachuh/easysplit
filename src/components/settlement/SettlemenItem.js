@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Modal from '@mui/material/Modal'
 import { AttachMoney, CloseOutlined } from '@mui/icons-material'
-import { useSettlementClickData, useSelfSettlementData } from '../../context/context'
-import ModalSettlement from './ModalSettlement'
+import { useSettlementClickData, useSelfSettlementData, useReminderData } from '../../context/context'
 import { ModalSingelDetailSettlement } from './ModalSingelDetailSettlement'
+import { ModalReminder } from '../../components/ModalFeedback'
 
 export const SettlementPayerItem = ({ payerListItem }) => {
   const { PayerImageUrl, MemberId, PayerName, ReceivedAmount } = payerListItem
@@ -59,19 +59,47 @@ export const SettlementOwnerItem = ({ ownerListItem }) => {
   )
 }
 
-export const PersonalPayerItem = ({ settlementItem, getPersonalSettlement, getGroupAllSettlement }) => {
-  const { payerImageUrl, owenerName, ownAmountresult, payerMemberId, payerName } = settlementItem
+export const PersonalPayerItem = ({ settlementItem, getPersonalSettlement, getGroupAllSettlement, getReminder }) => {
+  const { payerImageUrl, owenerName, ownerMemberId, ownAmountresult, payerMemberId, payerName } = settlementItem
+  const { reminderdData } = useReminderData()
+  const { setSettlementClickData } = useSettlementClickData()
+  const [pickReminder, setPickReminder] = useState(
+    {
+      ownerMemberId: null,
+      owenerName: '',
+      ownAmountresult: null,
+      payerMemberId: null,
+      payerName: '',
+      status: ''
+    }
+  )
 
-  const { settlementClickData, setSettlementClickData } = useSettlementClickData()
+  const [openPersonalPayer, setOpenPersonalPayer] = useState(false)
+  const handleOpenPersonalPayer = () => setOpenPersonalPayer(true)
+  const handleClosePersonalPayer = () => setOpenPersonalPayer(false)
 
-  const [open, setOpen] = useState(false)
-  const handleOpen = () => setOpen(true)
-  const handleClose = () => setOpen(false)
+  const [openReminder, setOpenReminder] = useState(false)
+  const handleOpenReminder = () => setOpenReminder(true)
+  const handleCloseReminder = () => setOpenReminder(false)
 
   const settlementClick = () => {
     setSettlementClickData(settlementItem)
-    handleOpen()
+    handleOpenPersonalPayer()
   }
+
+  const reminderClick = () => {
+    getReminder(ownerMemberId)
+    setPickReminder(pickReminder => ({
+      ...pickReminder,
+      ownerMemberId,
+      payerMemberId
+    }))
+    handleOpenReminder()
+  }
+
+  useEffect(() => {
+    getReminder(ownerMemberId)
+  }, [])
 
   return (
         <div
@@ -99,45 +127,99 @@ export const PersonalPayerItem = ({ settlementItem, getPersonalSettlement, getGr
                         結算
                     </button>
                     <Modal
-                        open={open}
-                        onClose={handleClose}
+                        open={openPersonalPayer}
+                        onClose={handleClosePersonalPayer}
                         className="modalCard-bg">
                         <div
                             onClick={(e) => e.stopPropagation()}
                             className="modalCard">
                             <div
-                                onClick={handleClose}
+                                onClick={handleClosePersonalPayer}
                                 className="modalCancel">
                                 <CloseOutlined sx={{ fontSize: 14 }} />
                             </div>
                             <ModalSingelDetailSettlement
-                                open={open}
-                                onClose={handleClose}
+                                open={openPersonalPayer}
+                                onClose={handleClosePersonalPayer}
                                 getPersonalSettlement={getPersonalSettlement}
                                 getGroupAllSettlement={getGroupAllSettlement}
                             />
                         </div>
                     </Modal>
-                    <button className='w-full btn-outline p-2 text-xs'>發送提醒</button>
+                    <button
+                        id={payerMemberId}
+                        onClick={reminderClick}
+                        className='w-full btn-outline p-2 text-xs'>
+                        發送提醒
+                    </button>
+                    <Modal
+                        open={openReminder}
+                        onClose={handleCloseReminder}
+                        className="modalCard-bg">
+                        <div
+                            onClick={(e) => e.stopPropagation()}
+                            className="modalCard">
+                            <div
+                                onClick={handleCloseReminder}
+                                className="modalCancel">
+                                <CloseOutlined sx={{ fontSize: 14 }} />
+                            </div>
+                            <ModalReminder
+                                open={openReminder}
+                                onClose={handleCloseReminder}
+                                pickReminder={pickReminder}
+                                reminderdData={reminderdData}
+                            />
+                        </div>
+                    </Modal>
                 </div>
             </div>
         </div>
   )
 }
 
-export const PersonalOwnerItem = ({ settlementItem, getPersonalSettlement, getGroupAllSettlement }) => {
-  const { ownerImageUrl, ownerMemberId, owenerName, ownAmountresult, payerName } = settlementItem
+export const PersonalOwnerItem = ({ settlementItem, getPersonalSettlement, getGroupAllSettlement, getReminder }) => {
+  const { ownerImageUrl, ownerMemberId, owenerName, ownAmountresult, payerName, payerMemberId } = settlementItem
+  const { reminderdData } = useReminderData()
+  const { setSettlementClickData } = useSettlementClickData()
 
-  const { settlementClickData, setSettlementClickData } = useSettlementClickData()
+  const [pickReminder, setPickReminder] = useState(
+    {
+      ownerMemberId: null,
+      owenerName: '',
+      ownAmountresult: null,
+      payerMemberId: null,
+      payerName: '',
+      status: ''
+    }
+  )
 
-  const [open, setOpen] = useState(false)
-  const handleOpen = () => setOpen(true)
-  const handleClose = () => setOpen(false)
+  const [openPersonalOwner, setOpenPersonalOwner] = useState(false)
+  const handleOpenPersonalOwner = () => setOpenPersonalOwner(true)
+  const handleClosePersonalOwner = () => setOpenPersonalOwner(false)
+
+  const [openReminder, setOpenReminder] = useState(false)
+  const handleOpenReminder = () => setOpenReminder(true)
+  const handleCloseReminder = () => setOpenReminder(false)
 
   const settlementClick = () => {
     setSettlementClickData(settlementItem)
-    handleOpen()
+    handleOpenPersonalOwner()
   }
+
+  const reminderClick = () => {
+    getReminder(ownerMemberId)
+    setPickReminder(pickReminder => ({
+      ...pickReminder,
+      ownerMemberId,
+      payerMemberId
+    }))
+    handleOpenReminder()
+  }
+
+  useEffect(() => {
+    getReminder(ownerMemberId)
+  }, [])
 
   return (
         <div
@@ -164,26 +246,51 @@ export const PersonalOwnerItem = ({ settlementItem, getPersonalSettlement, getGr
                         結算
                     </button>
                     <Modal
-                        open={open}
-                        onClose={handleClose}
+                        open={openPersonalOwner}
+                        onClose={handleClosePersonalOwner}
                         className="modalCard-bg">
                         <div
                             onClick={(e) => e.stopPropagation()}
                             className="modalCard">
                             <div
-                                onClick={handleClose}
+                                onClick={handleClosePersonalOwner}
                                 className="modalCancel">
                                 <CloseOutlined sx={{ fontSize: 14 }} />
                             </div>
                             <ModalSingelDetailSettlement
-                                open={open}
-                                onClose={handleClose}
+                                open={openPersonalOwner}
+                                onClose={handleClosePersonalOwner}
                                 getPersonalSettlement={getPersonalSettlement}
                                 getGroupAllSettlement={getGroupAllSettlement}
                             />
                         </div>
                     </Modal>
-                    <button className='w-full btn-outline p-2 text-xs'>發送提醒</button>
+                    <button
+                        id={payerMemberId}
+                        onClick={reminderClick}
+                        className='w-full btn-outline p-2 text-xs'>
+                        發送提醒
+                    </button>
+                    <Modal
+                        open={openReminder}
+                        onClose={handleCloseReminder}
+                        className="modalCard-bg">
+                        <div
+                            onClick={(e) => e.stopPropagation()}
+                            className="modalCard">
+                            <div
+                                onClick={handleCloseReminder}
+                                className="modalCancel">
+                                <CloseOutlined sx={{ fontSize: 14 }} />
+                            </div>
+                            <ModalReminder
+                                open={openReminder}
+                                onClose={handleCloseReminder}
+                                pickReminder={pickReminder}
+                                reminderdData={reminderdData}
+                            />
+                        </div>
+                    </Modal>
                 </div>
             </div>
         </div>

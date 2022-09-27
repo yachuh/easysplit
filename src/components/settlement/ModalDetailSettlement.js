@@ -78,8 +78,10 @@ export const ModalDetailSettlement = ({ onClose, getPersonalSettlement, getGroup
     try {
       const { GroupId, OwnerMemberId, PayerMemberId, OwnerPaytoPayerAmount, PaymentMethod, Memo, FileName, CreatDate } = await settleUpApi(settleUpData)
       console.log('結算結果 :>> ', '結算成功')
+      handleOpenSuccess()
       getGroupAllSettlement(groupId)
-      onClose()
+      // onClose()
+      // handleOpenSuccess()
     } catch (err) {
       console.log(err)
     }
@@ -87,7 +89,6 @@ export const ModalDetailSettlement = ({ onClose, getPersonalSettlement, getGroup
 
   const clickSettleUp = () => {
     settleUp(settleUpData)
-    handleOpenSuccess()
   }
 
   useEffect(() => {
