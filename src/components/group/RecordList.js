@@ -4,6 +4,7 @@ import { ExpenseRecordItem, SettledRecordItem } from './RecordListItem'
 import Modal from '@mui/material/Modal'
 import AddExpenseModal from './expense/AddExpenseModal'
 import { Add } from '@mui/icons-material'
+import LoadingModal from '../../components/LoadingModal'
 
 export default function RecordList () {
   const { expenseData, settledData, expenseTypeList } = useGroupData()

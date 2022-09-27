@@ -25,20 +25,16 @@ export default function LinePaymentModal ({ getPaymentAll }) {
             <Modal
                 open={open}
                 onClose={handleClose}
-                className='modalCard-bg'
-            >
+                className='modalCard-bg'>
                 <div
                     onClick={(e) => e.stopPropagation()}
                     className='modalCard-pay'>
-
                     <AddPaymentLinePay
                         getPaymentAll={getPaymentAll}
                         open={open}
                         onClose={handleClose} />
-
                 </div>
             </Modal>
         </>
-
   )
 }

@@ -7,6 +7,7 @@ import mailSend from '../image/mailSend.svg'
 import successIcon from '../image/successIcon.svg'
 import deleteIcon from '../image/deleteIcon.svg'
 import SettledDetail from '../components/settlement/SettledDetail'
+import LoadingModal from '../components/LoadingModal'
 
 // profile 頁點擊「重設密碼」：重設密碼信發送成功 modal
 export const ModalResetPwd = ({ onClose, account }) => {
@@ -31,8 +32,7 @@ export const ModalResetPwd = ({ onClose, account }) => {
   )
 }
 
-// 重設密碼頁：重設密碼成功 modal
-export const ModalPwdSuccess = ({ onClose }) => {
+export const ModalPwdSuccess = () => {
   return (
         <>
             <div className="flex flex-col items-center gap-4 mb-4">
@@ -161,12 +161,10 @@ export const ModalSettlementSuccess = ({ onClose, getSettledDetail }) => {
                     <SettledDetail
                         open={open}
                         onClose={handleClose}
-                    // getSettledDetail={getSettledDetail}
                     />
                 </div>
             </Modal>
         </>
-
   )
 }
 
@@ -191,11 +189,11 @@ export const ModalConfirmTheDeletion = ({ onClose, deleteSettlemetClick }) => {
                 </button>
             </div>
         </>
-
   )
 }
 
 export const ModalReminder = ({ onClose, pickReminder, reminderdData }) => {
+  const [isLoading, setIsLoading] = useState(false)
   const { ownerMemberId, payerMemberId } = pickReminder
   const { settlementReminder } = reminderdData
   const [dataPick, setDataPick] = useState(
@@ -229,12 +227,14 @@ export const ModalReminder = ({ onClose, pickReminder, reminderdData }) => {
   }
 
   const sendReminder = async () => {
+    setIsLoading(true)
     try {
       const { status: isSuccess, message, OwnerId, PayerId } = await sendReminderApi(sendReminderData)
       if (!isSuccess) {
         return
       }
-      console.log(message)
+      //   console.log(message)
+      setIsLoading(false)
     } catch (err) {
       console.log(err)
     }
@@ -252,24 +252,29 @@ export const ModalReminder = ({ onClose, pickReminder, reminderdData }) => {
 
   return (
         <>
-            <div className="flex flex-col gap-4 mb-4 w-full text-center">
-                <h4 className="w-full font-bold pb-2 border-b border-gray-300">發送提醒</h4>
-                <p className="w-full text-xl">提醒<span className='font-bold mx-2'>{dataPick[0]?.owenerName}</span>還款給<span className='font-bold mx-2'>{dataPick[0]?.payerName}</span></p>
-                <p className='w-full text-gray-600'>{dataPick[0]?.status}</p>
-            </div>
-            <div className='w-full flex justify-between gap-4'>
-                <button
-                    onClick={onClose}
-                    className="btn-outline w-full">
-                    取消
-                </button>
-                <button
-                    onClick={clickSendReminder}
-                    className="btn-primary w-full">
-                    確定
-                </button>
-            </div>
+            {
+                isLoading
+                  ? <LoadingModal />
+                  : <>
+                        <div className="flex flex-col gap-4 mb-4 w-full text-center">
+                            <h4 className="w-full font-bold pb-2 border-b border-gray-300">發送提醒</h4>
+                            <p className="w-full text-xl">提醒<span className='font-bold mx-2'>{dataPick[0]?.owenerName}</span>還款給<span className='font-bold mx-2'>{dataPick[0]?.payerName}</span></p>
+                            <p className='w-full text-gray-600'>{dataPick[0]?.status}</p>
+                        </div>
+                        <div className='w-full flex justify-between gap-4'>
+                            <button
+                                onClick={onClose}
+                                className="btn-outline w-full">
+                                取消
+                            </button>
+                            <button
+                                onClick={clickSendReminder}
+                                className="btn-primary w-full">
+                                確定
+                            </button>
+                        </div>
+                    </>
+            }
         </>
-
   )
 }

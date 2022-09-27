@@ -60,12 +60,12 @@ export default function Banner () {
                         開始拆帳
                     </button>
                 </Link>
-                <Link to="nav">
+                {/* <Link to="nav">
                     <button
                         className="btn-secondary bg-red-500 mt-5">
                         功能測試 Nav
                     </button>
-                </Link>
+                </Link> */}
                 <div
                     className="swiper-pagination mb-6" />
             </div>

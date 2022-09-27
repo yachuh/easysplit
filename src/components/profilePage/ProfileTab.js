@@ -5,7 +5,6 @@ import Tab from '@mui/material/Tab'
 import Box from '@mui/material/Box'
 import ProfileForm from './ProfileForm'
 import ProfilePayment from './ProfilePayment'
-
 function TabPanel (props) {
   const { children, value, index, classes, ...other } = props
 
@@ -15,8 +14,7 @@ function TabPanel (props) {
       hidden={value !== index}
       id={`simple-tabpanel-${index}`}
       aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
+      {...other}>
       {value === index && (
         <Box>
           {children}

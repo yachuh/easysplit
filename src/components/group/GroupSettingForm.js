@@ -5,8 +5,10 @@ import { editGroupApi, editGroupCoverApi } from '../../utils/api'
 import Modal from '@mui/material/Modal'
 import { DeleteGroupModal } from './GroupModal'
 import { CloseOutlined, AddPhotoAlternateOutlined } from '@mui/icons-material'
+import LoadingModal from '../../components/LoadingModal'
 
 export default function GroupSettingForm () {
+  const [isLoading, setIsLoading] = useState(false)
   const { groupData, setGroupData, getGroupData } = useGroupData()
   console.log('groupData:::', groupData)
   const { groupId, groupName, imageUrl } = groupData
@@ -56,7 +58,7 @@ export default function GroupSettingForm () {
     formData.append('image', image.raw)
     // if img is empty, set payload to null
     const payload = image.raw ? formData : null
-
+    setIsLoading(true)
     try {
       const { status: isSuccess, message, fileName } = await editGroupCoverApi(payload)
       if (!isSuccess) {
@@ -65,6 +67,7 @@ export default function GroupSettingForm () {
       }
       console.log('editGroupCoverApi:::', message, fileName)
       setValue('fileName', fileName) // 好像沒有作用
+      setIsLoading(false)
       return fileName
     } catch (error) {
       console.log(error)
@@ -75,6 +78,7 @@ export default function GroupSettingForm () {
   const onSubmit = async (data, fileName) => {
     data.fileName = fileName
     console.log('form data', data)
+    setIsLoading(true)
     try {
       const { status: isSuccess, message } = await editGroupApi(data)
       if (!isSuccess) {
@@ -87,13 +91,18 @@ export default function GroupSettingForm () {
         groupName: data.name
       }))
       getGroupData()
+      setIsLoading(false)
     } catch (error) {
       console.log(error)
     }
   }
 
   return (
-        <div>
+    <>
+      {
+        isLoading
+          ? <LoadingModal />
+          : <div>
             <form className="w-full relative text-center"
                 onSubmit={handleSubmit(async (data) => {
                   const fileName = await handleUpload()
@@ -149,16 +158,19 @@ export default function GroupSettingForm () {
                 </div>
             </form>
             <button onClick={handleOpen} className="btn-red w-full">
-                刪除群組
+              刪除群組
             </button>
             {/* DeleteGroupModal START */}
             <Modal open={open} onClose={handleClose} className="modalCard-bg">
-                <div onClick={(e) => e.stopPropagation()} className="groupModalCard">
-                    <div onClick={handleClose} className="modalCancel"><CloseOutlined sx={{ fontSize: 14 }} /></div>
-                    <DeleteGroupModal open={open} onClose={handleClose} />
-                </div>
+              <div onClick={(e) => e.stopPropagation()} className="groupModalCard">
+                <div onClick={handleClose} className="modalCancel"><CloseOutlined sx={{ fontSize: 14 }} /></div>
+                <DeleteGroupModal open={open} onClose={handleClose} />
+              </div>
             </Modal>
             {/* DeleteGroupModal End */}
-        </div >
+          </div>
+      }
+    </>
+
   )
 }

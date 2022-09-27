@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { useUserData } from '../../context/context'
 import { BorderColorOutlined, CloseOutlined } from '@mui/icons-material'
 import Modal from '@mui/material/Modal'

@@ -1,11 +1,13 @@
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { getProfileApi } from '../utils/api'
 import { HeaderUser } from '../components/Header'
 import { FooterUser } from '../components/Footer'
 import SideNav from '../components/SideNav'
 import { UserDataContext } from '../context/context'
+import LoadingModal from '../components/LoadingModal'
 
 export default function AppLayout ({ children }) {
+  const [isLoading, setIsLoading] = useState(false)
   const [userData, setUserData] = useState({
     userId: '',
     account: '',
@@ -14,10 +16,11 @@ export default function AppLayout ({ children }) {
   })
 
   const getUserProfile = async () => {
+    setIsLoading(true)
     try {
       const { status: isSuccess, message, userdata } = await getProfileApi()
       if (!isSuccess) {
-        console.log(message)
+        // console.log(message)
         return
       }
       setUserData(userData => ({
@@ -27,6 +30,7 @@ export default function AppLayout ({ children }) {
         name: userdata.name,
         imageUrl: userdata.imageUrl
       }))
+      setIsLoading(false)
     } catch (error) {
       console.log(error)
     }
@@ -38,7 +42,11 @@ export default function AppLayout ({ children }) {
   }, [])
 
   return (
-    <UserDataContext.Provider value={{ userData, setUserData, getUserProfile }}>
+    <>
+      {
+        isLoading
+          ? <LoadingModal />
+          : <UserDataContext.Provider value={{ userData, setUserData, getUserProfile }}>
       {/* header */}
       <HeaderUser />
       {/* sideNav */}
@@ -57,5 +65,7 @@ export default function AppLayout ({ children }) {
         <FooterUser />
       </div>
     </UserDataContext.Provider>
+      }
+    </>
   )
 }
