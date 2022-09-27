@@ -32,6 +32,29 @@ export function ExpenseRecordItem ({ expenseTypeList, expenseId, item, cost, cre
   const handleCloseExpenseModal = () => setOpenExpenseModal(false)
   /* ---- Modal 相關 END ---- */
 
+  const [expenseData, setExpenseData] = useState()
+
+  // useEffect(() => {
+  //   if (expenseId) {
+  //     getExpense()
+  //   }
+  // }, [expenseId])
+
+  /* ---- APIs START ---- */
+  const getExpense = async (expenseId) => {
+    try {
+      const { status: isSuccess, message, expenseData } = await getExpenseApi(expenseId)
+      if (!isSuccess) {
+        console.log(message)
+        return
+      }
+      console.log('expenseData:::', expenseData)
+      setExpenseData(expenseData)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   /**
    * convert expenseMethod to expenseIcon
    * @param {*} expenseType
