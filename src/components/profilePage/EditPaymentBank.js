@@ -1,8 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { CreditCard } from '@mui/icons-material'
+import LoadingModal from '../LoadingModal'
 
 export default function EditPaymentBank ({ onClose }) {
+  const [isLoading, setIsLoading] = useState(false)
   const {
     register,
     handleSubmit,
@@ -15,7 +17,6 @@ export default function EditPaymentBank ({ onClose }) {
     }
   })
   const onSubmit = data => console.log(data)
-  console.log(errors)
 
   return (
     <>

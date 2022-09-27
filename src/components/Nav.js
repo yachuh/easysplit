@@ -22,6 +22,7 @@ import {
   Add
 } from '@mui/icons-material'
 import { ModalDetailSettlement } from '../components/settlement/ModalDetailSettlement'
+import LoadingModal from './LoadingModal'
 
 import GroupAllSettlement from '../components/settlement/GroupAllSettlement'
 
@@ -385,6 +386,10 @@ const Nav = () => {
               onClose={handleClose2} />
           </div>
         </Modal>
+      </li>
+
+      <li>
+        <LoadingModal />
       </li>
 
     </nav>

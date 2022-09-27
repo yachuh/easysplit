@@ -12,6 +12,8 @@ import ForgetPasswordPage from './pages/ForgetPasswordPage'
 import ProfilePage from './pages/ProfilePage'
 import ResetPwdPage from './pages/ResetPwdPage'
 import NotificationPage from './pages/NotificationPage'
+import LoadingModal from './components/LoadingModal'
+
 // group 相關
 import GroupPage from './pages/GroupPage'
 import GroupListPage from './pages/GroupListPage'
@@ -27,6 +29,7 @@ import ErrorPage from './pages/ErrorPage'
 import PrivacyPolicyPage from './pages/PrivacyPolicyPage'
 
 function App () {
+  const [isLoading, setIsLoading] = useState(false)
   const [token, setToken] = useState(null)
 
   const navigate = useNavigate()
@@ -49,34 +52,36 @@ function App () {
 
   return (
     <>
-      {/* <Nav handleLogout={handleLogout} /> */}
-      <Routes>
-        {/* index 相關 */}
-        <Route index element={<HomePage />} />
-        <Route path="/stillmore" element={<StillMorePage />} />
-        <Route path="/faq" element={<FaqPage />} />
-        <Route path="/privacyPolicy" element={<PrivacyPolicyPage />} />
-        <Route path="*" element={<ErrorPage />} />
-        <Route path="nav" handleLogout={handleLogout} element={<Nav />} />
-        {/* signup & login 相關 */}
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/signup" element={<SignupPage />} />
-        <Route path="/forgetpassword" element={<ForgetPasswordPage />} />
-        <Route path="/AuthMail/AccountActivation" element={<AccountActivationPage />} />
-        <Route path="/AuthMail/ResetPassword" element={<ResetPwdPage />} />
-        {/* user 相關 */}
+      {isLoading
+        ? <LoadingModal />
+        : <Routes>
+          {/* index 相關 */}
+          <Route index element={<HomePage />} />
+          <Route path="/stillmore" element={<StillMorePage />} />
+          <Route path="/faq" element={<FaqPage />} />
+          <Route path="/privacyPolicy" element={<PrivacyPolicyPage />} />
+          <Route path="*" element={<ErrorPage />} />
+          <Route path="nav" handleLogout={handleLogout} element={<Nav />} />
+          {/* signup & login 相關 */}
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/signup" element={<SignupPage />} />
+          <Route path="/forgetpassword" element={<ForgetPasswordPage />} />
+          <Route path="/AuthMail/AccountActivation" element={<AccountActivationPage />} />
+          <Route path="/AuthMail/ResetPassword" element={<ResetPwdPage />} />
+          {/* user 相關 */}
         <Route path="/profile" element={<ProfilePage />} />
-        <Route path="/notifications" element={<NotificationPage />} />
-        {/* group 相關 */}
-        <Route path="/group" element={<GroupListPage />} />
-        <Route path="/group/:groupId" element={<GroupPage />}>
-          <Route index element={<GroupHomePage />} />
-          <Route path="home" element={<GroupHomePage />} />
-          <Route path="member" element={<GroupMemberPage />} />
-          <Route path="setting" element={<GroupSettingPage />} />
-          <Route path=":expenseId" element={<SingleExpensePage/>} />
+          <Route path="/notifications" element={<NotificationPage />} />
+          {/* group 相關 */}
+          <Route path="/group" element={<GroupListPage />} />
+          <Route path="/group/:groupId" element={<GroupPage />}>
+            <Route index element={<GroupHomePage />} />
+            <Route path="home" element={<GroupHomePage />} />
+            <Route path="member" element={<GroupMemberPage />} />
+            <Route path="setting" element={<GroupSettingPage />} />
+            <Route path=":expenseId" element={<SingleExpensePage/>} />
         </Route>
-      </Routes>
+        </Routes>
+      }
     </>
   )
 }

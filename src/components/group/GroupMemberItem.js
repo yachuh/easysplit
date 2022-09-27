@@ -53,9 +53,7 @@ export default function GroupMemberItem ({ memberId, memberName, userId, imageUr
           </div>
         </Modal>
         {/* DeleteMemberModal End */}
-
       </div>
-
     </li>
   )
 }

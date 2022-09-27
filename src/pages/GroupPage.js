@@ -1,11 +1,13 @@
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Outlet, useParams } from 'react-router-dom'
 import { GroupDataContext } from '../context/context'
 import { getAGroupApi, getAllMemberApi, getAllExpenseApi, getAllSettledApi, getExpenseTypeApi } from '../utils/api'
 import AppLayout from './AppLayout'
 import GroupHeader from '../components/group/GroupHeader'
+import LoadingModal from '../components/LoadingModal'
 
 export default function GroupPage () {
+  const [isLoading, setIsLoading] = useState(false)
   const { groupId } = useParams()
 
   /* ---- STATE 相關 START ---- */
@@ -43,13 +45,15 @@ export default function GroupPage () {
 
   /* ---- API START ---- */
   const getMemberList = async () => {
+    setIsLoading(true)
     try {
       const { status: isSuccess, message, memberData } = await getAllMemberApi(groupId)
       if (!isSuccess) {
-        console.log(message)
+        // console.log(message)
         return
       }
       setMemberList(memberData)
+      setIsLoading(false)
     } catch (error) {
       console.log(error)
     }
@@ -65,10 +69,11 @@ export default function GroupPage () {
   }
 
   const getGroupData = async () => {
+    setIsLoading(true)
     try {
       const { status: isSuccess, message, groupDetail } = await getAGroupApi(groupId)
       if (!isSuccess) {
-        console.log(message)
+        // console.log(message)
         return
       }
       setGroupData(groupData => ({
@@ -77,32 +82,37 @@ export default function GroupPage () {
         groupName: groupDetail[0].groupName,
         imageUrl: groupDetail[0].imageUrl
       }))
+      setIsLoading(false)
     } catch (error) {
       console.log(error)
     }
   }
 
   const getAllExpense = async () => {
+    setIsLoading(true)
     try {
       const { status: isSuccess, message, expenseData } = await getAllExpenseApi(groupId)
       if (!isSuccess) {
-        console.log(message)
+        // console.log(message)
         return
       }
       setExpenseData(expenseData)
+      setIsLoading(false)
     } catch (error) {
       console.log(error)
     }
   }
 
   const getAllSettled = async () => {
+    setIsLoading(true)
     try {
       const { status: isSuccess, message, settledArrayList: settledData } = await getAllSettledApi(groupId)
       if (!isSuccess) {
-        console.log(message)
+        // console.log(message)
         return
       }
       setSettledData(settledData)
+      setIsLoading(false)
     } catch (error) {
       console.log(error)
     }
@@ -110,27 +120,33 @@ export default function GroupPage () {
   /* ---- API END ---- */
 
   return (
-    <AppLayout>
-      <GroupDataContext.Provider
-        value={{
-          groupData,
-          setGroupData,
-          memberList,
-          setMemberList,
-          expenseData,
-          setExpenseData,
-          settledData,
-          setSettledData,
-          expenseTypeList,
-          setExpenseTypeList,
-          getGroupData,
-          getMemberList,
-          getAllExpense,
-          getAllSettled
-        }}>
-        <GroupHeader />
-        <Outlet />
-      </GroupDataContext.Provider>
-    </AppLayout>
+    <>
+      {
+        isLoading
+          ? <LoadingModal />
+          : <AppLayout>
+            <GroupDataContext.Provider
+              value={{
+                groupData,
+                setGroupData,
+                memberList,
+                setMemberList,
+                expenseData,
+                setExpenseData,
+                settledData,
+                setSettledData,
+                expenseTypeList,
+                setExpenseTypeList,
+                getGroupData,
+                getMemberList,
+                getAllExpense,
+                getAllSettled
+              }}>
+              <GroupHeader />
+              <Outlet />
+            </GroupDataContext.Provider>
+          </AppLayout>
+      }
+    </>
   )
 }

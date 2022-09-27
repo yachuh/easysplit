@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
+import LoadingModal from '../components/LoadingModal'
 
 // Function: account verification API
 const accountActivateAPI = async (guid) => {
@@ -23,6 +24,7 @@ const accountActivateAPI = async (guid) => {
 }
 
 export default function AccountActivationPage () {
+  const [isLoading, setIsLoading] = useState(false)
   const [isVerified, setIsVerified] = useState(false)
   const [message, setMessage] = useState('')
 
@@ -34,11 +36,13 @@ export default function AccountActivationPage () {
 
   // trigger accountActivation API
   const accountActivate = async (guid) => {
+    setIsLoading(true)
     const resp = await accountActivateAPI(guid)
     const status = resp.Status
     setIsVerified(status)
     const message = resp.Message
     setMessage(message)
+    setIsLoading(false)
   }
   accountActivate(guid)
   //
@@ -48,9 +52,15 @@ export default function AccountActivationPage () {
   }, [])
 
   return (
-        <div>
+    <>
+      {
+        isLoading
+          ? <LoadingModal />
+          : <div>
             <p>Verification Status: {isVerified ? 'true' : 'false'}</p>
             <p>Message: {message}</p>
-        </div>
+          </div>
+      }
+    </>
   )
 }

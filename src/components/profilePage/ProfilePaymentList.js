@@ -2,16 +2,10 @@ import { usePayData } from '../../context/context'
 import CashPaymentList from './CashPaymentList'
 import BankPaymentList from './BankPaymentList'
 import LinePaymentList from './LinePaymentList'
-import {
-  KeyboardArrowDown
-} from '@mui/icons-material'
 
 export default function ProfilePaymentList ({ getPaymentAll }) {
   const { payData } = usePayData()
   const { bank, cash, line } = payData
-
-  console.log(payData)
-  console.log(bank, cash, line)
 
   const mapBankPaymentList = bank.map((payBank, i) => {
     return (
@@ -50,9 +44,6 @@ export default function ProfilePaymentList ({ getPaymentAll }) {
         {mapBankPaymentList}
         {mapLinePaymentList}
       </ul>
-      {/* <div className='md:hidden'>
-                <KeyboardArrowDown />
-            </div> */}
     </div>
   )
 }

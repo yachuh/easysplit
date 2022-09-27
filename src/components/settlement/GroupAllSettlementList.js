@@ -6,8 +6,10 @@ import GroupPayerListItem from './GroupPayerListItem'
 import GroupOwnerListItem from './GroupOwnerListItem'
 import ModalSettlement from './ModalSettlement'
 import { getSelfSettlementApi, getReminderApi } from '../../utils/api'
+// import LoadingModal from '../LoadingModal'
 
 export default function GroupAllSettlementList ({ getPersonalSettlement, getGroupAllSettlement }) {
+  const [isLoading, setIsLoading] = useState(false)
   const { groupData } = useGroupData()
   const { groupId } = groupData
 
@@ -30,6 +32,7 @@ export default function GroupAllSettlementList ({ getPersonalSettlement, getGrou
   const handleCloseMd = () => setOpenMd(false)
 
   const getSelfSettlement = async (groupId) => {
+    setIsLoading(true)
     try {
       const { status: isSuccess, message, userMemberId, settlement, notInvolved } = await getSelfSettlementApi(groupId)
       if (!isSuccess) {
@@ -41,12 +44,14 @@ export default function GroupAllSettlementList ({ getPersonalSettlement, getGrou
         settlement,
         notInvolved
       }))
+      setIsLoading(false)
     } catch (error) {
       console.log(error)
     }
   }
 
   const getReminder = async (ownerId) => {
+    setIsLoading(true)
     try {
       const { status: isSuccess, message, settlementReminder } = await getReminderApi(ownerId)
       if (!isSuccess) {
@@ -57,6 +62,7 @@ export default function GroupAllSettlementList ({ getPersonalSettlement, getGrou
         ...reminderdData,
         settlementReminder
       }))
+      setIsLoading(false)
     } catch (error) {
       console.log(error)
     }
@@ -141,6 +147,5 @@ export default function GroupAllSettlementList ({ getPersonalSettlement, getGrou
         </div>
       </reminderdDataContext.Provider>
     </selfSettlementDataContext.Provider>
-
   )
 }

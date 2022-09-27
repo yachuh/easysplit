@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { GroupAllSettlementDataContext, PersonalSettlementDataContext, useGroupData, settlementClickDataContext } from '../../context/context'
 import { getGroupAllSettlementApi, getPersonalSettlementApi } from '../../utils/api'
 import GroupAllSettlementList from './GroupAllSettlementList'
+// import LoadingModal from '../LoadingModal'
 
 export default function GroupAllSettlement () {
+  const [isLoading, setIsLoading] = useState(false)
   const { groupData } = useGroupData()
   const { groupId } = groupData
 
@@ -33,10 +35,10 @@ export default function GroupAllSettlement () {
   )
 
   const getGroupAllSettlement = async (groupId) => {
+    // setIsLoading(true)
     try {
       const { status: isSuccess, message, settlementList, payerList, ownerList, notInvolvedList } = await getGroupAllSettlementApi(groupId)
       if (!isSuccess) {
-        console.log(message)
         return
       }
       setGroupAllSettlementData(groupAllSettlementData => ({
@@ -46,16 +48,17 @@ export default function GroupAllSettlement () {
         ownerList,
         notInvolvedList
       }))
+      // setIsLoading(false)
     } catch (error) {
       console.log(error)
     }
   }
 
   const getPersonalSettlement = async (id) => {
+    // setIsLoading(true)
     try {
       const { status: isSuccess, message, settlement, notInvolvedList } = await getPersonalSettlementApi(id)
       if (!isSuccess) {
-        console.log(message)
         return
       }
       setPersonalSettlementData(personalSettlementData => ({
@@ -63,6 +66,7 @@ export default function GroupAllSettlement () {
         settlement,
         notInvolvedList
       }))
+      // setIsLoading(false)
     } catch (error) {
       console.log(error)
     }
