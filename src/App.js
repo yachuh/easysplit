@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useNavigate, Routes, Route } from 'react-router-dom'
+import { useNavigate, Routes, Route, useLocation } from 'react-router-dom'
 import { setAuthToken, getAuthToken } from './utils/utils'
 import Aos from 'aos'
 import 'aos/dist/aos.css'
@@ -33,18 +33,13 @@ function App () {
   const [token, setToken] = useState(null)
 
   const navigate = useNavigate()
+  const location = useLocation()
+  const background = location.state && location.state.background
 
   const handleLogout = () => {
-    setToken(null)
     setAuthToken(null)
     navigate('/', { replace: true })
   }
-
-  useEffect(() => {
-    if (getAuthToken()) {
-      setToken(getAuthToken())
-    }
-  }, [token, setToken])
 
   useEffect(function () {
     Aos.init({ duration: 1000 })
@@ -54,32 +49,32 @@ function App () {
     <>
       {isLoading
         ? <LoadingModal />
-        : <Routes>
+        : <Routes location={background || location}>
           {/* index 相關 */}
-          <Route index element={<HomePage />} />
-          <Route path="/stillmore" element={<StillMorePage />} />
-          <Route path="/faq" element={<FaqPage />} />
-          <Route path="/privacyPolicy" element={<PrivacyPolicyPage />} />
-          <Route path="*" element={<ErrorPage />} />
-          <Route path="nav" handleLogout={handleLogout} element={<Nav />} />
-          {/* signup & login 相關 */}
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/signup" element={<SignupPage />} />
-          <Route path="/forgetpassword" element={<ForgetPasswordPage />} />
-          <Route path="/AuthMail/AccountActivation" element={<AccountActivationPage />} />
-          <Route path="/AuthMail/ResetPassword" element={<ResetPwdPage />} />
-          {/* user 相關 */}
-        <Route path="/profile" element={<ProfilePage />} />
-          <Route path="/notifications" element={<NotificationPage />} />
-          {/* group 相關 */}
-          <Route path="/group" element={<GroupListPage />} />
-          <Route path="/group/:groupId" element={<GroupPage />}>
-            <Route index element={<GroupHomePage />} />
-            <Route path="home" element={<GroupHomePage />} />
-            <Route path="member" element={<GroupMemberPage />} />
-            <Route path="setting" element={<GroupSettingPage />} />
-            <Route path=":expenseId" element={<SingleExpensePage/>} />
-        </Route>
+            <Route index element={<HomePage />} />
+            <Route path="/stillmore" element={<StillMorePage />} />
+            <Route path="/faq" element={<FaqPage />} />
+            <Route path="/privacyPolicy" element={<PrivacyPolicyPage />} />
+            <Route path="*" element={<ErrorPage />} />
+            <Route path="nav" handleLogout={handleLogout} element={<Nav />} />
+            {/* signup & login 相關 */}
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/signup" element={<SignupPage />} />
+            <Route path="/forgetpassword" element={<ForgetPasswordPage />} />
+            <Route path="/AuthMail/AccountActivation" element={<AccountActivationPage />} />
+            <Route path="/AuthMail/ResetPassword" element={<ResetPwdPage />} />
+            {/* user 相關 */}
+            <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/notifications" element={<NotificationPage />} />
+            {/* group 相關 */}
+            <Route path="/group" element={<GroupListPage />} />
+            <Route path="/group/:groupId" element={<GroupPage />}>
+              <Route index element={<GroupHomePage />} />
+              <Route path="home" element={<GroupHomePage />} />
+              <Route path="member" element={<GroupMemberPage />} />
+              <Route path="setting" element={<GroupSettingPage />} />
+              <Route path=":expenseId" element={<SingleExpensePage/>} />
+          </Route>
         </Routes>
       }
     </>

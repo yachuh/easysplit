@@ -9,7 +9,8 @@ import { useGroupData } from '../context/context'
 import { getExpenseApi, editExpenseApi, editExpenseImgApi, delExpenseApi } from '../utils/api'
 import { PayerListModal, OwnerListModal } from '../components/group/GroupModal'
 
-export default function SingleExpensePage () {
+export default function SingleExpensePage ({ id }) {
+  console.log('id from RecordListItem:::', id)
   const { expenseId } = useParams()
   console.log('expenseId from param:::', expenseId)
   const { groupData, memberList, expenseTypeList } = useGroupData()
@@ -60,7 +61,7 @@ export default function SingleExpensePage () {
 
   const delExpense = async () => {
     try {
-      const { status: isSuccess, message, expenseData } = await delExpenseApi(expenseId)
+      const { status: isSuccess, message, expenseData } = await delExpenseApi(id)
       if (!isSuccess) {
         console.log(message)
         return

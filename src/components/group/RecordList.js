@@ -31,7 +31,8 @@ export default function RecordList () {
           open={openAddExpenseModal}
           onclose={handleCloseAddExpenseModal}
           onClick={handleCloseAddExpenseModal}
-          className="modalCard-bg">
+          className="modalCard-bg"
+        >
           <div onClick={(e) => e.stopPropagation()} className="expenseModal">
             <AddExpenseModal open={openAddExpenseModal} onClose={handleCloseAddExpenseModal} />
           </div>
