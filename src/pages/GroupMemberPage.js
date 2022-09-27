@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useGroupData } from '../context/context'
 import GroupMemberList from '../components/group/GroupMemberList'
 // import AddNewMemberModal from '../components/group/AddNewMemberModal'
-import { ChangeRoleModal, AddNewMemberModal } from '../components/group/GroupMemberModal'
+import { ChangeRoleModal, AddNewMemberModal } from '../components/group/GroupModal'
 import { Add, CloseOutlined } from '@mui/icons-material'
 import Modal from '@mui/material/Modal'
 

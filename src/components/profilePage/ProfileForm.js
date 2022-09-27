@@ -52,7 +52,6 @@ export default function ProfileForm () {
         alert(message)
         return
       }
-      // alert(message)
       console.log(message)
       handleOpen()
     } catch (error) {
@@ -73,7 +72,6 @@ export default function ProfileForm () {
           className="inputInfo mb-2"
           type="text"
           placeholder="站內顯示的暱稱，可隨時修改"
-          // value={name}
           {...register('name', {
             required: {
               value: true,

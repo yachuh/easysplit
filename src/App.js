@@ -12,12 +12,14 @@ import ForgetPasswordPage from './pages/ForgetPasswordPage'
 import ProfilePage from './pages/ProfilePage'
 import ResetPwdPage from './pages/ResetPwdPage'
 import NotificationPage from './pages/NotificationPage'
-// Group 相關
+// group 相關
 import GroupPage from './pages/GroupPage'
 import GroupListPage from './pages/GroupListPage'
 import GroupHomePage from './pages/GroupHomePage'
 import GroupMemberPage from './pages/GroupMemberPage'
 import GroupSettingPage from './pages/GroupSettingPage'
+// expense 相關
+import SingleExpensePage from './pages/SingleExpensePage'
 // landing page 相關
 import StillMorePage from './pages/StillMorePage'
 import FaqPage from './pages/FaqPage'
@@ -56,12 +58,13 @@ function App () {
         <Route path="/privacyPolicy" element={<PrivacyPolicyPage />} />
         <Route path="*" element={<ErrorPage />} />
         <Route path="nav" handleLogout={handleLogout} element={<Nav />} />
-        {/* user 相關 */}
+        {/* signup & login 相關 */}
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/forgetpassword" element={<ForgetPasswordPage />} />
         <Route path="/AuthMail/AccountActivation" element={<AccountActivationPage />} />
         <Route path="/AuthMail/ResetPassword" element={<ResetPwdPage />} />
+        {/* user 相關 */}
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/notifications" element={<NotificationPage />} />
         {/* group 相關 */}
@@ -71,6 +74,7 @@ function App () {
           <Route path="home" element={<GroupHomePage />} />
           <Route path="member" element={<GroupMemberPage />} />
           <Route path="setting" element={<GroupSettingPage />} />
+          <Route path=":expenseId" element={<SingleExpensePage/>} />
         </Route>
       </Routes>
     </>

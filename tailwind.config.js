@@ -30,7 +30,15 @@ module.exports = {
         'colors-sixth': '#9EC1A3',
         'colors-seventh': '#70A9A1',
         black: '#1F363D',
-        'line-pay': '#16A34A'
+        'line-pay': '#16A34A',
+        'color-light-green': '#CFE0C3',
+        'color-green': '#9EC1A3',
+        'color-dark-green': '#70A9A1',
+        'color-teal-blue': '#40798C',
+        'color-champagne-pink': '#F2DFD7',
+        'color-dark-pink': '#ECB1A9',
+        'color-teal': '#6AC1AC',
+        'color-yellow': '#F0CC67'
       },
       backgroundColor: ['active']
     }
