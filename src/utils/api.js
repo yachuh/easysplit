@@ -1,7 +1,10 @@
 import axios from 'axios'
 import { getAuthToken } from './utils'
 
-/* ---- Interceptors ---- */
+/**
+ * ==== Interceptors ====
+ */
+
 // axios interceptors: add token to headers
 axios.interceptors.request.use(function (config) {
   // Do something before request is sent
@@ -40,7 +43,10 @@ imgInstance.interceptors.request.use(function (config) {
   return Promise.reject(error)
 })
 
-/* ---- API config ---- */
+/**
+ * ==== API config ====
+ */
+
 const baseApiEndpoint = 'https://easysplit.rocket-coding.com/api'
 axios.defaults.baseURL = baseApiEndpoint
 
@@ -79,6 +85,12 @@ const DELETE_MEMBER = '/Group/DeleteMember'
 // expense 相關
 const GET_EXPENSE_TYPE = '/Expense/GetExpenseType'
 const GET_ALL_EXPENSE = '/Expense/GetAllExpense'
+const GET_EXPENSE = '/Expense/GetAllExpense'
+const ADD_EXPENSE = '/Expense/AddExpense'
+const ADD_EXPENSE_IMG = '/Expense/AddExpensePhotos'
+const EDIT_EXPENSE = '/Expense/EditExpense'
+const EDIT_EXPENSE_IMG = '/Expense/EditExpenseImage'
+const DELETE_EXPENSE = '/Expense/DeleteExpense'
 
 // settle 相關
 const GET_ALL_SETTLEMENT = 'Settlement/GetAllSettlement'
@@ -130,20 +142,23 @@ const toCamelCase = (payload) => {
   return result
 }
 
-/* ---- APIs ---- */
+/**
+ * ==== APIs ====
+ */
 
-/* POST */
+/* ---- POST ---- */
 const postApi = async (url, payload, config) => {
   const res = await axios.post(url, payload, config)
   return toCamelCase(res.data)
 }
 
+// use imgPostApi when uploading images
 const imgPostApi = async (url, payload) => {
   const res = await imgInstance.post(url, payload)
   return toCamelCase(res.data)
 }
 
-// user 相關
+// user 相關 api
 export const signupApi = (payload) => postApi(SINGN_UP, toUpperCamelCase(payload))
 export const loginApi = (payload) => postApi(LOGIN, toUpperCamelCase(payload))
 export const accountActivateAPI = (payload) => postApi(ACCOUNT_ACTIVATION_MAIL, toUpperCamelCase(payload))
@@ -154,17 +169,22 @@ export const addBankApi = (payload) => postApi(ADD_BANK, toUpperCamelCase(payloa
 export const addCashApi = (payload) => postApi(ADD_CASH, toUpperCamelCase(payload))
 export const addLinePayApi = (payload) => postApi(ADD_LINEPAY, toUpperCamelCase(payload))
 
-// group 相關
+// group 相關 api
 export const addGroupApi = (payload) => postApi(ADD_GROUP, toUpperCamelCase(payload))
 export const addGroupCoverApi = (formData) => imgPostApi(ADD_GROUP_COVER, formData)
 export const editGroupCoverApi = (formData) => imgPostApi(EDIT_GROUP_COVER, formData)
 export const addMemberApi = (payload) => postApi(ADD_MEMBER, toUpperCamelCase(payload))
 
-// settle 相關
+// expense 相關 api
+export const addExpenseApi = (payload) => postApi(ADD_EXPENSE, toUpperCamelCase(payload))
+export const addExpenseImgApi = (formData) => imgPostApi(ADD_EXPENSE_IMG, formData)
+export const editExpenseImgApi = (formData) => imgPostApi(EDIT_EXPENSE_IMG, formData)
+
+// settle 相關 api
 export const settleUpApi = (payload) => postApi(SETTLEUP, toUpperCamelCase(payload))
 export const sendReminderApi = (payload) => postApi(SEND_REMINDER, toUpperCamelCase(payload))
 
-/* GET */
+/* ---- GET ---- */
 const getApi = async (url) => {
   const res = await axios(url)
   return toCamelCase(res.data)
@@ -173,7 +193,7 @@ const getApi = async (url) => {
 export const getProfileApi = () => getApi(GET_PROFILE)
 export const getPaymentAllApi = () => getApi(GETALL)
 
-// Settlement 相關
+// Settlement 相關 api
 export const getGroupAllSettlementApi = (param) => getApi(`${GET_ALL_SETTLEMENT}/${param}`)
 export const getPersonalSettlementApi = (param) => getApi(`${GET_SETTLEMENT}/${param}`)
 export const getPaymentTypeApi = () => getApi(GET_PAYMENT_TYPE)
@@ -182,16 +202,17 @@ export const getReminderApi = (param) => getApi(`${GET_REMINDER}/${param}`)
 export const getSelfSettlementApi = (param) => getApi(`${GET_SELF_SETTLEMENT}/${param}`)
 export const getAllSettledApi = (groupId) => getApi(`${GET_ALL_SETTLED}/${groupId}`)
 
-// group 相關
+// group 相關 api
 export const getAllGroupApi = () => getApi(GET_ALL_GROUP)
 export const getAGroupApi = (groupId) => getApi(`${GET_A_GROUP}/${groupId}`)
 export const getAllMemberApi = (groupId) => getApi(`${GET_ALL_MEMBER}/${groupId}`)
 
-// expense 相關
+// expense 相關 api
 export const getExpenseTypeApi = () => getApi(GET_EXPENSE_TYPE)
 export const getAllExpenseApi = (groupId) => getApi(`${GET_ALL_EXPENSE}/${groupId}`)
+export const getExpenseApi = (expenseId) => getApi(`${GET_EXPENSE}/${expenseId}`)
 
-/* PUT */
+/* ---- PUT ---- */
 const putApi = async (url, payload) => {
   const res = await axios.put(url, payload)
   return toCamelCase(res.data)
@@ -200,12 +221,15 @@ const putApi = async (url, payload) => {
 export const editProfileApi = (param) => putApi(`${EDIT_PROFILE}?name=${param}`)
 export const resetPwdApi = (payload) => putApi(RESET_PWD_MAIL, toUpperCamelCase(payload))
 
-// group 相關
+// group 相關 api
 export const editGroupApi = (payload) => putApi(EDIT_GROUP, toUpperCamelCase(payload))
 export const editMemberApi = (payload) => putApi(EDIT_MEMBER, toUpperCamelCase(payload))
 export const changeMemberRoleApi = (memberId) => putApi(`${CHANGE_MEMBER_ROLE}/${memberId}`)
 
-/* DELETE */
+// expense 相關 api
+export const editExpenseApi = (payload) => putApi(EDIT_EXPENSE, toUpperCamelCase(payload))
+
+/* ---- DELETE ---- */
 const deleteApi = async (url) => {
   const res = await axios.delete(url)
   return toCamelCase(res.data)
@@ -215,9 +239,12 @@ export const deleteBankApi = (param) => deleteApi(`${DELETE_BANK}/${param}`)
 export const deleteLineApi = (param) => deleteApi(`${DELETE_LINE}/${param}`)
 export const deleteCashApi = (param) => deleteApi(`${DELETE_CASH}/${param}`)
 
-// group 相關
+// group 相關 api
 export const delGroupApi = (groupId) => deleteApi(`${DELETE_GROUP}/${groupId}`)
 export const delMemberApi = (memberId) => deleteApi(`${DELETE_MEMBER}/${memberId}`)
+
+// expense 相關 api
+export const delExpenseApi = (expenseId) => deleteApi(`${DELETE_EXPENSE}/${expenseId}`)
 
 // 5.X 須將後面數字改變數 ${param}，測試功能暫寫死
 export const deleteSettlemetApi = (param) => deleteApi(`${DELETE_SETTLEMENT}/${param}`)

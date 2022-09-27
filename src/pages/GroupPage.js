@@ -1,20 +1,24 @@
 import { useState, useEffect } from 'react'
 import { Outlet, useParams } from 'react-router-dom'
 import { GroupDataContext } from '../context/context'
-import { getAGroupApi, getAllMemberApi, getAllExpenseApi, getAllSettledApi } from '../utils/api'
+import { getAGroupApi, getAllMemberApi, getAllExpenseApi, getAllSettledApi, getExpenseTypeApi } from '../utils/api'
 import AppLayout from './AppLayout'
 import GroupHeader from '../components/group/GroupHeader'
 
 export default function GroupPage () {
   const { groupId } = useParams()
+
+  /* ---- STATE 相關 START ---- */
   const [groupData, setGroupData] = useState({
     groupId: '',
     groupName: '',
     imageUrl: ''
   })
   const [memberList, setMemberList] = useState([])
+  const [expenseTypeList, setExpenseTypeList] = useState([])
   const [expenseData, setExpenseData] = useState([])
   const [settledData, setSettledData] = useState([])
+  /* ---- STATE 相關 END ---- */
 
   // Runs everytime after groupId changes
   useEffect(() => {
@@ -23,6 +27,7 @@ export default function GroupPage () {
       await getMemberList()
       await getAllExpense()
       await getAllSettled()
+      await getExpenseType()
     }
     fetchData()
     // getGroupData()
@@ -33,8 +38,10 @@ export default function GroupPage () {
     console.log('memberList:::', memberList)
     console.log('expenseData:::', expenseData)
     console.log('settledData:::', settledData)
+    console.log('expenseTypeList:::', expenseTypeList)
   }, [groupId])
 
+  /* ---- API START ---- */
   const getMemberList = async () => {
     try {
       const { status: isSuccess, message, memberData } = await getAllMemberApi(groupId)
@@ -43,6 +50,15 @@ export default function GroupPage () {
         return
       }
       setMemberList(memberData)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const getExpenseType = async () => {
+    try {
+      const { expenseType } = await getExpenseTypeApi()
+      setExpenseTypeList(expenseType)
     } catch (error) {
       console.log(error)
     }
@@ -91,6 +107,7 @@ export default function GroupPage () {
       console.log(error)
     }
   }
+  /* ---- API END ---- */
 
   return (
     <AppLayout>
@@ -104,6 +121,8 @@ export default function GroupPage () {
           setExpenseData,
           settledData,
           setSettledData,
+          expenseTypeList,
+          setExpenseTypeList,
           getGroupData,
           getMemberList,
           getAllExpense,

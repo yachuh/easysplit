@@ -2,10 +2,21 @@ import React, { useState, useEffect } from 'react'
 import { AccountBalanceWallet, CloseOutlined } from '@mui/icons-material'
 import Modal from '@mui/material/Modal'
 import { settledDetailDataContext } from '../../context/context'
-import { getSettledDetailApi } from '../../utils/api'
+import { getSettledDetailApi, getExpenseApi } from '../../utils/api'
 import SettledDetail from '../../components/settlement/SettledDetail'
 
-export function PaymentRecordItem ({ expenseTypeList, expenseId, item, cost, creatDate, memo, expenseType }) {
+// turn ISOS time into month and day e.g. Sep 23
+const toMonthAndDay = (time) => {
+  return new Date(time).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
+}
+const toMonth = (time) => {
+  return new Date(time).toLocaleDateString('en-US', { month: 'short' })
+}
+const toDay = (time) => {
+  return new Date(time).toLocaleDateString('en-US', { day: 'numeric' })
+}
+
+export function ExpenseRecordItem ({ expenseTypeList, expenseId, item, cost, creatDate, memo, expenseType }) {
   const toExpenseTypeIcon = (expenseType) => {
     // get expense type imageUrl
     const filterExpenseTypeList = expenseTypeList.filter(type => {
@@ -18,18 +29,27 @@ export function PaymentRecordItem ({ expenseTypeList, expenseId, item, cost, cre
     return (filterExpenseTypeList[0]?.imageUrl)
   }
 
-  // turn time into date formnat, e.g. Sep 23
-  const toDate = (time) => {
-    const dateAry = time.split(' ')
-    const date = `${dateAry[0]} ${dateAry[1]}`
-    return date
+  const onClickExpenseItem = async (expenseId) => {
+    try {
+      const { status: isSuccess, message, expenseData } = await getExpenseApi(expenseId)
+      if (!isSuccess) {
+        console.log(message)
+        return
+      }
+      console.log('expenseData:::', expenseData)
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (
-    <div className="flex">
+    <div
+      className="flex"
+      onClick={() => { onClickExpenseItem(expenseId) }}
+    >
       {/* date & type */}
       <div className="md:flex items-center">
-        <p>{toDate(creatDate)}</p>
+        <p>{toMonthAndDay(creatDate)}</p>
         <div className="w-[64px] h-[64px] rounded-2xl p-5 bg-emerald-100 text-emerald-500">
           <img src={toExpenseTypeIcon(expenseType)} alt={expenseType} />
         </div>
@@ -42,7 +62,7 @@ export function PaymentRecordItem ({ expenseTypeList, expenseId, item, cost, cre
   )
 }
 
-export function SettledRecordItem ({ settledId, ownerName, payerName, creatDate, ownerPaytoPayerAmount }) {
+export function SettledRecordItem ({ settledId, ownerName, payerName, ownerPaytoPayerAmount, creatDate }) {
   const [open, setOpen] = useState(false)
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
@@ -90,10 +110,10 @@ export function SettledRecordItem ({ settledId, ownerName, payerName, creatDate,
       <div
         onClick={SettledRecordClick}
         id={settledId}
-        className="flex flex-col justify-center cursor-pointer gap-2 mb-4 md:flex-row md:justify-start md:items-center">
-        <div className='flex items-center gap-1 font-bold md:flex-col'>
-          <p className=' text-gray-500 md:text-black'>Sep</p>
-          <p className='md:text-2xl'>23</p>
+        className="flex flex-col justify-center cursor-pointer gap-2 md:flex-row md:justify-start md:items-center">
+        <div className='flex items-center gap-2 font-bold md:flex-col'>
+          <p className=' text-gray-500 md:text-black'>{toMonth(creatDate)}</p>
+          <p className='md:text-2xl'>{toDay(creatDate)}</p>
         </div>
         <div className='flex items-center gap-4'>
           <div className="w-5 h-5 rounded p-5 bg-emerald-100 text-emerald-500 flex justify-center items-center md:w-16 md:h-16 md:rounded-2xl">
@@ -107,23 +127,12 @@ export function SettledRecordItem ({ settledId, ownerName, payerName, creatDate,
           </p>
         </div>
       </div>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        className="modalCard-bg">
-        <div
-          onClick={(e) => e.stopPropagation()}
-          className="modalCard">
-          <div
-            onClick={handleClose}
-            className="modalCancel">
+      <Modal open={open} onClose={handleClose} className="modalCard-bg">
+        <div onClick={(e) => e.stopPropagation()} className="modalCard">
+          <div onClick={handleClose} className="modalCancel">
             <CloseOutlined sx={{ fontSize: 14 }} />
           </div>
-          <SettledDetail
-            open={open}
-            onClose={handleClose}
-            getSettledDetail={getSettledDetail}
-          />
+          <SettledDetail open={open} onClose={handleClose} getSettledDetail={getSettledDetail}/>
         </div>
       </Modal>
     </settledDetailDataContext.Provider>

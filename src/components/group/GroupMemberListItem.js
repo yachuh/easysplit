@@ -1,8 +1,7 @@
 export default function GroupMemberListItem ({ memberId, memberName, userId, imageUrl, email, setNewMemberId }) {
-  const handleOnClick = (e) => {
+  const handleOnClick = e => {
     setNewMemberId(e.currentTarget.id)
   }
-
   return (
         <li id={memberId}
             className="member-item cursor-pointer border-b border-colors-third hover:bg-gray-200"

@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form'
 import AddPhotoAlternateOutlinedIcon from '@mui/icons-material/AddPhotoAlternateOutlined'
 import { addGroupApi, addGroupCoverApi } from '../utils/api'
 
-export default function AddNewGroupModal ({ onClose }) {
+export default function AddNewGroupModal ({ onClose, groupList, setGroupList }) {
   const [image, setImage] = useState({ preview: '', raw: '' })
 
   const navigate = useNavigate()
@@ -13,7 +13,7 @@ export default function AddNewGroupModal ({ onClose }) {
     register,
     setValue,
     handleSubmit,
-    formState: { errors }
+    formState: { errors, isDirty, isValid }
   } = useForm({
     defaultValues: {
       name: '',
@@ -99,6 +99,7 @@ export default function AddNewGroupModal ({ onClose }) {
                     onChange={handleChange}
                 />
                 <p className="modalHint my-2">建議尺寸：800*800 px</p>
+                {/* 群組名稱:::name */}
                 <div>
                     <label htmlFor="name" className="groupModalCard-form-input-title">群組名稱</label>
                     <input
@@ -115,13 +116,13 @@ export default function AddNewGroupModal ({ onClose }) {
                     />
                     <p className="text-xs text-left mt-1 text-rose-600">{errors.name?.message}</p>
                 </div>
-
                 <div className="mt-[24px]">
-                    <input
-                    type="submit"
-                    className="btn-primary w-full"
-                    value="建立"
-                    />
+                  <input
+                  type="submit"
+                  className="btn-primary w-full"
+                  value="建立"
+                  disabled={!isDirty && !isValid}
+                  />
                 </div>
             </form>
         </div>

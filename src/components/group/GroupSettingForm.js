@@ -31,7 +31,7 @@ export default function GroupSettingForm () {
     register,
     setValue,
     handleSubmit,
-    formState: { errors }
+    formState: { errors, isDirty, isValid }
   } = useForm({
     defaultValues: {
       id: groupId,
@@ -144,6 +144,7 @@ export default function GroupSettingForm () {
                         type="submit"
                         className="btn-primary w-full my-4"
                         value="儲存"
+                        disabled={!isDirty || !isValid}
                     />
                 </div>
             </form>

@@ -26,7 +26,10 @@ code {
   }
 
   .btn-primary {
-    @apply block text-center py-2 px-8 sm:px-10 bg-colors-primary rounded text-white font-bold hover:bg-colors-sixth focus:bg-colors-seventh;
+    @apply block text-center py-2 px-8 sm:px-10 bg-colors-primary rounded text-white font-bold cursor-pointer
+    hover:bg-colors-sixth 
+    focus:bg-colors-seventh 
+    disabled:opacity-50 disabled:cursor-not-allowed;
   }
 
   .btn-secondary {
@@ -106,7 +109,8 @@ code {
   }
 
   .formInput {
-    @apply w-full py-2 px-3 bg-white border border-gray-300 rounded;
+    @apply w-full py-2 px-3 bg-white border border-gray-300 rounded
+    active:border active:border-colors-primary;
   }
 
   .formInput-text-correct {
@@ -122,7 +126,7 @@ code {
   }
 
   .groupModalCard {
-    @apply px-4 pt-8 pb-4 rounded-[20px] flex flex-col items-center fixed top-1/2 left-1/2 translate-y-[-50%] translate-x-[-50%] bg-white z-50 w-[280px] card-shadow;
+    @apply px-4 pt-8 pb-4 rounded-[20px] flex flex-col items-center fixed top-1/2 left-1/2 translate-y-[-50%] translate-x-[-50%] bg-white z-50 w-11/12 sm:w-3/5 lg:w-1/3 xl:w-[30%] card-shadow;
   }
 
   .groupModalCard-title {
@@ -185,12 +189,9 @@ code {
   * 單筆費用
   * ----
   */
-  .expenseModal-bg {
-    @apply fixed inset-0 bg-black/70 z-50;
-  }
 
   .expenseModal {
-    @apply items-center fixed right-0 bg-white z-50 w-full lg:w-[464px] h-screen card-shadow;
+    @apply items-center fixed right-0 bg-white z-50 w-full lg:w-[525px] min-h-full card-shadow overscroll-auto;
   }
 
   .expenseModal-header {
@@ -198,18 +199,25 @@ code {
   }
 
   .expenseModal-form {
-    @apply px-8 overscroll-auto;
+    @apply px-4 md:px-8;
   }
 
   .singlePayment-payer {
     @apply flex items-center gap-4 font-medium text-black;
   }
 
+  .singlePayment-name {
+    @apply max-w-[148px] md:max-w-[192px];
+  }
+
+  .singlePayment-datePick {
+    @apply bg-white rounded px-4 py-1 w-[133px]
+    border border-colors-primary;
+  }
+
   .selectMember-popup {
     @apply w-[280px] p-4 rounded-[20px] border border-gray-300;
   }
-
-  .selectMember
 
   .groupUser {
     @apply flex

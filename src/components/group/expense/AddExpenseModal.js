@@ -1,22 +1,29 @@
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
 import { useForm, FormProvider, useFormContext, useFieldArray } from 'react-hook-form'
+import { addExpenseApi } from '../../../utils/api'
+import { useGroupData } from '../../../context/context'
 import Modal from '@mui/material/Modal'
+import { PayerListModal, OwnerListModal } from '../GroupModal'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
-import { Edit, Delete, LastPage, Check, AttachMoney, CloseOutlined } from '@mui/icons-material'
-import { useGroupData } from '../context/context'
-import { getExpenseApi, editExpenseApi, editExpenseImgApi, delExpenseApi } from '../utils/api'
-import { PayerListModal, OwnerListModal } from '../components/group/GroupModal'
+import { Edit, Delete, LastPage, Check, AttachMoney, CloseOutlined, Update } from '@mui/icons-material'
 
-export default function SingleExpensePage () {
-  const { expenseId } = useParams()
-  console.log('expenseId from param:::', expenseId)
+// convert DatePicker time to ISOS format
+const toCreateDateFormat = (time) => {
+  return time.toISOString()
+}
+
+export default function AddExpenseModal ({ open, onClose }) {
   const { groupData, memberList, expenseTypeList } = useGroupData()
+  const currentTime = new Date(Date.now()).toISOString()
 
-  const [expenseData, setExpenseData] = useState()
   const [startDate, setStartDate] = useState(new Date())
-  const [payerList, setPayerList] = useState([])
+  const [payerList, setPayerList] = useState([{
+    MemberId: memberList[0].memberId,
+    PaymentAmount: '',
+    memberName: memberList[0].memberName,
+    imageUrl: memberList[0].imageUrl
+  }])
   const [ownerList, setOwnerList] = useState([])
 
   /* ---- popups ---- */
@@ -28,49 +35,8 @@ export default function SingleExpensePage () {
   const handleCloseOwnerListPopup = () => setOpenOwnerListPopup(false)
 
   useEffect(() => {
-    getExpense()
-  }, [])
-
-  /* ---- APIs START ---- */
-  const getExpense = async () => {
-    try {
-      const { status: isSuccess, message, expenseData } = await getExpenseApi(expenseId)
-      if (!isSuccess) {
-        console.log(message)
-        return
-      }
-      console.log('expenseData:::', expenseData)
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  const editExpense = async (data) => {
-    try {
-      const { status: isSuccess, message, expenseData } = await editExpenseApi(data)
-      if (!isSuccess) {
-        console.log(message)
-        return
-      }
-      console.log('expenseData:::', expenseData)
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  const delExpense = async () => {
-    try {
-      const { status: isSuccess, message, expenseData } = await delExpenseApi(expenseId)
-      if (!isSuccess) {
-        console.log(message)
-        return
-      }
-      console.log('expenseData:::', expenseData)
-    } catch (error) {
-      console.log(error)
-    }
-  }
-  /* ---- APIs END ---- */
+    console.log('payerList:::', payerList)
+  }, [payerList])
 
   /* ---- react hook form configs START---- */
   const methods = useForm({
@@ -82,7 +48,7 @@ export default function SingleExpensePage () {
       addPayerExpenseVms: [],
       addOwnerExpenseVms: [],
       addExpenseAlbumsVms: [],
-      creatDate: '',
+      creatDate: currentTime,
       memo: ''
     }
   })
@@ -91,18 +57,50 @@ export default function SingleExpensePage () {
     register,
     control,
     getValues,
+    setValue,
     watch,
     handleSubmit,
     formState: { errors }
   } = methods
+
+  const { update } = useFieldArray({
+    control,
+    name: 'addPayerExpenseVms'
+  })
+
   /* ---- react hook form configs END---- */
 
   const watchCost = watch('cost', 0.00) // watch form inputs:cost
   const watchAllFields = watch()
   console.log(watchAllFields)
 
+  // const mapPayerUserData = () => {
+  //   const payerUserList = payerList.forEach(payer => {
+  //     let i = 0
+  //     if (payer.id === memberList[i].memberId) {
+  //       const member = {
+  //         memberId: memberList[i].memberId,
+  //         memberName: memberList[i].memberName,
+  //         imageUrl: memberList[i].imageUrl
+  //       }
+  //       return member
+  //     }
+  //     i++
+  //   })
+  //   setPayerUserData(payerUserList)
+  //   console.log('payerUserData:::', payerUserData)
+  // }
+
+  useEffect(() => {
+    setValue('addPayerExpenseVms.0.PaymentAmount', watchCost)
+  }, [watchCost])
+
+  // const handleOnChangeCost = () => {
+  //   update(0, { PaymentAmount: watchCost })
+  // }
+
   return (
-  <div>
+    <div>
       {/* ---- header icons ---- */}
       <div className="expenseModal-header">
             <Edit sx={{ fontSize: 24 }} />
@@ -174,14 +172,14 @@ export default function SingleExpensePage () {
         <div className="mb-6">
             {/* 付款人 payerExpenseVms */}
             <div className="singlePayment-payer mt-7">
-                <img className="settlement-userImg" src={memberList[0]?.imageUrl} alt="payer" />
+                <img className="settlement-userImg" src={payerList[0].imageUrl} alt="payer" />
                 <label className="w-[120px]">
                     <div className="singlePayment-name">
                       <p
                         className="formInput singlePayment-name py-1 px-4 overflow-hidden text-ellipsis"
-
+                        onClick={handleOpenPayerListPopup}
                       >
-                          {memberList[0]?.memberName}
+                          {payerList[0].memberName}
                       </p>
                       {/* { payerUserData.map((payer, i) => {
                         return (
@@ -206,7 +204,7 @@ export default function SingleExpensePage () {
                     <Modal open={openPayerListPopup} onClose={handleClosePayerListPopup} className="modalCard-bg">
                         <div onClick={(e) => e.stopPropagation()} className="groupModalCard">
                             <div onClick={handleClosePayerListPopup} className="modalCancel"><CloseOutlined sx={{ fontSize: 14 }} /></div>
-                            <PayerListModal open={openPayerListPopup} onClose={handleClosePayerListPopup} payerList={payerList} setPayerList={setPayerList} paymentAmount={watchCost}/>
+                            <PayerListModal open={openPayerListPopup} onClose={handleClosePayerListPopup} payerList={payerList} setPayerList={setPayerList} watchCost={watchCost}/>
                         </div>
                     </Modal>
                     {/* SelectPayerModal End */}
@@ -273,6 +271,14 @@ export default function SingleExpensePage () {
                     {...register('memo')}
                 />
             </label>
+        </div>
+        {/* 送出 */}
+        <div className="mt-4">
+            <input
+                type="submit"
+                className="btn-primary w-full"
+                value="送出"
+            />
         </div>
       </form>
       </FormProvider>

@@ -7,8 +7,9 @@ import { UserDataContext } from '../context/context'
 
 export default function AppLayout ({ children }) {
   const [userData, setUserData] = useState({
-    name: '',
+    userId: '',
     account: '',
+    name: '',
     imageUrl: ''
   })
 
@@ -21,8 +22,9 @@ export default function AppLayout ({ children }) {
       }
       setUserData(userData => ({
         ...userData,
-        name: userdata.name,
+        userId: userdata.userId,
         account: userdata.account,
+        name: userdata.name,
         imageUrl: userdata.imageUrl
       }))
     } catch (error) {
