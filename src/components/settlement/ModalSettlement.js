@@ -70,8 +70,6 @@ export default function ModalSettlement ({ onClose, getPersonalSettlement, getGr
             <ModalDetailSettlement
               open={open}
               onClose={handleClose}
-              getPersonalSettlement={getPersonalSettlement}
-              getGroupAllSettlement={getGroupAllSettlement}
             />
           </div>
         </Modal>

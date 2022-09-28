@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { ArrowCircleDown, CloseOutlined } from '@mui/icons-material'
 import Modal from '@mui/material/Modal'
 import DatePicker from 'react-datepicker'
@@ -8,7 +8,7 @@ import { useSettlementClickData, useGroupData } from '../../context/context'
 import { ModalSettlementSuccess } from '../ModalFeedback'
 import LoadingModal from '../LoadingModal'
 
-export const ModalDetailSettlement = ({ onClose, getPersonalSettlement, getGroupAllSettlement }) => {
+export const ModalDetailSettlement = ({ onClose }) => {
   const [isLoading, setIsLoading] = useState(false)
   const [startDate, setStartDate] = useState(new Date())
 
@@ -30,7 +30,7 @@ export const ModalDetailSettlement = ({ onClose, getPersonalSettlement, getGroup
   const handleOpenSuccess = () => setOpenSuccess(true)
   const handleCloseSuccess = () => setOpenSuccess(false)
 
-  const getPaymentType = async () => {
+  const getPaymentType = useCallback(async () => {
     setIsLoading(true)
     try {
       const { paymentType } = await getPaymentTypeApi()
@@ -42,7 +42,7 @@ export const ModalDetailSettlement = ({ onClose, getPersonalSettlement, getGroup
     } catch (error) {
       console.log(error)
     }
-  }
+  }, [])
 
   const [settleUpData, setSettleUpData] = useState({
     GroupId: groupId,
@@ -78,28 +78,28 @@ export const ModalDetailSettlement = ({ onClose, getPersonalSettlement, getGroup
     }))
   }
 
-  const settleUp = async (settleUpData) => {
+  const settleUp = useCallback(async (settleUpData) => {
     setIsLoading(true)
     try {
       const { GroupId, OwnerMemberId, PayerMemberId, OwnerPaytoPayerAmount, PaymentMethod, Memo, FileName, CreatDate } = await settleUpApi(settleUpData)
-      // console.log('結算結果 :>> ', '結算成功')
-      handleOpenSuccess()
-      getGroupAllSettlement(groupId)
+      console.log('結算結果 :>> ', '結算成功')
       // onClose()
       // handleOpenSuccess()
       setIsLoading(false)
+      handleOpenSuccess()
     } catch (err) {
       console.log(err)
     }
-  }
+  }, [])
 
   const clickSettleUp = () => {
     settleUp(settleUpData)
   }
 
+  console.log('groupId:', groupId)
   useEffect(() => {
-    getPaymentType(groupId)
-  }, [groupId])
+    getPaymentType()
+  }, [])
 
   const mapPaymentType = paymentTypeData.paymentType.map((paymentType, i) => {
     const { id, paymentMethod } = paymentType
@@ -219,5 +219,6 @@ export const ModalDetailSettlement = ({ onClose, getPersonalSettlement, getGroup
           </div>
       }
     </>
+
   )
 }

@@ -44,8 +44,7 @@ export default function GroupOwnerListItem ({ getPersonalSettlement, getGroupAll
               onClick={() => { getPersonalSettlement(MemberId) }}
               expandIcon={<ExpandMore sx={{ fontSize: 20 }} />}
               aria-controls='panelbh-content'
-              id='panelbh-header'
-            >
+              id='panelbh-header'>
               <Typography
                 component={'div'}
                 sx={{ width: '100%', fontSize: 20, fontWeight: 600 }}>

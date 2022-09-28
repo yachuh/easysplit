@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
 import { AttachMoney, CloseOutlined } from '@mui/icons-material'
 import Modal from '@mui/material/Modal'
-import { useSettledDetailData } from '../../context/context'
+import { useSettledDetailData, useGroupData } from '../../context/context'
 import { deleteSettlemetApi } from '../../utils/api'
 import SettledDetailImg from '../../image/SettledDetail.svg'
 import coverPhoto from '../../image/coverPhoto.svg'
@@ -9,6 +9,8 @@ import { ModalConfirmTheDeletion } from '../../components/ModalFeedback'
 import LoadingModal from '../LoadingModal'
 
 export default function SettledDetail ({ onClose }) {
+  const { getAllSettled, groupData } = useGroupData()
+  const { groupId } = groupData
   const [isLoading, setIsLoading] = useState(false)
   const { pickDetailData } = useSettledDetailData()
   const {
@@ -31,19 +33,20 @@ export default function SettledDetail ({ onClose }) {
   const handleOpenDel = () => setOpenDel(true)
   const handleCloseDel = () => setOpenDel(false)
 
-  const deleteSettlemet = async (settledId) => {
+  const deleteSettlemet = useCallback(async (settledId) => {
     setIsLoading(true)
     try {
       const { status: isSuccess, message } = await deleteSettlemetApi(settledId)
       if (!isSuccess) {
         return
       }
+      getAllSettled(groupId)
       onClose()
       setIsLoading(false)
     } catch (error) {
       console.log(error)
     }
-  }
+  }, [settledId, groupId])
 
   const deleteSettlemetClick = () => {
     deleteSettlemet(settledId)
@@ -54,8 +57,7 @@ export default function SettledDetail ({ onClose }) {
       {
         isLoading
           ? <LoadingModal />
-          : { pickDetailData } &&
-          <div id={settledId} className='w-full'>
+          : <div id={settledId} className='w-full'>
             <div className='flex justify-between items-center mb-4'>
               <img
                 src={SettledDetailImg}

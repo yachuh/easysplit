@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import { GroupAllSettlementDataContext, PersonalSettlementDataContext, useGroupData, settlementClickDataContext } from '../../context/context'
 import { getGroupAllSettlementApi, getPersonalSettlementApi } from '../../utils/api'
 import GroupAllSettlementList from './GroupAllSettlementList'
-// import LoadingModal from '../LoadingModal'
+import LoadingModal from '../LoadingModal'
 
 export default function GroupAllSettlement () {
   const [isLoading, setIsLoading] = useState(false)
   const { groupData } = useGroupData()
   const { groupId } = groupData
+
+  console.log('groupId :>> ', groupId)
 
   const [groupAllSettlementData, setGroupAllSettlementData] = useState({
     settlementList: [],
@@ -34,8 +36,8 @@ export default function GroupAllSettlement () {
     }
   )
 
-  const getGroupAllSettlement = async (groupId) => {
-    // setIsLoading(true)
+  const getGroupAllSettlement = useCallback(async (groupId) => {
+    setIsLoading(true)
     try {
       const { status: isSuccess, message, settlementList, payerList, ownerList, notInvolvedList } = await getGroupAllSettlementApi(groupId)
       if (!isSuccess) {
@@ -48,14 +50,14 @@ export default function GroupAllSettlement () {
         ownerList,
         notInvolvedList
       }))
-      // setIsLoading(false)
+      setIsLoading(false)
     } catch (error) {
       console.log(error)
     }
-  }
+  }, [groupId])
 
-  const getPersonalSettlement = async (id) => {
-    // setIsLoading(true)
+  const getPersonalSettlement = useCallback(async (id) => {
+    setIsLoading(true)
     try {
       const { status: isSuccess, message, settlement, notInvolvedList } = await getPersonalSettlementApi(id)
       if (!isSuccess) {
@@ -66,11 +68,12 @@ export default function GroupAllSettlement () {
         settlement,
         notInvolvedList
       }))
-      // setIsLoading(false)
+      setIsLoading(false)
+      console.log('settlement :>> ', settlement)
     } catch (error) {
       console.log(error)
     }
-  }
+  }, [])
 
   useEffect(() => {
     if (groupId) {
@@ -95,5 +98,6 @@ export default function GroupAllSettlement () {
         </settlementClickDataContext.Provider>
       </PersonalSettlementDataContext.Provider>
     </GroupAllSettlementDataContext.Provider>
+
   )
 }

@@ -45,7 +45,7 @@ export default function GroupPage () {
 
   /* ---- API START ---- */
   const getMemberList = async () => {
-    setIsLoading(true)
+    // setIsLoading(true)
     try {
       const { status: isSuccess, message, memberData } = await getAllMemberApi(groupId)
       if (!isSuccess) {
@@ -53,7 +53,7 @@ export default function GroupPage () {
         return
       }
       setMemberList(memberData)
-      setIsLoading(false)
+      // setIsLoading(false)
     } catch (error) {
       console.log(error)
     }

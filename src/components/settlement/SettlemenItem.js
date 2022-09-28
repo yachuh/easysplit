@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import Modal from '@mui/material/Modal'
-import { AttachMoney, CloseOutlined } from '@mui/icons-material'
+import { AttachMoney, CloseOutlined, Volcano } from '@mui/icons-material'
 import { useSettlementClickData, useSelfSettlementData, useReminderData } from '../../context/context'
 import { ModalSingelDetailSettlement } from './ModalSingelDetailSettlement'
 import { ModalReminder } from '../../components/ModalFeedback'
+import LoadingModal from '../../components/LoadingModal'
 
 export const SettlementPayerItem = ({ payerListItem }) => {
   const { PayerImageUrl, MemberId, PayerName, ReceivedAmount } = payerListItem
@@ -60,8 +61,9 @@ export const SettlementOwnerItem = ({ ownerListItem }) => {
 }
 
 export const PersonalPayerItem = ({ settlementItem, getPersonalSettlement, getGroupAllSettlement, getReminder }) => {
+  const [isLoading, setIsLoading] = useState(false)
   const { payerImageUrl, owenerName, ownerMemberId, ownAmountresult, payerMemberId, payerName } = settlementItem
-  const { reminderdData } = useReminderData()
+  const { reminderdData, setReminderdData } = useReminderData()
   const { setSettlementClickData } = useSettlementClickData()
   const [pickReminder, setPickReminder] = useState(
     {
@@ -87,100 +89,112 @@ export const PersonalPayerItem = ({ settlementItem, getPersonalSettlement, getGr
     handleOpenPersonalPayer()
   }
 
-  const reminderClick = () => {
+  const reminderClick = useCallback(() => {
+    setIsLoading(true)
     getReminder(ownerMemberId)
     setPickReminder(pickReminder => ({
       ...pickReminder,
       ownerMemberId,
       payerMemberId
     }))
+    setIsLoading(false)
     handleOpenReminder()
-  }
+  }, [ownerMemberId])
 
-  useEffect(() => {
-    getReminder(ownerMemberId)
-  }, [])
+  console.log('pickReminder :>> ', pickReminder)
+
+  //   useEffect(() => {
+  //     getReminder(ownerMemberId)
+  //   }, [])
 
   return (
-        <div
-            id={payerMemberId}
-            className='flex gap-4 text-base mb-4'>
-            <img
-                className='settlement-userImg'
-                src={payerImageUrl}
-                alt='userSettlement'
-            />
-            <div className='w-full'>
-                <ul className='flex items-center gap-3 mb-2'>
-                    <li className='font-bold'>{payerName}</li>
-                    <li className='text-xs'>應取回</li>
-                    <li className='text-colors-fourth font-bold'><AttachMoney sx={{ fontSize: 16 }} /></li>
-                    <li className='text-colors-fourth ml-[-3px] font-bold'>{ownAmountresult}</li>
-                    <li className='text-xs'>從</li>
-                    <li className='text-xs'>{owenerName}</li>
-                </ul>
-                <div
-                    className='flex gap-3.5'>
-                    <button
-                        onClick={settlementClick}
-                        className='w-full btn-outline p-2 text-xs'>
-                        結算
-                    </button>
-                    <Modal
-                        open={openPersonalPayer}
-                        onClose={handleClosePersonalPayer}
-                        className="modalCard-bg">
-                        <div
-                            onClick={(e) => e.stopPropagation()}
-                            className="modalCard">
-                            <div
-                                onClick={handleClosePersonalPayer}
-                                className="modalCancel">
-                                <CloseOutlined sx={{ fontSize: 14 }} />
-                            </div>
-                            <ModalSingelDetailSettlement
-                                open={openPersonalPayer}
-                                onClose={handleClosePersonalPayer}
-                                getPersonalSettlement={getPersonalSettlement}
-                                getGroupAllSettlement={getGroupAllSettlement}
-                            />
-                        </div>
-                    </Modal>
-                    <button
+        <>
+            {
+                isLoading
+                  ? <LoadingModal />
+                  : <div
                         id={payerMemberId}
-                        onClick={reminderClick}
-                        className='w-full btn-outline p-2 text-xs'>
-                        發送提醒
-                    </button>
-                    <Modal
-                        open={openReminder}
-                        onClose={handleCloseReminder}
-                        className="modalCard-bg">
-                        <div
-                            onClick={(e) => e.stopPropagation()}
-                            className="modalCard">
+                        className='flex gap-4 text-base mb-4'>
+                        <img
+                            className='settlement-userImg'
+                            src={payerImageUrl}
+                            alt='userSettlement'
+                        />
+                        <div className='w-full'>
+                            <ul className='flex items-center gap-3 mb-2'>
+                                <li className='font-bold'>{payerName}</li>
+                                <li className='text-xs'>應取回</li>
+                                <li className='text-colors-fourth font-bold'><AttachMoney sx={{ fontSize: 16 }} /></li>
+                                <li className='text-colors-fourth ml-[-3px] font-bold'>{ownAmountresult}</li>
+                                <li className='text-xs'>從</li>
+                                <li className='text-xs'>{owenerName}</li>
+                            </ul>
                             <div
-                                onClick={handleCloseReminder}
-                                className="modalCancel">
-                                <CloseOutlined sx={{ fontSize: 14 }} />
+                                className='flex gap-3.5'>
+                                <button
+                                    onClick={settlementClick}
+                                    className='w-full btn-outline p-2 text-xs'>
+                                    結算
+                                </button>
+                                <Modal
+                                    open={openPersonalPayer}
+                                    onClose={handleClosePersonalPayer}
+                                    className="modalCard-bg">
+                                    <div
+                                        onClick={(e) => e.stopPropagation()}
+                                        className="modalCard">
+                                        <div
+                                            onClick={handleClosePersonalPayer}
+                                            className="modalCancel">
+                                            <CloseOutlined sx={{ fontSize: 14 }} />
+                                        </div>
+                                        <ModalSingelDetailSettlement
+                                            open={openPersonalPayer}
+                                            onClose={handleClosePersonalPayer}
+                                            getPersonalSettlement={getPersonalSettlement}
+                                            getGroupAllSettlement={getGroupAllSettlement}
+                                        />
+                                    </div>
+                                </Modal>
+                                <button
+                                    id={payerMemberId}
+                                    onClick={reminderClick}
+                                    className='w-full btn-outline p-2 text-xs'>
+                                    發送提醒
+                                </button>
+                                <Modal
+                                    open={openReminder}
+                                    onClose={handleCloseReminder}
+                                    className="modalCard-bg">
+                                    <div
+                                        onClick={(e) => e.stopPropagation()}
+                                        className="modalCard">
+                                        <div
+                                            onClick={handleCloseReminder}
+                                            className="modalCancel">
+                                            <CloseOutlined sx={{ fontSize: 14 }} />
+                                        </div>
+                                        <ModalReminder
+                                            open={openReminder}
+                                            onClose={handleCloseReminder}
+                                            pickReminder={pickReminder}
+                                            reminderdData={reminderdData}
+                                        />
+                                    </div>
+                                </Modal>
                             </div>
-                            <ModalReminder
-                                open={openReminder}
-                                onClose={handleCloseReminder}
-                                pickReminder={pickReminder}
-                                reminderdData={reminderdData}
-                            />
                         </div>
-                    </Modal>
-                </div>
-            </div>
-        </div>
+                    </div>
+            }
+        </>
+
   )
 }
 
 export const PersonalOwnerItem = ({ settlementItem, getPersonalSettlement, getGroupAllSettlement, getReminder }) => {
+  const [isLoading, setIsLoading] = useState(false)
   const { ownerImageUrl, ownerMemberId, owenerName, ownAmountresult, payerName, payerMemberId } = settlementItem
-  const { reminderdData } = useReminderData()
+  const { reminderdData, setReminderdData } = useReminderData()
   const { setSettlementClickData } = useSettlementClickData()
 
   const [pickReminder, setPickReminder] = useState(
@@ -207,7 +221,8 @@ export const PersonalOwnerItem = ({ settlementItem, getPersonalSettlement, getGr
     handleOpenPersonalOwner()
   }
 
-  const reminderClick = () => {
+  const reminderClick = useCallback(() => {
+    setIsLoading(true)
     getReminder(ownerMemberId)
     setPickReminder(pickReminder => ({
       ...pickReminder,
@@ -215,85 +230,96 @@ export const PersonalOwnerItem = ({ settlementItem, getPersonalSettlement, getGr
       payerMemberId
     }))
     handleOpenReminder()
-  }
+    setIsLoading(false)
+  }, [ownerMemberId])
 
-  useEffect(() => {
-    getReminder(ownerMemberId)
-  }, [])
+  console.log('reminderdData :>> ', reminderdData)
+  console.log('ownerMemberId :>> ', ownerMemberId)
+  console.log('pickReminder :>> ', pickReminder)
+  //   useEffect(() => {
+  //     getReminder(ownerMemberId)
+  //   }, [])
 
   return (
-        <div
-            id={ownerMemberId}
-            className='flex gap-4 text-base mb-4'>
-            <img
-                className='settlement-userImg'
-                src={ownerImageUrl}
-                alt='userSettlement'
-            />
-            <div className='w-full'>
-                <ul className='flex items-center gap-3 mb-2'>
-                    <li className='font-bold'>{owenerName}</li>
-                    <li className='text-xs'>應支付</li>
-                    <li className='text-red-700 font-bold'><AttachMoney sx={{ fontSize: 16 }} /></li>
-                    <li className='text-red-700 ml-[-3px] font-bold'>{ownAmountresult}</li>
-                    <li className='text-xs'>給</li>
-                    <li className='text-xs'>{payerName}</li>
-                </ul>
-                <div className='flex gap-3.5'>
-                    <button
-                        onClick={settlementClick}
-                        className='w-full btn-outline p-2 text-xs'>
-                        結算
-                    </button>
-                    <Modal
-                        open={openPersonalOwner}
-                        onClose={handleClosePersonalOwner}
-                        className="modalCard-bg">
-                        <div
-                            onClick={(e) => e.stopPropagation()}
-                            className="modalCard">
-                            <div
-                                onClick={handleClosePersonalOwner}
-                                className="modalCancel">
-                                <CloseOutlined sx={{ fontSize: 14 }} />
+        <>
+            {
+                isLoading
+                  ? <LoadingModal />
+                  : <div
+                        id={ownerMemberId}
+                        className='flex gap-4 text-base mb-4'>
+                        <img
+                            className='settlement-userImg'
+                            src={ownerImageUrl}
+                            alt='userSettlement'
+                        />
+                        <div className='w-full'>
+                            <ul className='flex items-center gap-3 mb-2'>
+                                <li className='font-bold'>{owenerName}</li>
+                                <li className='text-xs'>應支付</li>
+                                <li className='text-red-700 font-bold'><AttachMoney sx={{ fontSize: 16 }} /></li>
+                                <li className='text-red-700 ml-[-3px] font-bold'>{ownAmountresult}</li>
+                                <li className='text-xs'>給</li>
+                                <li className='text-xs'>{payerName}</li>
+                            </ul>
+                            <div className='flex gap-3.5'>
+                                <button
+                                    onClick={settlementClick}
+                                    className='w-full btn-outline p-2 text-xs'>
+                                    結算
+                                </button>
+                                <Modal
+                                    open={openPersonalOwner}
+                                    onClose={handleClosePersonalOwner}
+                                    className="modalCard-bg">
+                                    <div
+                                        onClick={(e) => e.stopPropagation()}
+                                        className="modalCard">
+                                        <div
+                                            onClick={handleClosePersonalOwner}
+                                            className="modalCancel">
+                                            <CloseOutlined sx={{ fontSize: 14 }} />
+                                        </div>
+                                        <ModalSingelDetailSettlement
+                                            open={openPersonalOwner}
+                                            onClose={handleClosePersonalOwner}
+                                            getPersonalSettlement={getPersonalSettlement}
+                                            getGroupAllSettlement={getGroupAllSettlement}
+                                        />
+                                    </div>
+                                </Modal>
+                                <button
+                                    id={payerMemberId}
+                                    onClick={reminderClick}
+                                    className='w-full btn-outline p-2 text-xs'>
+                                    發送提醒
+                                </button>
+                                <Modal
+                                    open={openReminder}
+                                    onClose={handleCloseReminder}
+                                    className="modalCard-bg">
+                                    <div
+                                        onClick={(e) => e.stopPropagation()}
+                                        className="modalCard">
+                                        <div
+                                            onClick={handleCloseReminder}
+                                            className="modalCancel">
+                                            <CloseOutlined sx={{ fontSize: 14 }} />
+                                        </div>
+                                        <ModalReminder
+                                            open={openReminder}
+                                            onClose={handleCloseReminder}
+                                            pickReminder={pickReminder}
+                                            reminderdData={reminderdData}
+                                        />
+                                    </div>
+                                </Modal>
                             </div>
-                            <ModalSingelDetailSettlement
-                                open={openPersonalOwner}
-                                onClose={handleClosePersonalOwner}
-                                getPersonalSettlement={getPersonalSettlement}
-                                getGroupAllSettlement={getGroupAllSettlement}
-                            />
                         </div>
-                    </Modal>
-                    <button
-                        id={payerMemberId}
-                        onClick={reminderClick}
-                        className='w-full btn-outline p-2 text-xs'>
-                        發送提醒
-                    </button>
-                    <Modal
-                        open={openReminder}
-                        onClose={handleCloseReminder}
-                        className="modalCard-bg">
-                        <div
-                            onClick={(e) => e.stopPropagation()}
-                            className="modalCard">
-                            <div
-                                onClick={handleCloseReminder}
-                                className="modalCancel">
-                                <CloseOutlined sx={{ fontSize: 14 }} />
-                            </div>
-                            <ModalReminder
-                                open={openReminder}
-                                onClose={handleCloseReminder}
-                                pickReminder={pickReminder}
-                                reminderdData={reminderdData}
-                            />
-                        </div>
-                    </Modal>
-                </div>
-            </div>
-        </div>
+                    </div>
+            }
+        </>
+
   )
 }
 

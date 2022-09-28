@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import Modal from '@mui/material/Modal'
 import { CloseOutlined } from '@mui/icons-material'
 import { useGroupData, selfSettlementDataContext, reminderdDataContext } from '../../context/context'
@@ -6,7 +6,7 @@ import GroupPayerListItem from './GroupPayerListItem'
 import GroupOwnerListItem from './GroupOwnerListItem'
 import ModalSettlement from './ModalSettlement'
 import { getSelfSettlementApi, getReminderApi } from '../../utils/api'
-// import LoadingModal from '../LoadingModal'
+import LoadingModal from '../LoadingModal'
 
 export default function GroupAllSettlementList ({ getPersonalSettlement, getGroupAllSettlement }) {
   const [isLoading, setIsLoading] = useState(false)
@@ -31,7 +31,7 @@ export default function GroupAllSettlementList ({ getPersonalSettlement, getGrou
   const handleOpenMd = () => setOpenMd(true)
   const handleCloseMd = () => setOpenMd(false)
 
-  const getSelfSettlement = async (groupId) => {
+  const getSelfSettlement = useCallback(async (groupId) => {
     setIsLoading(true)
     try {
       const { status: isSuccess, message, userMemberId, settlement, notInvolved } = await getSelfSettlementApi(groupId)
@@ -48,9 +48,9 @@ export default function GroupAllSettlementList ({ getPersonalSettlement, getGrou
     } catch (error) {
       console.log(error)
     }
-  }
+  }, [groupId])
 
-  const getReminder = async (ownerId) => {
+  const getReminder = useCallback(async (ownerId) => {
     setIsLoading(true)
     try {
       const { status: isSuccess, message, settlementReminder } = await getReminderApi(ownerId)
@@ -66,7 +66,7 @@ export default function GroupAllSettlementList ({ getPersonalSettlement, getGrou
     } catch (error) {
       console.log(error)
     }
-  }
+  }, [])
 
   useEffect(() => {
     if (groupId) {

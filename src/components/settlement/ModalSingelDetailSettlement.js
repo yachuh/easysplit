@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { ArrowCircleDown, CloseOutlined } from '@mui/icons-material'
 import Modal from '@mui/material/Modal'
 import DatePicker from 'react-datepicker'
@@ -12,7 +12,7 @@ export const ModalSingelDetailSettlement = ({ onClose, getPersonalSettlement, ge
   const [isLoading, setIsLoading] = useState(false)
   const [startDate, setStartDate] = useState(new Date())
 
-  const { groupData } = useGroupData()
+  const { getAllSettled, groupData } = useGroupData()
   const { groupId } = groupData
 
   const { settlementClickData } = useSettlementClickData()
@@ -25,12 +25,12 @@ export const ModalSingelDetailSettlement = ({ onClose, getPersonalSettlement, ge
   const [paymentTypeValue, setPaymentTypeValue] = useState(0)
   const [textValue, setTextValue] = useState('')
 
-  const [open, setOpen] = useState(false)
+  const [openSuccess, setOpenSuccess] = useState(false)
 
-  const handleOpen = () => setOpen(true)
-  const handleClose = () => setOpen(false)
+  const handleOpenSuccess = () => setOpenSuccess(true)
+  const handleCloseSuccess = () => setOpenSuccess(false)
 
-  const getPaymentType = async () => {
+  const getPaymentType = useCallback(async () => {
     setIsLoading(true)
     try {
       const { paymentType } = await getPaymentTypeApi()
@@ -42,7 +42,7 @@ export const ModalSingelDetailSettlement = ({ onClose, getPersonalSettlement, ge
     } catch (error) {
       console.log(error)
     }
-  }
+  }, [])
 
   const [settleUpData, setSettleUpData] = useState({
     GroupId: groupId,
@@ -78,26 +78,30 @@ export const ModalSingelDetailSettlement = ({ onClose, getPersonalSettlement, ge
     }))
   }
 
-  const settleUp = async (settleUpData) => {
+  const settleUp = useCallback(async (settleUpData) => {
     setIsLoading(true)
     try {
       const { GroupId, OwnerMemberId, PayerMemberId, OwnerPaytoPayerAmount, PaymentMethod, Memo, FileName, CreatDate } = await settleUpApi(settleUpData)
       console.log('結算結果 :>> ', '結算成功')
       getGroupAllSettlement(groupId)
-      onClose()
+      getPersonalSettlement(settleUpData.OwnerMemberId)
+      getAllSettled(groupId)
       setIsLoading(false)
+      onClose()
     } catch (err) {
       console.log(err)
     }
-  }
+  }, [groupId, settleUpData.OwnerMemberId])
 
   const clickSettleUp = () => {
     settleUp(settleUpData)
-    handleOpen()
+    handleOpenSuccess()
   }
 
   useEffect(() => {
-    getPaymentType(groupId)
+    if (groupId) {
+      getPaymentType(groupId)
+    }
   }, [groupId])
 
   const mapPaymentType = paymentTypeData.paymentType.map((paymentType, i) => {
@@ -200,26 +204,25 @@ export const ModalSingelDetailSettlement = ({ onClose, getPersonalSettlement, ge
                 確認
               </button>
               <Modal
-                open={open}
-                onClose={handleClose}
+                open={openSuccess}
+                onClose={handleCloseSuccess}
                 className='modalCard-bg'>
                 <div
                   onClick={(e) => e.stopPropagation()}
                   className='modalCard'>
                   <div
-                    onClick={handleClose}
+                    onClick={handleCloseSuccess}
                     className="modalCancel">
                     <CloseOutlined sx={{ fontSize: 14 }} />
                   </div>
                   <ModalSettlementSuccess
-                    open={open}
-                    onClose={handleClose} />
+                    open={openSuccess}
+                    onClose={handleCloseSuccess} />
                 </div>
               </Modal>
             </div>
           </div>
       }
     </>
-
   )
 }
