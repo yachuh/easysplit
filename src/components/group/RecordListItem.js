@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useCallback } from 'react'
+import { Route, Link, useLocation } from 'react-router-dom'
 import { AccountBalanceWallet, CloseOutlined } from '@mui/icons-material'
 import Modal from '@mui/material/Modal'
 import { settledDetailDataContext } from '../../context/context'
 import { getSettledDetailApi, getExpenseApi } from '../../utils/api'
 import SettledDetail from '../../components/settlement/SettledDetail'
 import LoadingModal from '../LoadingModal'
+import SingleExpensePage from '../../pages/SingleExpensePage'
 
 // turn ISOS time into month and day e.g. Sep 23
 const toMonthAndDay = (time) => {
@@ -17,10 +19,48 @@ const toDay = (time) => {
   return new Date(time).toLocaleDateString('en-US', { day: 'numeric' })
 }
 
+/**
+ * ==== expense record ====
+ */
 export function ExpenseRecordItem ({ expenseTypeList, expenseId, item, cost, creatDate, memo, expenseType, personalStatus }) {
   const [isLoading, setIsLoading] = useState(false)
+  const pathname = useLocation().pathname // <Link to={`${pathname}/${expenseId}`}>
+
+  /* ---- Modal 相關 START ---- */
+  const [openExpenseModal, setOpenExpenseModal] = useState(false)
+  const handleOpenExpenseModal = () => setOpenExpenseModal(true)
+  const handleCloseExpenseModal = () => setOpenExpenseModal(false)
+  /* ---- Modal 相關 END ---- */
+
+  const [expenseData, setExpenseData] = useState()
+
+  // useEffect(() => {
+  //   if (expenseId) {
+  //     getExpense()
+  //   }
+  // }, [expenseId])
+
+  /* ---- APIs START ---- */
+  const getExpense = async (expenseId) => {
+    try {
+      const { status: isSuccess, message, expenseData } = await getExpenseApi(expenseId)
+      if (!isSuccess) {
+        console.log(message)
+        return
+      }
+      console.log('expenseData:::', expenseData)
+      setExpenseData(expenseData)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  /**
+   * convert expenseMethod to expenseIcon
+   * @param {*} expenseType
+   * @returns the expmense imageUrl of corresponding expense method
+   */
   const toExpenseTypeIcon = (expenseType) => {
-    // get expense type imageUrl
     const filterExpenseTypeList = expenseTypeList.filter(type => {
       const { expenseMethod, imageUrl } = type
       if (expenseMethod === expenseType) {
@@ -31,19 +71,8 @@ export function ExpenseRecordItem ({ expenseTypeList, expenseId, item, cost, cre
     return (filterExpenseTypeList[0]?.imageUrl)
   }
 
-  const onClickExpenseItem = async (expenseId) => {
-    setIsLoading(true)
-    try {
-      const { status: isSuccess, message, expenseData } = await getExpenseApi(expenseId)
-      if (!isSuccess) {
-        console.log(message)
-        return
-      }
-      // console.log('expenseData:::', expenseData)
-      setIsLoading(false)
-    } catch (error) {
-      console.log(error)
-    }
+  const onClickExpenseItem = async () => {
+    handleOpenExpenseModal()
   }
 
   return (
@@ -80,11 +109,25 @@ export function ExpenseRecordItem ({ expenseTypeList, expenseId, item, cost, cre
 
           </div>
       }
+      {/* ---- ExpenseModal START ---- */}
+      <Modal
+        open={openExpenseModal}
+        onclose={handleCloseExpenseModal}
+        onClick={handleCloseExpenseModal}
+        className="modalCard-bg"
+      >
+        <div onClick={(e) => e.stopPropagation()} className="expenseModal">
+          <SingleExpensePage open={openExpenseModal} onClose={handleCloseExpenseModal} />
+        </div>
+      </Modal>
+      {/* ---- ExpenseModal END ---- */}
     </>
-
   )
 }
 
+/**
+ * ==== settle record ====
+ */
 export function SettledRecordItem ({ settledId, ownerName, payerName, ownerPaytoPayerAmount, creatDate }) {
   const [open, setOpen] = useState(false)
   const handleOpen = () => setOpen(true)

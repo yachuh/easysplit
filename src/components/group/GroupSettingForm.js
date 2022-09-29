@@ -153,7 +153,7 @@ export default function GroupSettingForm () {
                         type="submit"
                         className="btn-primary w-full my-4"
                         value="儲存"
-                        disabled={!isDirty || !isValid}
+                        disabled={(!isDirty || !isValid) && !image.raw } // false
                     />
                 </div>
             </form>

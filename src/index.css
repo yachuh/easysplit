@@ -104,6 +104,10 @@ code {
     @apply mb-2 font-bold block;
   }
 
+  .formStyle {
+    @apply px-4 flex justify-between items-center gap-14;
+  }
+
   .formCard {
     @apply w-full px-[20px] py-20 mt-10 border-4 bg-white border-colors-primary rounded-[20px] md:w-3/4 lg:w-2/3 xl:w-1/2 2xl:w-2/5 sm:px-24;
   }
@@ -191,15 +195,19 @@ code {
   */
 
   .expenseModal {
-    @apply items-center fixed right-0 bg-white z-50 w-full lg:w-[525px] min-h-full card-shadow overscroll-auto;
+    @apply items-center fixed right-0 bg-white z-50 w-full lg:w-[35vw] min-h-full card-shadow overscroll-auto;
   }
 
   .expenseModal-header {
     @apply px-8 py-2 border-b border-gray-300 flex justify-end items-center gap-[10px];
   }
 
+  .expenseModal-header-icon {
+    @apply w-6 h-6 hover:scale-125 hover:text-color-green cursor-pointer;
+  }
+
   .expenseModal-form {
-    @apply px-4 md:px-8;
+    @apply px-4 md:px-8 h-[calc(100vh_-_40px)];
   }
 
   .singlePayment-payer {
@@ -710,4 +718,15 @@ code {
 
 .css-15v22id-MuiAccordionDetails-root {
   @apply pt-4 border-t border-gray-400 !important;
+}
+
+.formLine li+li {
+  border-top: 1px solid #40798c;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.formLine li:nth-child(1) {
+  padding-top: 8px;
+  padding-bottom: 8px;
 }

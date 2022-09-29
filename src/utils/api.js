@@ -85,7 +85,7 @@ const DELETE_MEMBER = '/Group/DeleteMember'
 // expense 相關
 const GET_EXPENSE_TYPE = '/Expense/GetExpenseType'
 const GET_ALL_EXPENSE = '/Expense/GetAllExpense'
-const GET_EXPENSE = '/Expense/GetAllExpense'
+const GET_EXPENSE = '/Expense/GetExpense'
 const ADD_EXPENSE = '/Expense/AddExpense'
 const ADD_EXPENSE_IMG = '/Expense/AddExpensePhotos'
 const EDIT_EXPENSE = '/Expense/EditExpense'
