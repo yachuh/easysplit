@@ -29,7 +29,7 @@ export default function RecordList () {
         {/* AddExpenseModal START */}
         <Modal
           open={openAddExpenseModal}
-          onclose={handleCloseAddExpenseModal}
+          onClose={handleCloseAddExpenseModal}
           onClick={handleCloseAddExpenseModal}
           className="modalCard-bg"
         >

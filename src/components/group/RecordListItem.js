@@ -34,14 +34,15 @@ export function ExpenseRecordItem ({ expenseTypeList, expenseId, item, cost, cre
 
   const [expenseData, setExpenseData] = useState()
 
-  // useEffect(() => {
-  //   if (expenseId) {
-  //     getExpense()
-  //   }
-  // }, [expenseId])
+  useEffect(() => {
+    if (expenseId) {
+      getExpense(expenseId)
+    }
+  }, [])
 
   /* ---- APIs START ---- */
-  const getExpense = async (expenseId) => {
+  const getExpense = useCallback(async (expenseId) => {
+    setIsLoading(true)
     try {
       const { status: isSuccess, message, expenseData } = await getExpenseApi(expenseId)
       if (!isSuccess) {
@@ -50,10 +51,11 @@ export function ExpenseRecordItem ({ expenseTypeList, expenseId, item, cost, cre
       }
       console.log('expenseData:::', expenseData)
       setExpenseData(expenseData)
+      setIsLoading(false)
     } catch (error) {
       console.log(error)
     }
-  }
+  }, [expenseId])
 
   /**
    * convert expenseMethod to expenseIcon

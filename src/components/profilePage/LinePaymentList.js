@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { deleteLineApi } from '../../utils/api'
 import Modal from '@mui/material/Modal'
+import { toast } from 'react-toastify'
 import EditPaymentLinePay from './EditPaymentLinePay'
 import { DeletePayment } from '../ModalFeedback'
 import LoadingModal from '../LoadingModal'
@@ -22,10 +23,8 @@ export default function LinePaymentList ({ payLine, getPaymentAll }) {
     try {
       const { status: isSuccess, message } = await deleteLineApi(id)
       if (!isSuccess) {
-        alert(message)
         return
       }
-      console.log(message)
       getPaymentAll()
       handleCloseDeleteItem()
       setIsLoading(false)
@@ -36,6 +35,7 @@ export default function LinePaymentList ({ payLine, getPaymentAll }) {
 
   const delClick = () => {
     deleteLine(id)
+    toast.success('成功刪除 LinePay 收款資料!')
   }
 
   return (
@@ -47,7 +47,7 @@ export default function LinePaymentList ({ payLine, getPaymentAll }) {
                         <div className="ProfilePayment-linepayWay">
                             <p>LINE PAY</p>
                             <ul className="ProfilePayment-edit">
-                                <li
+                                {/* <li
                                     id={id}
                                     onClick={handleOpen}>
                                     編輯
@@ -66,7 +66,7 @@ export default function LinePaymentList ({ payLine, getPaymentAll }) {
                                             onClose={handleClose} />
 
                                     </div>
-                                </Modal>
+                                </Modal> */}
 
                                 <li
                                     id={id}

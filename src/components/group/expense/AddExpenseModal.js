@@ -243,7 +243,7 @@ export default function AddExpenseModal ({ open, onClose }) {
                         className="singlePayment-payer mb-2"
                       >
                         <input
-                          class="hidden"
+                          className="hidden"
                           type="number"
                           value={memberId}
                           {...register(`addOwnerExpenseVMs.${i}.MemberId`, {
@@ -304,6 +304,6 @@ export default function AddExpenseModal ({ open, onClose }) {
       {/* footer */}
       {/* <div className="bg-colors-primary text-white px-6 py-4 mt-6">
       </div> */}
-    </div >
+    </div>
   )
 }

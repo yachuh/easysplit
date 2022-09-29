@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { toast } from 'react-toastify'
 import { addBankApi } from '../../utils/api'
 import { CreditCard } from '@mui/icons-material'
 import LoadingModal from '../../components/LoadingModal'
@@ -30,6 +31,7 @@ export default function AddPaymentBank ({ onClose, getPaymentAll }) {
       getPaymentAll()
       onClose()
       setIsLoading(false)
+      toast.success('成功新增 銀行轉帳(台灣) 收款資料!')
     } catch (error) {
       console.log(error)
     }

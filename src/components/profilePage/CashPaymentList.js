@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { deleteCashApi } from '../../utils/api'
 import Modal from '@mui/material/Modal'
+import { toast } from 'react-toastify'
 import EditPaymentCash from './EditPaymentCash'
 import { DeletePayment } from '../ModalFeedback'
 import LoadingModal from '../LoadingModal'
@@ -22,10 +23,8 @@ export default function CashPaymentList ({ payCash, getPaymentAll }) {
     try {
       const { status: isSuccess, message } = await deleteCashApi(id)
       if (!isSuccess) {
-        alert(message)
         return
       }
-      console.log(message)
       getPaymentAll()
       handleCloseDeleteItem()
       setIsLoading(false)
@@ -36,6 +35,7 @@ export default function CashPaymentList ({ payCash, getPaymentAll }) {
 
   const delClick = () => {
     deleteCash(id)
+    toast.success('成功刪除 現金面交 收款資料!')
   }
 
   return (
@@ -47,7 +47,7 @@ export default function CashPaymentList ({ payCash, getPaymentAll }) {
                         <div className="ProfilePayment-cashWay">
                             <p>現金面交</p>
                             <ul className="ProfilePayment-edit">
-                                <li
+                                {/* <li
                                     id={id}
                                     onClick={handleOpen}>編輯</li>
                                 <Modal
@@ -64,7 +64,7 @@ export default function CashPaymentList ({ payCash, getPaymentAll }) {
                                             onClose={handleClose} />
 
                                     </div>
-                                </Modal>
+                                </Modal> */}
                                 <li
                                     id={id}
                                     onClick={handleOpenDeleteItem}>刪除</li>
