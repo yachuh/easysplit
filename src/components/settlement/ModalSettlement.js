@@ -14,16 +14,22 @@ export default function ModalSettlement ({ onClose, getPersonalSettlement, getGr
   const { groupData } = useGroupData()
   const { groupName } = groupData
 
-  const [open, setOpen] = useState(false)
+  const [openSm, setOpenSm] = useState(false)
 
-  const handleOpen = () => setOpen(true)
-  const handleClose = () => setOpen(false)
+  const handleOpenSm = () => setOpenSm(true)
+  const handleCloseSm = () => setOpenSm(false)
+
+  const [activeId, setActiveId] = useState(null)
+  const [btnDisable, setBtnDisable] = useState(true)
 
   const mapSettlementItem = settlement.map((selfSettlementItem, i) => {
     const { payerMemberId } = selfSettlementItem
 
+    const isActiveOwner = selfSettlementItem.payerMemberId === activeId
+    const isActivePayer = selfSettlementItem.ownerMemberId === activeId
+
     return (
-      (payerMemberId !== userMemberId) ? <SelfSettlementOwnerItem key={i} selfSettlementItem={selfSettlementItem} /> : <SelfSettlementPayerItem key={i} selfSettlementItem={selfSettlementItem} />
+      (payerMemberId !== userMemberId) ? <SelfSettlementOwnerItem key={i} selfSettlementItem={selfSettlementItem} isActive={isActiveOwner} setActiveId={setActiveId} setBtnDisable={setBtnDisable} /> : <SelfSettlementPayerItem key={i} selfSettlementItem={selfSettlementItem} isActive={isActivePayer} setActiveId={setActiveId} setBtnDisable={setBtnDisable} />
     )
   })
 
@@ -38,7 +44,7 @@ export default function ModalSettlement ({ onClose, getPersonalSettlement, getGr
         className="inputInfo mb-4 pl-4"
         type="text"
         placeholder={groupName}
-        disabled="disabled"
+        disabled
       />
       <div
         className='overflow-scroll-view h-[190px] mb-8 w-full border border-colors-primary rounded'>
@@ -51,25 +57,28 @@ export default function ModalSettlement ({ onClose, getPersonalSettlement, getGr
           取消
         </button>
         <button
-          onClick={handleOpen}
+          onClick={handleOpenSm}
+          disabled={btnDisable}
           className="btn-primary w-full">
           下一步
         </button>
         <Modal
-          open={open}
-          onClose={handleClose}
+          open={openSm}
+          onClose={handleCloseSm}
           className='modalCard-bg'>
           <div
             onClick={(e) => e.stopPropagation()}
             className='modalCard'>
             <div
-              onClick={handleClose}
+              onClick={handleCloseSm}
               className="modalCancel">
               <CloseOutlined sx={{ fontSize: 14 }} />
             </div>
             <ModalDetailSettlement
-              open={open}
-              onClose={handleClose}
+              open={openSm}
+              onClose={handleCloseSm}
+              getPersonalSettlement={getPersonalSettlement}
+              getGroupAllSettlement={getGroupAllSettlement}
             />
           </div>
         </Modal>

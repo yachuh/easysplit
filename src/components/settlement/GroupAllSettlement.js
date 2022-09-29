@@ -69,7 +69,6 @@ export default function GroupAllSettlement () {
         notInvolvedList
       }))
       setIsLoading(false)
-      console.log('settlement :>> ', settlement)
     } catch (error) {
       console.log(error)
     }

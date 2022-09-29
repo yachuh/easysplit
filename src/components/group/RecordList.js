@@ -18,7 +18,7 @@ export default function RecordList () {
   return (
     <div className="settlement-card w-full">
       {/* ---- 費用 header ---- */}
-      <div className="flex justify-between mb-9 font-bold text-black">
+      <div className="flex justify-between mb-3 font-bold text-black">
         <h3 className="text-2xl font-bold">費用</h3>
         <button
           className="hidden md:block btn-primary"

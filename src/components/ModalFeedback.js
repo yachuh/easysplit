@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import Modal from '@mui/material/Modal'
 import { CloseOutlined } from '@mui/icons-material'
+import { toast } from 'react-toastify'
 import { sendReminderApi } from '../utils/api'
 import mailSend from '../image/mailSend.svg'
 import successIcon from '../image/successIcon.svg'
@@ -133,9 +134,9 @@ export const DeletePayment = ({ onClose, onClick }) => {
 }
 
 export const ModalSettlementSuccess = ({ onClose, getSettledDetail }) => {
-  const [open, setOpen] = useState(false)
-  const handleOpen = () => setOpen(true)
-  const handleClose = () => setOpen(false)
+  const [openDetail, setOpenDetail] = useState(false)
+  const handleOpenDetail = () => setOpenDetail(true)
+  const handleCloseDetail = () => setOpenDetail(false)
   return (
         <>
             <div className="flex flex-col items-center gap-4 mb-4">
@@ -143,24 +144,24 @@ export const ModalSettlementSuccess = ({ onClose, getSettledDetail }) => {
                 <h4 className="font-bold">太棒了！</h4>
                 <p className='text-center'>恭喜你結算成功，<br />對方也會收到你的結算通知！</p>
             </div>
-            <button onClick={handleOpen} className="btn-primary w-full">
+            <button onClick={handleOpenDetail} className="btn-primary w-full">
                 查看紀錄
             </button>
             <Modal
-                open={open}
-                onClose={handleClose}
+                open={openDetail}
+                onClose={handleCloseDetail}
                 className="modalCard-bg">
                 <div
                     onClick={(e) => e.stopPropagation()}
                     className="modalCard">
                     <div
-                        onClick={handleClose}
+                        onClick={handleCloseDetail}
                         className="modalCancel">
                         <CloseOutlined sx={{ fontSize: 14 }} />
                     </div>
                     <SettledDetail
-                        open={open}
-                        onClose={handleClose}
+                        open={openDetail}
+                        onClose={handleCloseDetail}
                     />
                 </div>
             </Modal>
@@ -248,6 +249,7 @@ export const ModalReminder = ({ onClose, pickReminder, reminderdData }) => {
   const clickSendReminder = () => {
     sendReminder(sendReminderData)
     onClose()
+    toast.success('成功發送還款提醒!')
   }
 
   return (

@@ -61,7 +61,7 @@ export default function AppLayout ({ children }) {
         </div>
       </div>
       {/* footer */}
-      <div className="ProfileFitFooter">
+            <div className="ProfileFitFooter md:static">
         <FooterUser />
       </div>
     </UserDataContext.Provider>
