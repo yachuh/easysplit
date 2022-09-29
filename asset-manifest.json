@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/easysplit/static/css/main.ba2c9ebd.css",
-    "main.js": "/easysplit/static/js/main.64387650.js",
+    "main.css": "/easysplit/static/css/main.2e951f58.css",
+    "main.js": "/easysplit/static/js/main.cfd047ac.js",
     "static/media/Carousel-img03.svg": "/easysplit/static/media/Carousel-img03.260d5866e6eff4dc95ff.svg",
     "static/media/whoareyou.svg": "/easysplit/static/media/whoareyou.9821be7f9ccc7e287cbe2163ee766c60.svg",
     "static/media/Carousel-img04.svg": "/easysplit/static/media/Carousel-img04.89d287f822399db12f43.svg",
@@ -43,11 +43,11 @@
     "static/media/deleteIcon.svg": "/easysplit/static/media/deleteIcon.0f41cc96d6bda06e920fba9574dcc65d.svg",
     "static/media/SettledDetail.svg": "/easysplit/static/media/SettledDetail.06f51f66ccb19ea49adc19463077e513.svg",
     "static/media/bgEllipse.svg": "/easysplit/static/media/bgEllipse.aa648795bd5bf975001e.svg",
-    "main.ba2c9ebd.css.map": "/easysplit/static/css/main.ba2c9ebd.css.map",
-    "main.64387650.js.map": "/easysplit/static/js/main.64387650.js.map"
+    "main.2e951f58.css.map": "/easysplit/static/css/main.2e951f58.css.map",
+    "main.cfd047ac.js.map": "/easysplit/static/js/main.cfd047ac.js.map"
   },
   "entrypoints": [
-    "static/css/main.ba2c9ebd.css",
-    "static/js/main.64387650.js"
+    "static/css/main.2e951f58.css",
+    "static/js/main.cfd047ac.js"
   ]
 }
