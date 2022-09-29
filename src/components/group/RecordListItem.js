@@ -88,7 +88,7 @@ export function ExpenseRecordItem ({ expenseTypeList, expenseId, item, cost, cre
               <p className='md:text-2xl'>{toDay(creatDate)}</p>
             </div>
             <div className='w-full flex items-center gap-4'>
-              <img className='w-16 h-16' src={toExpenseTypeIcon(expenseType)} alt={expenseType} />
+              <img className='w-10 h-10 md:w-16 md:h-16' src={toExpenseTypeIcon(expenseType)} alt={expenseType} />
 
               <div className='w-full flex flex-col-reverse md:flex-row md:justify-between'>
                 <div className='w-full flex flex-col gap-1 md:gap-2'>
@@ -99,7 +99,7 @@ export function ExpenseRecordItem ({ expenseTypeList, expenseId, item, cost, cre
                     <span className='ml-2 text-emerald-500'>$ {cost}</span>
                   </p>
                 </div>
-                <div className='w-1/4 flex gap-3 md:flex-col'>
+                <div className='w-full md:w-1/3 flex gap-3 md:flex-col'>
                   <p className='font-bold md:text-right'>{personalStatus[0]?.statusCh}</p>
                   <p className='md:text-right'>$ {personalStatus[0]?.balance}</p>
                 </div>

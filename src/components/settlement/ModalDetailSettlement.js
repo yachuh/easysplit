@@ -3,16 +3,17 @@ import { ArrowCircleDown, CloseOutlined } from '@mui/icons-material'
 import Modal from '@mui/material/Modal'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
+import { toast } from 'react-toastify'
 import { getPaymentTypeApi, settleUpApi } from '../../utils/api'
 import { useSettlementClickData, useGroupData } from '../../context/context'
 import { ModalSettlementSuccess } from '../ModalFeedback'
 import LoadingModal from '../LoadingModal'
 
-export const ModalDetailSettlement = ({ onClose }) => {
+export const ModalDetailSettlement = ({ onClose, getPersonalSettlement, getGroupAllSettlement }) => {
   const [isLoading, setIsLoading] = useState(false)
   const [startDate, setStartDate] = useState(new Date())
 
-  const { groupData } = useGroupData()
+  const { getAllSettled, groupData } = useGroupData()
   const { groupId } = groupData
 
   const { settlementClickData } = useSettlementClickData()
@@ -83,10 +84,10 @@ export const ModalDetailSettlement = ({ onClose }) => {
     try {
       const { GroupId, OwnerMemberId, PayerMemberId, OwnerPaytoPayerAmount, PaymentMethod, Memo, FileName, CreatDate } = await settleUpApi(settleUpData)
       console.log('結算結果 :>> ', '結算成功')
-      // onClose()
-      // handleOpenSuccess()
+      getGroupAllSettlement(groupId)
+      getPersonalSettlement(settleUpData.OwnerMemberId)
+      getAllSettled(groupId)
       setIsLoading(false)
-      handleOpenSuccess()
     } catch (err) {
       console.log(err)
     }
@@ -94,9 +95,11 @@ export const ModalDetailSettlement = ({ onClose }) => {
 
   const clickSettleUp = () => {
     settleUp(settleUpData)
+    toast.success('結算成功!')
+    handleOpenSuccess()
   }
 
-  console.log('groupId:', groupId)
+  // console.log('groupId:', groupId)
   useEffect(() => {
     getPaymentType()
   }, [])

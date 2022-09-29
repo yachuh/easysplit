@@ -323,7 +323,7 @@ export const PersonalOwnerItem = ({ settlementItem, getPersonalSettlement, getGr
   )
 }
 
-export const SelfSettlementPayerItem = ({ selfSettlementItem }) => {
+export const SelfSettlementPayerItem = ({ selfSettlementItem, isActive, setActiveId, setBtnDisable }) => {
   const { selfSettlementData, setSelfSettlementData } = useSelfSettlementData()
   const { settlement } = selfSettlementData
 
@@ -342,13 +342,15 @@ export const SelfSettlementPayerItem = ({ selfSettlementItem }) => {
       return (ownerMemberId === item.ownerMemberId && payerMemberId === item.payerMemberId)
     })
     setSettlementClickData(filterUser)
+    setActiveId(filterUser[0].ownerMemberId)
+    setBtnDisable(false)
   }
 
   return (
         <div
             id={ownerMemberId}
             onClick={settlementClick}
-            className='flex w-full justify-between text-base pt-2 pb-3 px-4 font-bold cursor-pointer hover:bg-colors-fifth/20'>
+            className={`flex w-full justify-between text-base pt-2 pb-3 px-4 font-bold cursor-pointer ${isActive ? 'bg-color-champagne-pink' : 'bg-white'}`}>
             <div className='flex gap-3 items-center'>
                 <img
                     className='settlement-userImg w-10 h-10'
@@ -375,7 +377,7 @@ export const SelfSettlementPayerItem = ({ selfSettlementItem }) => {
   )
 }
 
-export const SelfSettlementOwnerItem = ({ selfSettlementItem }) => {
+export const SelfSettlementOwnerItem = ({ selfSettlementItem, isActive, setActiveId, setBtnDisable }) => {
   const { selfSettlementData, setSelfSettlementData } = useSelfSettlementData()
   const { settlement } = selfSettlementData
 
@@ -390,11 +392,13 @@ export const SelfSettlementOwnerItem = ({ selfSettlementItem }) => {
     ownAmountresult
   } = selfSettlementItem
 
-  const settlementClick = () => {
+  const settlementClick = (e) => {
     const filterUser = settlement.filter(item => {
       return (ownerMemberId === item.ownerMemberId && payerMemberId === item.payerMemberId)
     })
     setSettlementClickData(filterUser)
+    setActiveId(filterUser[0].payerMemberId)
+    setBtnDisable(false)
   }
 
   return (
@@ -402,7 +406,7 @@ export const SelfSettlementOwnerItem = ({ selfSettlementItem }) => {
             id={ownerMemberId}
             data-tab={owenerName}
             onClick={settlementClick}
-            className='flex w-full justify-between text-base pt-2 pb-3 px-4 font-bold cursor-pointer hover:bg-colors-fifth/20'>
+            className={`flex w-full justify-between text-base pt-2 pb-3 px-4 font-bold cursor-pointer ${isActive ? 'bg-color-champagne-pink' : 'bg-white'}`}>
             <div className='flex gap-3 items-center act'>
                 <img
                     className='settlement-userImg'

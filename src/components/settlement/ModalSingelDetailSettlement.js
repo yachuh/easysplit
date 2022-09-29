@@ -3,6 +3,7 @@ import { ArrowCircleDown, CloseOutlined } from '@mui/icons-material'
 import Modal from '@mui/material/Modal'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
+import { toast } from 'react-toastify'
 import { getPaymentTypeApi, settleUpApi } from '../../utils/api'
 import { useSettlementClickData, useGroupData } from '../../context/context'
 import { ModalSettlementSuccess } from '../ModalFeedback'
@@ -87,7 +88,6 @@ export const ModalSingelDetailSettlement = ({ onClose, getPersonalSettlement, ge
       getPersonalSettlement(settleUpData.OwnerMemberId)
       getAllSettled(groupId)
       setIsLoading(false)
-      onClose()
     } catch (err) {
       console.log(err)
     }
@@ -95,6 +95,7 @@ export const ModalSingelDetailSettlement = ({ onClose, getPersonalSettlement, ge
 
   const clickSettleUp = () => {
     settleUp(settleUpData)
+    toast.success('結算成功!')
     handleOpenSuccess()
   }
 

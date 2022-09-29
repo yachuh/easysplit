@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from 'react'
 import { AttachMoney, CloseOutlined } from '@mui/icons-material'
 import Modal from '@mui/material/Modal'
+import { toast } from 'react-toastify'
 import { useSettledDetailData, useGroupData } from '../../context/context'
 import { deleteSettlemetApi } from '../../utils/api'
 import SettledDetailImg from '../../image/SettledDetail.svg'
@@ -8,7 +9,7 @@ import coverPhoto from '../../image/coverPhoto.svg'
 import { ModalConfirmTheDeletion } from '../../components/ModalFeedback'
 import LoadingModal from '../LoadingModal'
 
-export default function SettledDetail ({ onClose }) {
+export default function SettledDetail ({ onClose, getSettledDetail }) {
   const { getAllSettled, groupData } = useGroupData()
   const { groupId } = groupData
   const [isLoading, setIsLoading] = useState(false)
@@ -28,6 +29,8 @@ export default function SettledDetail ({ onClose }) {
     memo,
     imageUrl
   } = pickDetailData[0]
+
+  // console.log('pickDetailData :>> ', pickDetailData)
 
   const [openDel, setOpenDel] = useState(false)
   const handleOpenDel = () => setOpenDel(true)
@@ -50,6 +53,7 @@ export default function SettledDetail ({ onClose }) {
 
   const deleteSettlemetClick = () => {
     deleteSettlemet(settledId)
+    toast.success('刪除成功!')
   }
 
   return (
