@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate, Link } from 'react-router-dom'
+import { toast } from 'react-toastify'
 import { setAuthToken } from '../../utils/utils'
 import { loginApi } from '../../utils/api'
 import Modal from '@mui/material/Modal'
@@ -41,6 +42,7 @@ export default function LoginForm () {
       setAuthToken(jwtToken)
       setIsLoading(false)
       navigate('/profile')
+      toast.success('登入成功! 歡迎拆帳趣!')
     } catch (error) {
       console.log(error)
     }

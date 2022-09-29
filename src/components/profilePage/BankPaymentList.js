@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { deleteBankApi } from '../../utils/api'
 import Modal from '@mui/material/Modal'
+import { toast } from 'react-toastify'
 import EditPaymentBank from './EditPaymentBank'
 import { DeletePayment } from '../ModalFeedback'
 import LoadingModal from '../LoadingModal'
@@ -19,14 +20,11 @@ export default function BankPaymentList ({ payBank, getPaymentAll }) {
 
   const deleteBank = async (id) => {
     setIsLoading(true)
-    // console.log(id)
     try {
       const { status: isSuccess, message } = await deleteBankApi(id)
       if (!isSuccess) {
-        console.log(message)
         return
       }
-      console.log(message)
       getPaymentAll()
       handleCloseDeleteItem()
       setIsLoading(false)
@@ -37,6 +35,7 @@ export default function BankPaymentList ({ payBank, getPaymentAll }) {
 
   const delClick = () => {
     deleteBank(id)
+    toast.success('成功刪除 銀行轉帳(台灣) 收款資料!')
   }
 
   return (
@@ -48,7 +47,7 @@ export default function BankPaymentList ({ payBank, getPaymentAll }) {
                         <div className="ProfilePayment-bankWay">
                             <p>銀行轉帳（台灣）</p>
                             <ul className="ProfilePayment-edit">
-                                <li
+                                {/* <li
                                     id={id}
                                     onClick={handleOpen}>
                                     編輯
@@ -67,7 +66,7 @@ export default function BankPaymentList ({ payBank, getPaymentAll }) {
                                             onClose={handleClose} />
 
                                     </div>
-                                </Modal>
+                                </Modal> */}
 
                                 <li
                                     id={id}

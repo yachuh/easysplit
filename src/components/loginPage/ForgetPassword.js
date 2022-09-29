@@ -29,10 +29,8 @@ export default function ForgetPassword ({ Open, onClose }) {
     try {
       const { status: isSuccess, message } = await forgetPwdApi(data)
       if (!isSuccess) {
-        console.log(message)
         return
       }
-      console.log(message)
       setIsLoading(false)
       handleOpen()
     } catch (error) {

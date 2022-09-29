@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { toast } from 'react-toastify'
 import { addLinePayApi } from '../../utils/api'
 import linePayIcon from '../../image/linePay-sm.svg'
 import LoadingModal from '../LoadingModal'
@@ -31,6 +32,7 @@ export default function AddPaymentLinePay ({ onClose, getPaymentAll }) {
       getPaymentAll()
       onClose()
       setIsLoading(false)
+      toast.success('成功新增 LinePay 收款資料!')
     } catch (error) {
       console.log(error)
     }

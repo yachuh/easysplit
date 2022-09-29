@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { toast } from 'react-toastify'
 import { addCashApi } from '../../utils/api'
 import { LocalAtm } from '@mui/icons-material'
 import LoadingModal from '../LoadingModal'
@@ -29,6 +30,7 @@ export default function AddPaymentCash ({ onClose, getPaymentAll }) {
       getPaymentAll()
       onClose()
       setIsLoading(false)
+      toast.success('成功新增 現金面交 收款資料!')
     } catch (error) {
       console.log(error)
     }

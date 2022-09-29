@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Link } from 'react-router-dom'
+import { toast } from 'react-toastify'
 import { signupApi } from '../../utils/api'
 import { EmailOutlined, HttpsOutlined, PermIdentityOutlined } from '@mui/icons-material'
 import googleIcon from '../../image/googleIcon.svg'
@@ -26,11 +27,10 @@ export default function SignupForm () {
     try {
       const { status: isSuccess, message } = await signupApi(data)
       if (!isSuccess) {
-        // alert(message)
         return
       }
-      // alert(message)
       setIsLoading(false)
+      toast.success('註冊成功! 歡迎拆帳趣!')
     } catch (error) {
       console.log(error)
     }
