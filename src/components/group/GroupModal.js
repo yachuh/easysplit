@@ -4,7 +4,8 @@ import { useForm, useFormContext, useFieldArray, Controller } from 'react-hook-f
 import { addMemberApi, editMemberApi, delMemberApi, changeMemberRoleApi, delGroupApi } from '../../utils/api'
 import { useGroupData } from '../../context/context'
 import GroupMemberListItem from './GroupMemberListItem'
-import { Add } from '@mui/icons-material'
+import { Add, AttachMoney } from '@mui/icons-material'
+import Checkbox from '@mui/material/Checkbox'
 
 /**
  * ==== 群組 - 成員 相關 modal ====
@@ -300,7 +301,7 @@ export function PayerListModal ({ open, onClose, payerList, setPayerList, watchC
     remove
   } = useFieldArray({
     control,
-    name: 'addPayerExpenseVms'
+    name: 'addPayerExpenseVMs'
   })
 
   const handleOnClick = e => {
@@ -308,13 +309,13 @@ export function PayerListModal ({ open, onClose, payerList, setPayerList, watchC
     console.log(e.currentTarget.id)
     const newPayerList = [{
       MemberId: e.currentTarget.id,
-      PaymentAmount: watchCost,
+      PayAmount: watchCost,
       memberName: e.currentTarget.dataset.name,
       imageUrl: e.currentTarget.dataset.imageurl
     }]
     console.log('newPayerList:::', newPayerList)
     setPayerList(newPayerList)
-    replace([{ MemberId: e.currentTarget.id, PaymentAmount: watchCost }])
+    replace([{ MemberId: Number(e.currentTarget.id), PayAmount: Number(watchCost) }])
     onClose()
   }
 
@@ -323,7 +324,7 @@ export function PayerListModal ({ open, onClose, payerList, setPayerList, watchC
       <div className="groupModalCard-title">
         <h4>選擇付款人</h4>
       </div>
-      <ul className="overflow-scroll-view h-[190px] w-full border border-colors-primary rounded">
+      <ul className="overflow-scroll-view h-[190px] w-full border border-colors-primary rounded formLine">
         {/* {
             fields.map((item, index) => {
               <li
@@ -331,39 +332,39 @@ export function PayerListModal ({ open, onClose, payerList, setPayerList, watchC
                 className="flex w-full justify-between text-base pt-2 pb-3 px-4 font-bold cursor-pointer hover:bg-colors-fifth/20"
               >
                 <input
-                  {...register(`addPayerExpenseVms.${index}.MemberId`)}
+                  {...register(`addPayerExpenseVMs.${index}.MemberId`)}
                 />
                 <Controller
                   render={({ field }) => <input {...field} />}
-                  name={`addPayerExpenseVms.${index}.PaymentAmount`}
+                  name={`addPayerExpenseVMs.${index}.PayAmount`}
                   control={control}
                 />
               </li>
             })
           } */}
         {
-            memberList.map((member, i) => {
-              const { memberId, memberName, imageUrl } = member
-              return (
-                <li
-                  key={i} // fields[i].id
-                  id={memberId}
-                  onClick={handleOnClick}
-                  data-name={memberName}
-                  data-imageurl={imageUrl}
-                  className="flex w-full justify-between text-base pt-2 pb-3 px-4 font-bold cursor-pointer hover:bg-colors-fifth/20"
-                  value={memberId}
-                  // {...register(`addPayerExpenseVms.${i}.MemberId`)}
-                >
-                  <div className="member-item-user">
-                    <img className="member-item-avatar" src={imageUrl} alt={memberName} />
-                    <div className="member-item-info">
-                      <p className="mb-1 md:mb-0">{memberName}</p>
-                    </div>
+          memberList.map((member, i) => {
+            const { memberId, memberName, imageUrl } = member
+            return (
+              <li
+                key={i} // fields[i].id
+                id={memberId}
+                onClick={handleOnClick}
+                data-name={memberName}
+                data-imageurl={imageUrl}
+                className="flex w-full justify-between text-base pt-2 pb-3 px-4 font-bold cursor-pointer hover:bg-colors-fifth/20"
+                value={memberId}
+                // {...register(`addPayerExpenseVMs.${i}.MemberId`)}
+              >
+                <div className="member-item-user">
+                  <img className="member-item-avatar" src={imageUrl} alt={memberName} />
+                  <div className="member-item-info">
+                    <p className="mb-1 md:mb-0">{memberName}</p>
                   </div>
-                </li>
-              )
-            })
+                </div>
+              </li>
+            )
+          })
           }
       </ul>
       <button onClick={() => { console.log('切換至 +多人付款 popup') }} className="flex items-center text-colors-primary font-bold mt-6">
@@ -374,51 +375,91 @@ export function PayerListModal ({ open, onClose, payerList, setPayerList, watchC
   )
 }
 
-export function OwnerListModal ({ open, onClose }) {
-  const { memberList, getMemberList } = useGroupData()
-  const [payerExpenseVms, setpayerExpenseVms] = useState([])
+export function OwnerListModal ({ open, onClose, ownerList, setownerList, watchCost }) {
+  const { memberList } = useGroupData()
+  const [ownerExpenseList, setOwnerExpenseList] = useState()
 
-  const { register, handleSubmit, formState: { errors } } = useForm({ defaultValues: { payerExpenseVms } })
+  const {
+    register,
+    control,
+    getValues,
+    setValue,
+    watch,
+    handleSubmit,
+    formState: { errors }
+  } = useFormContext()
 
-  const onSubmitPayerList = (data) => {
-    console.log(data)
+  const {
+    fields,
+    append,
+    update,
+    replace,
+    remove
+  } = useFieldArray({
+    control,
+    name: 'addPayerExpenseVMs'
+  })
+
+  const handleOnClick = e => {
+    e.preventDefault()
+    console.log('e.currentTarget.id', e.currentTarget.id)
+    setOwnerExpenseList()
   }
 
   return (
     <div className="w-full">
       <div className="groupModalCard-title">
-        <h4>選擇分帳人及金額</h4>
+        <h4>選擇分帳人 及 金額</h4>
       </div>
-      <p className="groupModalCard-text">分帳模式：按人數平均分配</p>
-      <form onSubmit={handleSubmit(onSubmitPayerList)}>
-        <div className="border border-colors-primary rounded my-4 h-[144px] overflow-scroll">
-          {
-            memberList.map((member, i) => {
-              const { memberId, memberName, imageUrl } = member
-              return (
-                <label key={i} {...member}>
+      <div className='w-full flex justify-between mt-4'>
+        <button className="btn-outline w-full rounded-r-none">=</button>
+        <button className="btn-primary w-full rounded-l-none">1.23</button>
+      </div>
+      <p className="groupModalCard-text text-left my-4">分帳模式：按人數平均分配</p>
+      <ul className="overflow-scroll-view h-[190px] w-full border border-colors-primary rounded formLine">
+        {
+          memberList.map((member, i) => {
+            const { memberId, memberName, imageUrl } = member
+            return (
+              <li
+                key={i} // fields[i].id
+                id={memberId}
+                onClick={handleOnClick}
+                className="formStyle cursor-pointer hover:bg-colors-fifth/20"
+                value={memberId}
+                // {...register(`addPayerExpenseVMs.${i}.MemberId`)}
+              >
+                <div className="flex justify-center items-center gap-4">
                   <input
                     type="checkbox"
-                    value={memberName}
-                    {...register('payerListVms', {
-                      required: {
-                        value: true,
-                        message: '請選擇至少一個成員'
-                      }
-                    })}
+                    className='h-5 w-5'
                   />
-                  {memberName}
-                </label>
-              )
-            })
+                  <div className="flex items-center gap-2">
+                      <img className="w-10 h-10" src={imageUrl} alt={memberName}/>
+                      <p className="font-bold">{memberName}</p>
+                  </div>
+                </div>
+                {/* 輸入金額 */}
+                {/* <div className="flex items-center">
+                    <AttachMoney sx={{ fontSize: 20 }} className="text-gray-400"/>
+                    <p className="text-gray-400 text-right font-bold w-20 p-2"></p>
+                </div> */}
+              </li>
+            )
+          })
           }
-        </div>
-        <input
-          type="submit"
-          className="btn-primary w-full"
-          value="確認"
-        />
-      </form>
+      </ul>
+      <button className="btn-primary w-full mt-4">確定</button>
     </div>
+  )
+}
+
+export function ExpenseTypeModal ({ open, onClose }) {
+  return (
+  <div className="w-full">
+    <div className="groupModalCard-title">
+        <h4>選擇種類</h4>
+    </div>
+  </div>
   )
 }

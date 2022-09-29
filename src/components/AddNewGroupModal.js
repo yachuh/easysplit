@@ -122,25 +122,6 @@ export default function AddNewGroupModal ({ onClose, groupList, setGroupList }) 
                     }
                   })}
                 />
-
-                <p className="modalHint my-2">建議尺寸：800*800 px</p>
-                {/* 群組名稱:::name */}
-                <div>
-                    <label htmlFor="name" className="groupModalCard-form-input-title">群組名稱</label>
-                    <input
-                        id="name"
-                        className="groupModalCard-form-input-box"
-                        type="text"
-                        placeholder="請輸入群組名稱"
-                        {...register('name', {
-                          required: {
-                            value: true,
-                            message: '此欄不可留空'
-                          }
-                        })}
-                    />
-                    <p className="text-xs text-left mt-1 text-rose-600">{errors.name?.message}</p>
-                </div>
                 <div className="mt-[24px]">
                   <input
                   type="submit"

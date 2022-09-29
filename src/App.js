@@ -70,7 +70,7 @@ function App () {
             <Route path="/group" element={<GroupListPage />} />
             <Route path="/group/:groupId" element={<GroupPage />}>
               <Route index element={<GroupHomePage />} />
-              <Route path="home" element={<GroupHomePage />} />
+              {/* <Route path="/" element={<GroupHomePage />} /> */}
               <Route path="member" element={<GroupMemberPage />} />
               <Route path="setting" element={<GroupSettingPage />} />
               <Route path=":expenseId" element={<SingleExpensePage/>} />
