@@ -353,7 +353,7 @@ export const SelfSettlementPayerItem = ({ selfSettlementItem, isActive, setActiv
             className={`flex w-full justify-between text-base pt-2 pb-3 px-4 font-bold cursor-pointer ${isActive ? 'bg-color-champagne-pink' : 'bg-white'}`}>
             <div className='flex gap-3 items-center'>
                 <img
-                    className='settlement-userImg w-10 h-10'
+                    className='settlement-userImg w-10 h-10 rounded-full'
                     src={ownerImageUrl}
                     alt='userSettlement'
                 />
@@ -409,7 +409,7 @@ export const SelfSettlementOwnerItem = ({ selfSettlementItem, isActive, setActiv
             className={`flex w-full justify-between text-base pt-2 pb-3 px-4 font-bold cursor-pointer ${isActive ? 'bg-color-champagne-pink' : 'bg-white'}`}>
             <div className='flex gap-3 items-center act'>
                 <img
-                    className='settlement-userImg'
+                    className='settlement-userImg w-10 h-10 rounded-full'
                     src={payerImageUrl}
                     alt='userSettlement'
                 />

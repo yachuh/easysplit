@@ -246,5 +246,5 @@ export const delMemberApi = (memberId) => deleteApi(`${DELETE_MEMBER}/${memberId
 // expense 相關 api
 export const delExpenseApi = (expenseId) => deleteApi(`${DELETE_EXPENSE}/${expenseId}`)
 
-// 5.X 須將後面數字改變數 ${param}，測試功能暫寫死
+// Settlement 相關 api
 export const deleteSettlemetApi = (param) => deleteApi(`${DELETE_SETTLEMENT}/${param}`)

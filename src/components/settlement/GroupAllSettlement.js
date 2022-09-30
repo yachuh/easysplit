@@ -9,8 +9,6 @@ export default function GroupAllSettlement () {
   const { groupData } = useGroupData()
   const { groupId } = groupData
 
-  console.log('groupId :>> ', groupId)
-
   const [groupAllSettlementData, setGroupAllSettlementData] = useState({
     settlementList: [],
     payerList: [],

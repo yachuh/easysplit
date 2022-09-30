@@ -38,7 +38,7 @@ export default function AppLayout ({ children }) {
 
   useEffect(() => {
     getUserProfile()
-    console.log('userData', userData)
+    // console.log('userData', userData)
   }, [])
 
   return (

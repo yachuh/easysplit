@@ -4,7 +4,6 @@ import { ExpenseRecordItem, SettledRecordItem } from './RecordListItem'
 import Modal from '@mui/material/Modal'
 import AddExpenseModal from './expense/AddExpenseModal'
 import { Add } from '@mui/icons-material'
-import LoadingModal from '../../components/LoadingModal'
 
 export default function RecordList () {
   const { expenseData, settledData, expenseTypeList } = useGroupData()
@@ -16,13 +15,7 @@ export default function RecordList () {
   /* ---- Modal 相關 END ---- */
 
   const mergeCreatDate = (expenseData).concat(settledData)
-  console.log('expenseData :>> ', expenseData)
-  console.log('settledData :>> ', settledData)
-  console.log('expenseTypeList :>> ', expenseTypeList)
-
-  // mergeCreatDate.sort((a, b) => b.creatDate.localeCompare(a.creatDate) || b.creatDate.localeCompare(a.creatDate))
-
-  // console.log('mergeCreatDate :>> ', mergeCreatDate)
+  mergeCreatDate.sort((a, b) => b.creatDate.localeCompare(a.creatDate) || b.creatDate.localeCompare(a.creatDate))
 
   return (
     <div className="w-full settlement-card lg:w-3/5">
@@ -49,20 +42,19 @@ export default function RecordList () {
         {/* AddExpenseModal END */}
       </div>
       <ul className='overflow-scroll-view md:h-[40vh] lg:overflow-y-scroll lg:h-[85%]'>
-        {/* {
+        {
           mergeCreatDate?.map((mergeItem, i) => {
-            console.log('mergeCreatDate :>> ', mergeItem.item)
             return (
               <div key={i}>
                 {
-                  expenseData.expenseId === mergeItem.expenseId ? <ExpenseRecordItem key={i} mergeItem={mergeItem} expenseTypeList={expenseTypeList} /> : <SettledRecordItem key={i} mergeItem={mergeItem} />
+                  mergeItem.expenseId !== undefined ? <ExpenseRecordItem key={i} {...mergeItem} expenseTypeList={expenseTypeList} /> : <SettledRecordItem key={i} {...mergeItem} />
                 }
               </div>
             )
           })
-        } */}
+        }
 
-        {
+        {/* {
           // expense record
           expenseData?.map((item, i) => {
             return (
@@ -77,7 +69,7 @@ export default function RecordList () {
               <SettledRecordItem key={i} {...item} />
             )
           })
-        }
+        } */}
       </ul>
     </div>
   )
