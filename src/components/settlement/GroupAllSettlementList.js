@@ -77,7 +77,7 @@ export default function GroupAllSettlementList ({ getPersonalSettlement, getGrou
   return (
     <selfSettlementDataContext.Provider value={{ selfSettlementData, setSelfSettlementData }}>
       <reminderdDataContext.Provider value={{ reminderdData, setReminderData }}>
-        <div className='settlement-card w-full mb-3 lg:mb-0'>
+        <div className='settlement-card lg:w-2/5 mb-3 lg:mb-0'>
           <div className='flex justify-between mb-3 font-bold text-black'>
             <h4>結算明細</h4>
             <button
@@ -106,7 +106,7 @@ export default function GroupAllSettlementList ({ getPersonalSettlement, getGrou
               </div>
             </Modal>
           </div>
-          <div className='overflow-scroll-view md:h-[25vh] lg:overflow-y-scroll lg:h-[85%]'>
+          <div className='overflow-scroll-view md:h-[40vh] lg:overflow-y-scroll lg:h-[85%]'>
             <GroupPayerListItem
               getPersonalSettlement={getPersonalSettlement}
               getGroupAllSettlement={getGroupAllSettlement}

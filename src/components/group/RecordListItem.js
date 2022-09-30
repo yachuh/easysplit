@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { Route, Link, useLocation } from 'react-router-dom'
-import { AccountBalanceWallet, CloseOutlined } from '@mui/icons-material'
+import { AccountBalanceWallet, CloseOutlined, AttachMoney } from '@mui/icons-material'
 import Modal from '@mui/material/Modal'
 import { settledDetailDataContext } from '../../context/context'
 import { getSettledDetailApi, getExpenseApi } from '../../utils/api'
@@ -22,7 +22,7 @@ const toDay = (time) => {
 /**
  * ==== expense record ====
  */
-export function ExpenseRecordItem ({ expenseTypeList, expenseId, item, cost, creatDate, memo, expenseType, personalStatus }) {
+export function ExpenseRecordItem ({ expenseTypeList, expenseId, item, cost, creatDate, memo, expenseType, personalStatus, payerList }) {
   const [isLoading, setIsLoading] = useState(false)
   const pathname = useLocation().pathname // <Link to={`${pathname}/${expenseId}`}>
 
@@ -33,12 +33,6 @@ export function ExpenseRecordItem ({ expenseTypeList, expenseId, item, cost, cre
   /* ---- Modal 相關 END ---- */
 
   const [expenseData, setExpenseData] = useState()
-
-  useEffect(() => {
-    if (expenseId) {
-      getExpense(expenseId)
-    }
-  }, [])
 
   /* ---- APIs START ---- */
   const getExpense = useCallback(async (expenseId) => {
@@ -77,17 +71,24 @@ export function ExpenseRecordItem ({ expenseTypeList, expenseId, item, cost, cre
     handleOpenExpenseModal()
   }
 
+  useEffect(() => {
+    if (expenseId) {
+      getExpense(expenseId)
+    }
+  }, [])
+
   return (
     <>
       {
         isLoading
           ? <LoadingModal />
           : <div
+          id={expenseId}
             onClick={() => { onClickExpenseItem(expenseId) }}
             className="w-full flex flex-col justify-between cursor-pointer gap-2 md:flex-row md:justify-start md:items-center mb-3">
             <div className='flex items-center gap-2 font-bold md:flex-col'>
-              <p className=' text-gray-500 md:text-black'>{toMonth(creatDate)}</p>
-              <p className='md:text-2xl'>{toDay(creatDate)}</p>
+              <p className='text-gray-500 md:text-black'>{toMonth(creatDate)}</p>
+              <p className='text-gray-500 md:text-black md:text-2xl'>{toDay(creatDate)}</p>
             </div>
             <div className='w-full flex items-center gap-4'>
               <img className='w-10 h-10 md:w-16 md:h-16' src={toExpenseTypeIcon(expenseType)} alt={expenseType} />
@@ -95,15 +96,21 @@ export function ExpenseRecordItem ({ expenseTypeList, expenseId, item, cost, cre
               <div className='w-full flex flex-col-reverse md:flex-row md:justify-between'>
                 <div className='w-full flex flex-col gap-1 md:gap-2'>
                   <p className='font-bold text-black'>{item}</p>
-                  <p>
-                    XXX
+                  <p className='flex'>
+                    {payerList[0]?.payerName}
                     <span className='font-normal mx-2'>付了</span>
-                    <span className='ml-2 text-emerald-500'>$ {cost}</span>
+                    <span className='ml-2'><span className='ml-3 mr-2'>
+                      <AttachMoney sx={{ fontSize: 16 }} />
+                    </span> {cost.toFixed(2)}</span>
                   </p>
                 </div>
-                <div className='w-full md:w-1/3 flex gap-3 md:flex-col'>
+                <div className='w-full md:w-[40%] flex gap-3 md:flex-col'>
                   <p className='font-bold md:text-right'>{personalStatus[0]?.statusCh}</p>
-                  <p className='md:text-right'>$ {personalStatus[0]?.balance}</p>
+                  <p className={`flex justify-end font-bold md:text-right ${personalStatus[0]?.balance > 0 ? 'text-colors-fourth' : 'text-red-700'}`}>{personalStatus[0]?.statusEn === 'notInvolved'
+                    ? ''
+                    : <span className={`ml-3 mr-2 text-colors-fourth ${personalStatus[0]?.balance > 0 ? 'text-colors-fourth' : 'text-red-700'}`}>
+                      <AttachMoney sx={{ fontSize: 16 }} />
+                    </span>}{personalStatus[0]?.balance === undefined ? null : ((Math.abs(personalStatus[0]?.balance)).toFixed(2))}</p>
                 </div>
               </div>
 
@@ -191,7 +198,7 @@ export function SettledRecordItem ({ settledId, ownerName, payerName, ownerPayto
             {ownerName}
             <span className='font-normal mx-2'>支付</span>
             {payerName}
-            <span className='ml-2 text-emerald-500'>$ {ownerPaytoPayerAmount}</span>
+            <span className='ml-2 text-colors-third'>$ {ownerPaytoPayerAmount.toFixed(2)}</span>
           </p>
         </div>
       </div>
