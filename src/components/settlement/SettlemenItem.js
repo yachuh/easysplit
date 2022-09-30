@@ -26,7 +26,7 @@ export const SettlementPayerItem = ({ payerListItem }) => {
                         <AttachMoney sx={{ fontSize: 16 }} />
                     </span>
                     <span className='text-colors-fourth'>
-                        {ReceivedAmount}
+                        {ReceivedAmount.toFixed(2)}
                     </span>
                 </li>
             </ul>
@@ -52,7 +52,7 @@ export const SettlementOwnerItem = ({ ownerListItem }) => {
                         <AttachMoney sx={{ fontSize: 16 }} />
                     </span>
                     <span className='text-red-700 text-right'>
-                        {GaveAmount}
+                        {GaveAmount.toFixed(2)}
                     </span>
                 </li>
             </ul>
@@ -125,7 +125,7 @@ export const PersonalPayerItem = ({ settlementItem, getPersonalSettlement, getGr
                                 <li className='font-bold'>{payerName}</li>
                                 <li className='text-xs'>應取回</li>
                                 <li className='text-colors-fourth font-bold'><AttachMoney sx={{ fontSize: 16 }} /></li>
-                                <li className='text-colors-fourth ml-[-3px] font-bold'>{ownAmountresult}</li>
+                                <li className='text-colors-fourth ml-[-3px] font-bold'>{ownAmountresult.toFixed(2)}</li>
                                 <li className='text-xs'>從</li>
                                 <li className='text-xs'>{owenerName}</li>
                             </ul>
@@ -258,7 +258,7 @@ export const PersonalOwnerItem = ({ settlementItem, getPersonalSettlement, getGr
                                 <li className='font-bold'>{owenerName}</li>
                                 <li className='text-xs'>應支付</li>
                                 <li className='text-red-700 font-bold'><AttachMoney sx={{ fontSize: 16 }} /></li>
-                                <li className='text-red-700 ml-[-3px] font-bold'>{ownAmountresult}</li>
+                                <li className='text-red-700 ml-[-3px] font-bold'>{ownAmountresult.toFixed(2)}</li>
                                 <li className='text-xs'>給</li>
                                 <li className='text-xs'>{payerName}</li>
                             </ul>
@@ -369,7 +369,7 @@ export const SelfSettlementPayerItem = ({ selfSettlementItem, isActive, setActiv
                         <AttachMoney sx={{ fontSize: 16 }} />
                     </span>
                     <span className='text-colors-fourth'>
-                        {ownAmountresult}
+                        {ownAmountresult.toFixed(2)}
                     </span>
                 </li>
             </ul>
@@ -425,7 +425,7 @@ export const SelfSettlementOwnerItem = ({ selfSettlementItem, isActive, setActiv
                         <AttachMoney sx={{ fontSize: 16 }} />
                     </span>
                     <span className='text-red-700'>
-                        {ownAmountresult}
+                        {ownAmountresult.toFixed(2)}
                     </span>
                 </li>
             </ul>

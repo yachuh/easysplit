@@ -15,8 +15,17 @@ export default function RecordList () {
   const handleCloseAddExpenseModal = () => setOpenAddExpenseModal(false)
   /* ---- Modal 相關 END ---- */
 
+  const mergeCreatDate = (expenseData).concat(settledData)
+  console.log('expenseData :>> ', expenseData)
+  console.log('settledData :>> ', settledData)
+  console.log('expenseTypeList :>> ', expenseTypeList)
+
+  // mergeCreatDate.sort((a, b) => b.creatDate.localeCompare(a.creatDate) || b.creatDate.localeCompare(a.creatDate))
+
+  // console.log('mergeCreatDate :>> ', mergeCreatDate)
+
   return (
-    <div className="settlement-card w-full">
+    <div className="w-full settlement-card lg:w-3/5">
       {/* ---- 費用 header ---- */}
       <div className="flex justify-between mb-3 font-bold text-black">
         <h3 className="text-2xl font-bold">費用</h3>
@@ -39,7 +48,20 @@ export default function RecordList () {
         </Modal>
         {/* AddExpenseModal END */}
       </div>
-      <ul className='overflow-scroll-view md:h-[25vh] lg:overflow-y-scroll lg:h-[85%]'>
+      <ul className='overflow-scroll-view md:h-[40vh] lg:overflow-y-scroll lg:h-[85%]'>
+        {/* {
+          mergeCreatDate?.map((mergeItem, i) => {
+            console.log('mergeCreatDate :>> ', mergeItem.item)
+            return (
+              <div key={i}>
+                {
+                  expenseData.expenseId === mergeItem.expenseId ? <ExpenseRecordItem key={i} mergeItem={mergeItem} expenseTypeList={expenseTypeList} /> : <SettledRecordItem key={i} mergeItem={mergeItem} />
+                }
+              </div>
+            )
+          })
+        } */}
+
         {
           // expense record
           expenseData?.map((item, i) => {
