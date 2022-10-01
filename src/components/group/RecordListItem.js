@@ -40,10 +40,8 @@ export function ExpenseRecordItem ({ expenseTypeList, expenseId, item, cost, cre
     try {
       const { status: isSuccess, message, expenseData } = await getExpenseApi(expenseId)
       if (!isSuccess) {
-        console.log(message)
         return
       }
-      console.log('expenseData:::', expenseData)
       setExpenseData(expenseData)
       setIsLoading(false)
     } catch (error) {
@@ -63,7 +61,6 @@ export function ExpenseRecordItem ({ expenseTypeList, expenseId, item, cost, cre
         return imageUrl
       }
     })
-    // console.log(filterExpenseTypeList[0]?.imageUrl)
     return (filterExpenseTypeList[0]?.imageUrl)
   }
 
@@ -153,7 +150,6 @@ export function SettledRecordItem ({ settledId, ownerName, payerName, ownerPayto
     try {
       const { status: isSuccess, message, setllementDetail } = await getSettledDetailApi(settledId)
       if (!isSuccess) {
-        console.log(message)
         return
       }
       setSettledDetailData(settledDetailData => ({

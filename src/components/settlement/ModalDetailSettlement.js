@@ -120,7 +120,7 @@ export const ModalDetailSettlement = ({ onClose, getPersonalSettlement, getGroup
               <p className='font-bold text-colors-primary'>From</p>
               <div className='flex gap-3 items-center'>
                 <img
-                  className='settlement-userImg'
+                  className='settlement-userImg rounded-full'
                   src={ownerImageUrl}
                   alt='userSettlement'
                 />
@@ -144,7 +144,7 @@ export const ModalDetailSettlement = ({ onClose, getPersonalSettlement, getGroup
               <p className='font-bold text-colors-primary'>To</p>
               <div className='flex gap-3 items-center'>
                 <img
-                  className='settlement-userImg'
+                  className='settlement-userImg rounded-full'
                   src={payerImageUrl}
                   alt='userSettlement'
                 />

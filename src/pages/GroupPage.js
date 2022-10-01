@@ -36,11 +36,11 @@ export default function GroupPage () {
     // getMemberList()
     // getAllExpense()
     // getAllSettled()
-    console.log('groupData:::', groupData)
-    console.log('memberList:::', memberList)
-    console.log('expenseData:::', expenseData)
-    console.log('settledData:::', settledData)
-    console.log('expenseTypeList:::', expenseTypeList)
+    // console.log('groupData:::', groupData)
+    // console.log('memberList:::', memberList)
+    // console.log('expenseData:::', expenseData)
+    // console.log('settledData:::', settledData)
+    // console.log('expenseTypeList:::', expenseTypeList)
   }, [groupId])
 
   /* ---- API START ---- */
