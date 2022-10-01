@@ -1,12 +1,14 @@
-import { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useGroupData } from '../../context/context'
 import { ExpenseRecordItem, SettledRecordItem } from './RecordListItem'
 import Modal from '@mui/material/Modal'
 import AddExpenseModal from './expense/AddExpenseModal'
 import { Add } from '@mui/icons-material'
+import LoadingModal from '../../components/LoadingModal'
 
 export default function RecordList () {
   const { expenseData, settledData, expenseTypeList } = useGroupData()
+  const [isLoading, setIsLoading] = useState(false)
 
   /* ---- Modal 相關 START ---- */
   const [openAddExpenseModal, setOpenAddExpenseModal] = useState(false)
@@ -14,8 +16,15 @@ export default function RecordList () {
   const handleCloseAddExpenseModal = () => setOpenAddExpenseModal(false)
   /* ---- Modal 相關 END ---- */
 
-  const mergeCreatDate = (expenseData).concat(settledData)
-  mergeCreatDate.sort((a, b) => b.creatDate.localeCompare(a.creatDate) || b.creatDate.localeCompare(a.creatDate))
+  const mergeCreatDate = (expenseData)?.concat(settledData)
+  mergeCreatDate?.sort((a, b) => b.creatDate.localeCompare(a.creatDate) || b.creatDate.localeCompare(a.creatDate))
+
+  useEffect(() => {
+    setIsLoading(true)
+    setTimeout(() => {
+      setIsLoading(false)
+    }, 500)
+  }, [])
 
   return (
     <div className="w-full settlement-card lg:w-3/5">
@@ -46,9 +55,12 @@ export default function RecordList () {
           mergeCreatDate?.map((mergeItem, i) => {
             return (
               <div key={i}>
-                {
-                  mergeItem.expenseId !== undefined ? <ExpenseRecordItem key={i} {...mergeItem} expenseTypeList={expenseTypeList} /> : <SettledRecordItem key={i} {...mergeItem} />
+
+                {isLoading
+                  ? <LoadingModal />
+                  : mergeItem.expenseId !== undefined ? <ExpenseRecordItem key={i} {...mergeItem} expenseTypeList={expenseTypeList} /> : <SettledRecordItem key={i} {...mergeItem} />
                 }
+
               </div>
             )
           })

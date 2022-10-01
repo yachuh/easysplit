@@ -80,7 +80,7 @@ export function ExpenseRecordItem ({ expenseTypeList, expenseId, item, cost, cre
         isLoading
           ? <LoadingModal />
           : <div
-          id={expenseId}
+            id={expenseId}
             onClick={() => { onClickExpenseItem(expenseId) }}
             className="w-full flex flex-col justify-between cursor-pointer gap-2 md:flex-row md:justify-start md:items-center mb-3">
             <div className='flex items-center gap-2 font-bold md:flex-col'>
@@ -138,6 +138,7 @@ export function SettledRecordItem ({ settledId, ownerName, payerName, ownerPayto
   const [open, setOpen] = useState(false)
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
+  const [isLoading, setIsLoading] = useState(false)
 
   const [settledDetailData, setSettledDetailData] = useState({
     setllementDetail: []
@@ -147,6 +148,7 @@ export function SettledRecordItem ({ settledId, ownerName, payerName, ownerPayto
   const [pickDetailData, setPickDetailData] = useState()
 
   const getSettledDetail = useCallback(async (settledId) => {
+    setIsLoading(true)
     try {
       const { status: isSuccess, message, setllementDetail } = await getSettledDetailApi(settledId)
       if (!isSuccess) {
@@ -156,6 +158,7 @@ export function SettledRecordItem ({ settledId, ownerName, payerName, ownerPayto
         ...settledDetailData,
         setllementDetail
       }))
+      setIsLoading(false)
     } catch (error) {
       console.log(error)
     }
@@ -176,36 +179,43 @@ export function SettledRecordItem ({ settledId, ownerName, payerName, ownerPayto
   }
 
   return (
-    <settledDetailDataContext.Provider value={{ pickDetailData, setPickDetailData }}>
-      {/* date & type */}
-      <div
-        onClick={SettledRecordClick}
-        id={settledId}
-        className="flex flex-col justify-center cursor-pointer gap-2 md:flex-row md:justify-start md:items-center mb-3">
-        <div className='flex items-center gap-2 font-bold md:flex-col'>
-          <p className=' text-gray-500 md:text-black'>{toMonth(creatDate)}</p>
-          <p className='md:text-2xl'>{toDay(creatDate)}</p>
-        </div>
-        <div className='flex items-center gap-4'>
-          <div className="w-5 h-5 rounded p-5 bg-emerald-100 text-emerald-500 flex justify-center items-center md:w-16 md:h-16 md:rounded-2xl">
-            <AccountBalanceWallet sx={{ fontSize: 24 }} />
-          </div>
-          <p className='font-bold text-black'>
-            {ownerName}
-            <span className='font-normal mx-2'>支付</span>
-            {payerName}
-            <span className='ml-2 text-colors-third'>$ {ownerPaytoPayerAmount.toFixed(2)}</span>
-          </p>
-        </div>
-      </div>
-      <Modal open={open} onClose={handleClose} className="modalCard-bg">
-        <div onClick={(e) => e.stopPropagation()} className="modalCard">
-          <div onClick={handleClose} className="modalCancel">
-            <CloseOutlined sx={{ fontSize: 14 }} />
-          </div>
-          <SettledDetail open={open} onClose={handleClose} getSettledDetail={getSettledDetail} />
-        </div>
-      </Modal>
-    </settledDetailDataContext.Provider>
+    <>
+      {
+        isLoading
+          ? <LoadingModal />
+          : <settledDetailDataContext.Provider value={{ pickDetailData, setPickDetailData }}>
+            {/* date & type */}
+            <div
+              onClick={SettledRecordClick}
+              id={settledId}
+              className="flex flex-col justify-center cursor-pointer gap-2 md:flex-row md:justify-start md:items-center mb-3">
+              <div className='flex items-center gap-2 font-bold md:flex-col'>
+                <p className=' text-gray-500 md:text-black'>{toMonth(creatDate)}</p>
+                <p className='md:text-2xl'>{toDay(creatDate)}</p>
+              </div>
+              <div className='flex items-center gap-4'>
+                <div className="w-5 h-5 rounded p-5 bg-emerald-100 text-emerald-500 flex justify-center items-center md:w-16 md:h-16 md:rounded-2xl">
+                  <AccountBalanceWallet sx={{ fontSize: 24 }} />
+                </div>
+                <p className='font-bold text-black'>
+                  {ownerName}
+                  <span className='font-normal mx-2'>支付</span>
+                  {payerName}
+                  <span className='ml-2 text-colors-third'>$ {ownerPaytoPayerAmount.toFixed(2)}</span>
+                </p>
+              </div>
+            </div>
+            <Modal open={open} onClose={handleClose} className="modalCard-bg">
+              <div onClick={(e) => e.stopPropagation()} className="modalCard">
+                <div onClick={handleClose} className="modalCancel">
+                  <CloseOutlined sx={{ fontSize: 14 }} />
+                </div>
+                <SettledDetail open={open} onClose={handleClose} getSettledDetail={getSettledDetail} />
+              </div>
+            </Modal>
+          </settledDetailDataContext.Provider>
+      }
+    </>
+
   )
 }

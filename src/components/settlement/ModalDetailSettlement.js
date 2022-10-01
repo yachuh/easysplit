@@ -94,9 +94,12 @@ export const ModalDetailSettlement = ({ onClose, getPersonalSettlement, getGroup
   }, [])
 
   const clickSettleUp = () => {
+    setIsLoading(true)
     settleUp(settleUpData)
     toast.success('結算成功!')
-    handleOpenSuccess()
+    setTimeout(() => {
+      setIsLoading(false)
+    }, 500)
   }
 
   // console.log('groupId:', groupId)

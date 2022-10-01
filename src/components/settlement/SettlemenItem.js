@@ -85,7 +85,11 @@ export const PersonalPayerItem = ({ settlementItem, getPersonalSettlement, getGr
   const handleCloseReminder = () => setOpenReminder(false)
 
   const settlementClick = () => {
+    setIsLoading(true)
     setSettlementClickData(settlementItem)
+    setTimeout(() => {
+      setIsLoading(false)
+    }, 500)
     handleOpenPersonalPayer()
   }
 
@@ -97,15 +101,11 @@ export const PersonalPayerItem = ({ settlementItem, getPersonalSettlement, getGr
       ownerMemberId,
       payerMemberId
     }))
-    setIsLoading(false)
+    setTimeout(() => {
+      setIsLoading(false)
+    }, 1000)
     handleOpenReminder()
   }, [ownerMemberId])
-
-  console.log('pickReminder :>> ', pickReminder)
-
-  //   useEffect(() => {
-  //     getReminder(ownerMemberId)
-  //   }, [])
 
   return (
         <>
@@ -217,7 +217,11 @@ export const PersonalOwnerItem = ({ settlementItem, getPersonalSettlement, getGr
   const handleCloseReminder = () => setOpenReminder(false)
 
   const settlementClick = () => {
+    setIsLoading(true)
     setSettlementClickData(settlementItem)
+    setTimeout(() => {
+      setIsLoading(false)
+    }, 500)
     handleOpenPersonalOwner()
   }
 
@@ -229,16 +233,11 @@ export const PersonalOwnerItem = ({ settlementItem, getPersonalSettlement, getGr
       ownerMemberId,
       payerMemberId
     }))
+    setTimeout(() => {
+      setIsLoading(false)
+    }, 1000)
     handleOpenReminder()
-    setIsLoading(false)
   }, [ownerMemberId])
-
-  console.log('reminderdData :>> ', reminderdData)
-  console.log('ownerMemberId :>> ', ownerMemberId)
-  console.log('pickReminder :>> ', pickReminder)
-  //   useEffect(() => {
-  //     getReminder(ownerMemberId)
-  //   }, [])
 
   return (
         <>
@@ -328,6 +327,7 @@ export const SelfSettlementPayerItem = ({ selfSettlementItem, isActive, setActiv
   const { settlement } = selfSettlementData
 
   const { settlementClickData, setSettlementClickData } = useSettlementClickData()
+  const [isLoading, setIsLoading] = useState(false)
 
   const {
     payerMemberId,
@@ -338,12 +338,16 @@ export const SelfSettlementPayerItem = ({ selfSettlementItem, isActive, setActiv
   } = selfSettlementItem
 
   const settlementClick = () => {
+    setIsLoading(true)
     const filterUser = settlement.filter(item => {
       return (ownerMemberId === item.ownerMemberId && payerMemberId === item.payerMemberId)
     })
     setSettlementClickData(filterUser)
     setActiveId(filterUser[0].ownerMemberId)
     setBtnDisable(false)
+    setTimeout(() => {
+      setIsLoading(false)
+    }, 500)
   }
 
   return (
@@ -382,6 +386,7 @@ export const SelfSettlementOwnerItem = ({ selfSettlementItem, isActive, setActiv
   const { settlement } = selfSettlementData
 
   const { settlementClickData, setSettlementClickData } = useSettlementClickData()
+  const [isLoading, setIsLoading] = useState(false)
 
   const {
     payerMemberId,
@@ -393,12 +398,16 @@ export const SelfSettlementOwnerItem = ({ selfSettlementItem, isActive, setActiv
   } = selfSettlementItem
 
   const settlementClick = (e) => {
+    setIsLoading(true)
     const filterUser = settlement.filter(item => {
       return (ownerMemberId === item.ownerMemberId && payerMemberId === item.payerMemberId)
     })
     setSettlementClickData(filterUser)
     setActiveId(filterUser[0].payerMemberId)
     setBtnDisable(false)
+    setTimeout(() => {
+      setIsLoading(false)
+    }, 500)
   }
 
   return (
