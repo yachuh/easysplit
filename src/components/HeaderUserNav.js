@@ -5,6 +5,7 @@ import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import { LogoutOutlined } from '@mui/icons-material'
+import { useNavigate, Link } from 'react-router-dom'
 
 export default function HeaderUserNav () {
   const [anchorEl, setAnchorEl] = useState(null)
@@ -15,6 +16,8 @@ export default function HeaderUserNav () {
   const handleClose = () => {
     setAnchorEl(null)
   }
+
+  const navigate = useNavigate()
 
   return (
     <>
@@ -37,7 +40,11 @@ export default function HeaderUserNav () {
         }}
       >
         <MenuItem
-          onClick={handleClose}>
+          onClick={() => {
+            navigate('/profile')
+            // handleClose()
+          }}
+          >
           會員中心
         </MenuItem>
         <MenuItem

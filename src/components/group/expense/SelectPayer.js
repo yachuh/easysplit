@@ -5,13 +5,13 @@ import { PayerListModal } from '../GroupModal'
 import { CloseOutlined } from '@mui/icons-material'
 
 export default function SelectPayer ({ payerList, setPayerList, watchCost }) {
-  const {
-    control
-  } = useFormContext
-
   const [openPayerListPopup, setOpenPayerListPopup] = useState(false)
   const handleOpenPayerListPopup = () => setOpenPayerListPopup(true)
   const handleClosePayerListPopup = () => setOpenPayerListPopup(false)
+
+  const {
+    control
+  } = useFormContext
 
   return (
     <Controller
