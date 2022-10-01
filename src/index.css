@@ -210,6 +210,7 @@ code {
     @apply px-4 md:px-8 h-[calc(100vh_-_40px)];
   }
 
+
   .singlePayment-payer {
     @apply flex items-center gap-4 font-medium text-black;
   }

@@ -7,30 +7,17 @@ import { PayerListModal, OwnerListModal, ExpenseTypeModal } from '../GroupModal'
 import { Edit, Delete, LastPage, Check, AttachMoney, CloseOutlined, Update, InsertPhoto } from '@mui/icons-material'
 import DateField from './DateField'
 import SelectPayer from './SelectPayer'
+import SelectOwner from './SelectOwner'
+import AttachPhotos from './AttachPhotos'
 
 export default function AddExpenseModal ({ open, onClose }) {
   const { groupData, memberList, expenseTypeList, getAllExpense } = useGroupData()
-
-  const [payerList, setPayerList] = useState([{
-    MemberId: memberList[0].memberId,
-    PayAmount: '',
-    memberName: memberList[0].memberName,
-    imageUrl: memberList[0].imageUrl
-  }])
-  const [ownerList, setOwnerList] = useState([])
+  const [editModeEnabled, setEditModeEnabled] = useState(false) // switch on & off edit mode
 
   /* ---- Modals ---- */
-  const [openOwnerListPopup, setOpenOwnerListPopup] = useState(false)
-  const handleOpenOwnerListPopup = () => setOpenOwnerListPopup(true)
-  const handleCloseOwnerListPopup = () => setOpenOwnerListPopup(false)
   const [openExpenseTypeModal, setOpenExpenseTypeModal] = useState(false)
   const handleOpenExpenseTypeModal = () => setOpenExpenseTypeModal(true)
   const handleCloseExpenseTypeModal = () => setOpenExpenseTypeModal(false)
-
-  useEffect(() => {
-    console.log('payerList:::', payerList)
-    console.log('ownerList:::', ownerList)
-  }, [payerList, ownerList])
 
   /* ---- react hook form configs START---- */
   const methods = useForm({
@@ -39,14 +26,16 @@ export default function AddExpenseModal ({ open, onClose }) {
       expenseType: 0,
       item: '',
       cost: 0,
-      addPayerExpenseVMs: [],
+      addPayerExpenseVMs: [{
+        MemberId: memberList[0].memberId,
+        PayAmount: 0
+      }],
       addOwnerExpenseVMs: [],
       addExpenseAlbumVMs: [],
       creatDate: new Date(Date.now()), // current time new Date(Date.now()).toISOString()
       memo: ''
     }
   })
-
   const {
     register,
     control,
@@ -57,19 +46,15 @@ export default function AddExpenseModal ({ open, onClose }) {
     getFieldState,
     formState: { errors, isValid }
   } = methods
-
   /* ---- react hook form configs END---- */
 
-  const watchCost = watch('cost') // watch form inputs:cost
+  // print all form data
   const watchAllFields = watch()
   console.log(watchAllFields)
 
+  // watch 'Cost' change & calculate avg cost
+  const watchCost = watch('cost') // watch form inputs:cost
   const averageCost = parseFloat((watchCost / memberList.length)?.toFixed(2))
-
-  // set initial values of addPayerExpenseVMs
-  useEffect(() => {
-    setValue('addPayerExpenseVMs.0.MemberId', memberList[0].memberId, { shouldValidate: true })
-  }, [])
 
   // set amount when 'cost' changes
   useEffect(() => {
@@ -103,7 +88,20 @@ export default function AddExpenseModal ({ open, onClose }) {
     }
   }
 
-  // a function to test onClikc target
+  /* ---- payer & owner list ---- */
+  const [payerList, setPayerList] = useState([{
+    MemberId: memberList[0].memberId,
+    PayAmount: '',
+    memberName: memberList[0].memberName,
+    imageUrl: memberList[0].imageUrl
+  }])
+  const [ownerList, setOwnerList] = useState([])
+  useEffect(() => {
+    console.log('payerList:::', payerList)
+    console.log('ownerList:::', ownerList)
+  }, [payerList, ownerList])
+
+  // a function to test onClick target
   const testOnClick = (e) => {
     console.log(e.current.target)
   }
@@ -112,7 +110,7 @@ export default function AddExpenseModal ({ open, onClose }) {
     <div>
       {/* ---- header icons ---- */}
       <div className="expenseModal-header">
-        <Edit className="expenseModal-header-icon" />
+        <Edit className="expenseModal-header-icon"/>
         <Delete className="expenseModal-header-icon" />
         <Check className="expenseModal-header-icon" onClick={handleSubmit(onSubmit)} />
         <LastPage className="expenseModal-header-icon" />
@@ -123,7 +121,7 @@ export default function AddExpenseModal ({ open, onClose }) {
           {/* 日期:::creatDate */}
           {/* <DateField /> */}
           <div className="my-6">
-            <DateField />
+            <DateField/>
             <p className="text-xs mb-2 text-rose-600">{errors.creatDate?.message}</p>
           </div>
           {/* 名稱:::item ＆ 種類:::expenseType */}
@@ -149,7 +147,7 @@ export default function AddExpenseModal ({ open, onClose }) {
                 {
                   openExpenseTypeModal && (
                     <ul
-                      className="bg-white rounded w-[136px] h-[200px] flex flex-col gap-3 overflow-auto card-shadow font-medium absolute top-9 left-0 z-50"
+                      className="bg-white rounded w-[136px] h-[200px] p-1 flex flex-col gap-3 overflow-auto card-shadow font-medium absolute top-10 left-0 z-50"
                     >
                       {
                         expenseTypeList?.map((type, i) => {
@@ -217,22 +215,11 @@ export default function AddExpenseModal ({ open, onClose }) {
           {/* 付款＆分帳細節 payerExpenseVMs, ownerExpenseVMs */}
           <div className="mb-6">
             {/* 付款人 payerExpenseVMs */}
-            <SelectPayer payerList={payerList} setPayerList={setPayerList} watchCost={watchCost}/>
+            <SelectPayer payerList={payerList} setPayerList={setPayerList} watchCost={watchCost} />
             {/* 分帳人＆模式 ownerExpenseVMs */}
             <div className="ml-12 mt-6">
-              <label className="w-full" onClick={handleOpenOwnerListPopup}>
-                <p className="formInput py-1 px-4 mb-4">
-                  平分（全部）
-                </p>
-                {/* SelecOwnerListModal START */}
-                <Modal open={openOwnerListPopup} onClose={handleCloseOwnerListPopup} className="modalCard-bg">
-                  <div onClick={(e) => e.stopPropagation()} className="groupModalCard">
-                    <div onClick={handleCloseOwnerListPopup} className="modalCancel"><CloseOutlined sx={{ fontSize: 14 }} /></div>
-                    <OwnerListModal open={openOwnerListPopup} onClose={handleCloseOwnerListPopup} ownerList={ownerList} setOwnerList={setOwnerList} watchCost={watchCost} />
-                  </div>
-                </Modal>
-                {/* SelectOwnerListModal End */}
-              </label>
+              <SelectOwner ownerList={ownerList} setOwnerList={setOwnerList} watchCost={watchCost} />
+              {/* Display owners & individaul ownAmount */}
               <ul className="overflow-scroll max-h-[30vh] pt-2 pb-2">
                 {
                   memberList?.map((member, i) => {
@@ -272,6 +259,7 @@ export default function AddExpenseModal ({ open, onClose }) {
                 }
               </ul>
             </div>
+
           </div>
           {/* 註記 memo */}
           <div>
@@ -284,17 +272,8 @@ export default function AddExpenseModal ({ open, onClose }) {
               />
             </label>
           </div>
-          <div className="flex items-center gap-3 my-6">
-            <label htmlFor="fileUpload" className="w-16 h-16 p-4 inline-block box-border bg-gray-300 rounded-md hover:drop-shadow-[0px_2px_4px_rgba(0,0,0,0.25)] hover:cursor-pointer">
-              <InsertPhoto className="w-6 h-6 text-white" />
-            </label>
-            <input
-              id="fileUpload"
-              type="file"
-              className="hidden"
-            // onChange={handleImgChange}
-            />
-          </div>
+          {/* 圖片 addExpenseAlbumVMs */}
+          <AttachPhotos />
           {/* 送出 */}
           <div className="mt-4">
             <input type="submit" className="btn-primary w-full" value="送出" disabled={(!isValid)} />
