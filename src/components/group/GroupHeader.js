@@ -9,7 +9,7 @@ export default function GroupHeader () {
     <div>
       {/* group info */}
       <div className="group-item-lg">
-        <img className="group-coverPhoto-md" src={imageUrl} alt={groupName} />
+        <img className="group-coverPhoto-md btn-shadow" src={imageUrl} alt={groupName} />
         <h2 className="text-2xl">{groupName}</h2>
       </div>
       {/* group nav list */}

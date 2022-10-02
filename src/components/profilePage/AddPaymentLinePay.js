@@ -11,19 +11,14 @@ export default function AddPaymentLinePay ({ onClose, getPaymentAll }) {
   const [isLoading, setIsLoading] = useState(false)
   const { payData, setPayData } = usePayData()
   const { line } = payData
-  console.log('payData', payData)
+  console.log('payData', line)
+
+  // const [imageValue, setImageValue] = useState()
 
   const [image, setImage] = useState({
     preview: '',
     raw: ''
   })
-
-  // useEffect(() => {
-  //   setImage(image => ({
-  //     ...image,
-  //     preview: qrCodeUrl
-  //   }))
-  // }, [])
 
   const {
     register,
@@ -41,6 +36,7 @@ export default function AddPaymentLinePay ({ onClose, getPaymentAll }) {
 
   // setImage state after user upload file
   const handleChange = e => {
+    console.log('e :>> ', e)
     if (e.target.files.length) {
       setImage({
         preview: URL.createObjectURL(e.target.files[0]),
@@ -49,26 +45,32 @@ export default function AddPaymentLinePay ({ onClose, getPaymentAll }) {
     }
   }
 
+  // console.log('image :>> ', image)
+
   // 圖片
   const handleUpload = async () => {
+    setIsLoading(true)
     const formData = new FormData()
     formData.append('image', image.raw)
     // if img is empty, set payload to null
     const payload = image.raw ? formData : null
+
     setIsLoading(true)
     try {
-      const { status: isSuccess, message, data } = await addLinePayQRcodeApi(formData)
-      console.log(data)
+      const { status: isSuccess, message, QRCode } = await addLinePayQRcodeApi(payload)
+
       if (!isSuccess) {
         // console.log(message)
         return
       }
-      // console.log('editGroupCoverApi:::', message, fileName)
-      // setValue('QRCode', QRCode) // 好像沒有作用
-      setPayData(payData => ({
-        ...payData,
-        imageUrl: data.Image
-      }))
+      console.log('editGroupCoverApi:::', message, QRCode)
+      setValue('QRCode', QRCode) // 好像沒有作用
+      // setPayData(payData => ({
+      //   ...payData,
+      //   line: {
+      //     qrCodeUrl: QRCode.Image
+      //   }
+      // }))
       setIsLoading(false)
       // return QRCode
     } catch (error) {
@@ -78,10 +80,13 @@ export default function AddPaymentLinePay ({ onClose, getPaymentAll }) {
 
   const onSubmit = async (data, QRCode) => {
     data.QRCode = QRCode
-    // console.log(data)
+
+    console.log(data)
+    console.log(data.QRCode)
+
     setIsLoading(true)
     try {
-      const { status: isSuccess, message, jwtToken } = await addLinePayApi(data)
+      const { status: isSuccess, message } = await addLinePayApi(data)
       if (!isSuccess) {
         return
       }
