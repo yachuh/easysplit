@@ -81,9 +81,6 @@ export default function AddPaymentLinePay ({ onClose, getPaymentAll }) {
   const onSubmit = async (data, QRCode) => {
     data.QRCode = QRCode
 
-    console.log(data)
-    console.log(data.QRCode)
-
     setIsLoading(true)
     try {
       const { status: isSuccess, message } = await addLinePayApi(data)
