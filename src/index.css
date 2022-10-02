@@ -478,6 +478,14 @@ code {
     height: calc(100% - 28px);
   }
 
+  .ProfilePay-coverPhoto {
+    @apply w-[136px] h-[136px] inline-block box-border rounded border border-gray-300 hover:cursor-pointer;
+  }
+
+  .ProfilePay-coverPhoto-preview {
+    @apply object-cover  w-[136px] h-[136px] rounded;
+  }
+
   /* StillMorePage */
   .StillMore-titleArea {
     @apply text-colors-primary font-black;

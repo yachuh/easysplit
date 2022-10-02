@@ -8,7 +8,7 @@ import LoadingModal from '../LoadingModal'
 
 export default function LinePaymentList ({ payLine, getPaymentAll }) {
   const [isLoading, setIsLoading] = useState(false)
-  const { id, name, phone, lineId, qrCode } = payLine
+  const { id, name, phone, lineId, qrCodeUrl } = payLine
 
   const [open, setOpen] = useState(false)
   const handleOpen = () => setOpen(true)
@@ -109,14 +109,13 @@ export default function LinePaymentList ({ payLine, getPaymentAll }) {
                                 <p>收款二維碼 (選填)</p>
                                 <img
                                     className='w-4 h-4'
-                                    src={qrCode}
-                                    alt=""
+                                    src={qrCodeUrl}
+                                    alt="qrCode"
                                 />
                             </li>
                         </ul>
                     </li>
             }
         </>
-
   )
 }

@@ -10,7 +10,7 @@ import LoadingModal from '../../components/LoadingModal'
 export default function GroupSettingForm () {
   const [isLoading, setIsLoading] = useState(false)
   const { groupData, setGroupData, getGroupData } = useGroupData()
-  console.log('groupData:::', groupData)
+  // console.log('groupData:::', groupData)
   const { groupId, groupName, imageUrl } = groupData
 
   const [image, setImage] = useState({
@@ -62,10 +62,10 @@ export default function GroupSettingForm () {
     try {
       const { status: isSuccess, message, fileName } = await editGroupCoverApi(payload)
       if (!isSuccess) {
-        console.log(message)
+        // console.log(message)
         return
       }
-      console.log('editGroupCoverApi:::', message, fileName)
+      // console.log('editGroupCoverApi:::', message, fileName)
       setValue('fileName', fileName) // 好像沒有作用
       setIsLoading(false)
       return fileName
@@ -77,15 +77,15 @@ export default function GroupSettingForm () {
   // editGroupApi: 名稱、圖片 fileName
   const onSubmit = async (data, fileName) => {
     data.fileName = fileName
-    console.log('form data', data)
+    // console.log('form data', data)
     setIsLoading(true)
     try {
       const { status: isSuccess, message } = await editGroupApi(data)
       if (!isSuccess) {
-        console.log(message)
+        // console.log(message)
         return
       }
-      console.log('editGroupApi:::', message)
+      // console.log('editGroupApi:::', message)
       setGroupData(groupData => ({
         ...groupData,
         groupName: data.name

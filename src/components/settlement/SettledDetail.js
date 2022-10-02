@@ -30,8 +30,6 @@ export default function SettledDetail ({ onClose, getSettledDetail }) {
     imageUrl
   } = pickDetailData[0]
 
-  // console.log('pickDetailData :>> ', pickDetailData)
-
   const [openDel, setOpenDel] = useState(false)
   const handleOpenDel = () => setOpenDel(true)
   const handleCloseDel = () => setOpenDel(false)

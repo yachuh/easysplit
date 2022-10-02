@@ -64,9 +64,10 @@ const GETALL = '/Payment/GetAll'
 const ADD_BANK = '/Payment/AddBank'
 const ADD_CASH = '/Payment/AddCash'
 const ADD_LINEPAY = '/Payment/AddLinePay'
-const DELETE_BANK = 'Payment/DeleteBank'
-const DELETE_LINE = 'Payment/DeleteLine'
-const DELETE_CASH = 'Payment/DeleteCash'
+const DELETE_BANK = '/Payment/DeleteBank'
+const DELETE_LINE = '/Payment/DeleteLine'
+const DELETE_CASH = '/Payment/DeleteCash'
+const ADD_LINEPAY_QRCODE = '/Payment/AddLinePayQRcode'
 
 // group 相關
 const GET_ALL_GROUP = '/Group/GetAllGroup'
@@ -93,16 +94,17 @@ const EDIT_EXPENSE_IMG = '/Expense/EditExpenseImage'
 const DELETE_EXPENSE = '/Expense/DeleteExpense'
 
 // settle 相關
-const GET_ALL_SETTLEMENT = 'Settlement/GetAllSettlement'
-const GET_SETTLEMENT = 'Settlement/GetSettlement'
-const GET_PAYMENT_TYPE = 'Settlement/GetPaymentType'
-const SETTLEUP = 'Settlement/SettleUp'
-const GET_ALL_SETTLED = 'Settlement/GetAllSettled'
-const GET_SETTLED_DETAIL = 'Settlement/GetSettledDetail'
-const DELETE_SETTLEMENT = 'Settlement/DeleteSettlemet'
-const GET_REMINDER = 'Settlement/GetReminder'
-const SEND_REMINDER = 'Settlement/SendReminder'
-const GET_SELF_SETTLEMENT = 'Settlement/GetSelfSettlement'
+const GET_ALL_SETTLEMENT = '/Settlement/GetAllSettlement'
+const GET_SETTLEMENT = '/Settlement/GetSettlement'
+const GET_PAYMENT_TYPE = '/Settlement/GetPaymentType'
+const SETTLEUP = '/Settlement/SettleUp'
+const GET_ALL_SETTLED = '/Settlement/GetAllSettled'
+const GET_SETTLED_DETAIL = '/Settlement/GetSettledDetail'
+const DELETE_SETTLEMENT = '/Settlement/DeleteSettlemet'
+const GET_REMINDER = '/Settlement/GetReminder'
+const SEND_REMINDER = '/Settlement/SendReminder'
+const GET_SELF_SETTLEMENT = '/Settlement/GetSelfSettlement'
+const SETTLEUP_IMAGE = '/Settlement/SettleUpImage'
 
 /**
  * input an object with any keys
@@ -168,6 +170,7 @@ export const uploadAvatarApi = (formData) => imgPostApi(UPLOAD_AVATAR, formData)
 export const addBankApi = (payload) => postApi(ADD_BANK, toUpperCamelCase(payload))
 export const addCashApi = (payload) => postApi(ADD_CASH, toUpperCamelCase(payload))
 export const addLinePayApi = (payload) => postApi(ADD_LINEPAY, toUpperCamelCase(payload))
+export const addLinePayQRcodeApi = (formData) => imgPostApi(ADD_LINEPAY_QRCODE, formData)
 
 // group 相關 api
 export const addGroupApi = (payload) => postApi(ADD_GROUP, toUpperCamelCase(payload))
@@ -183,6 +186,7 @@ export const editExpenseImgApi = (formData) => imgPostApi(EDIT_EXPENSE_IMG, form
 // settle 相關 api
 export const settleUpApi = (payload) => postApi(SETTLEUP, toUpperCamelCase(payload))
 export const sendReminderApi = (payload) => postApi(SEND_REMINDER, toUpperCamelCase(payload))
+export const settleUpImageApi = (formData) => imgPostApi(SETTLEUP_IMAGE, formData)
 
 /* ---- GET ---- */
 const getApi = async (url) => {

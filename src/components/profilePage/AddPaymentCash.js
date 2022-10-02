@@ -13,9 +13,9 @@ export default function AddPaymentCash ({ onClose, getPaymentAll }) {
     formState: { errors }
   } = useForm({
     defaultValues: {
-      name: '',
-      phone: '',
-      method: ''
+      Name: '',
+      Phone: '',
+      Method: ''
     }
   })
   const onSubmit = async data => {
@@ -24,7 +24,6 @@ export default function AddPaymentCash ({ onClose, getPaymentAll }) {
     try {
       const { status: isSuccess, message, jwtToken } = await addCashApi(data)
       if (!isSuccess) {
-        alert(message)
         return
       }
       getPaymentAll()
@@ -54,46 +53,44 @@ export default function AddPaymentCash ({ onClose, getPaymentAll }) {
                 <div className='mb-8 md:w-full md:mb-0'>
                   <label
                     className='labelTitle mb-1'
-                    htmlFor="name">
+                    htmlFor="Name">
                     姓名
                   </label>
                   <input
-                    id='name'
+                    id='Name'
                     className="inputInfo pl-2 mb-1"
                     type="text"
                     placeholder="請輸入姓名"
-                    {...register('name',
+                    {...register('Name',
                       { required: '此為必填欄位' }
                     )} />
-                  <p className="text-xs text-rose-600">{errors.name?.message}</p>
+                  <p className="text-xs text-rose-600">{errors.Name?.message}</p>
 
                   <label
                     className='labelTitle mt-7 mb-1'
-                    htmlFor="phone">
+                    htmlFor="Phone">
                     電話
                   </label>
                   <input
-                    id='phone'
+                    id='Phone'
                     className="inputInfo pl-2 mb-1"
                     type="text"
                     placeholder="請輸入電話"
-                    {...register('phone',
+                    {...register('Phone',
                       { required: '此為必填欄位' }
                     )} />
-                  <p className="text-xs text-rose-600">{errors.phone?.message}</p>
+                  <p className="text-xs text-rose-600">{errors.Phone?.message}</p>
                 </div>
 
                 <div className='md:w-full'>
                   <label
                     className='labelTitle mb-1'
-                    htmlFor="method">
+                    htmlFor="Method">
                     聯絡訊息
                   </label>
                   <textarea
                     className="inputInfo pl-2 h-[75px] md:ProfilePaymentModal-textarea"
                     placeholder="請輸入面交相關地址資訊或其他資訊。"
-                    {...register('method', {})}
-
                   />
                 </div>
               </div>

@@ -13,10 +13,10 @@ export default function AddPaymentBank ({ onClose, getPaymentAll }) {
     formState: { errors }
   } = useForm({
     defaultValues: {
-      bank: '',
-      accountname: '',
-      bankcode: '',
-      account: ''
+      Bank: '',
+      AccountName: '',
+      BankCode: '',
+      Account: ''
     }
   })
   const onSubmit = async data => {
@@ -25,7 +25,6 @@ export default function AddPaymentBank ({ onClose, getPaymentAll }) {
     try {
       const { status: isSuccess, message, jwtToken } = await addBankApi(data)
       if (!isSuccess) {
-        alert(message)
         return
       }
       getPaymentAll()
@@ -55,65 +54,65 @@ export default function AddPaymentBank ({ onClose, getPaymentAll }) {
                 <div className='mb-8 md:w-full md:mb-0'>
                   <label
                     className='labelTitle mb-1'
-                    htmlFor="accountname">
+                    htmlFor="AccountName">
                     帳戶名稱 ( 姓名 )
                   </label>
                   <input
-                    id='accountname'
+                    id='AccountName'
                     className="inputInfo pl-2 mb-1"
                     type="text"
                     placeholder="請輸入姓名"
-                    {...register('accountname',
+                    {...register('AccountName',
                       { required: '此為必填欄位' }
                     )} />
-                  <p className="text-xs text-rose-600">{errors.accountname?.message}</p>
+                  <p className="text-xs text-rose-600">{errors.AccountName?.message}</p>
 
                   <label
                     className='labelTitle mt-7 mb-1'
-                    htmlFor="bankcode">
+                    htmlFor="BankCode">
                     銀行代碼
                   </label>
                   <input
-                    id='bankcode'
+                    id='BankCode'
                     className="inputInfo pl-2 mb-1"
                     type="text"
                     placeholder="請輸入銀行代碼"
-                    {...register('bankcode',
+                    {...register('BankCode',
                       { required: '此為必填欄位' }
                     )} />
-                  <p className="text-xs text-rose-600">{errors.bankcode?.message}</p>
+                  <p className="text-xs text-rose-600">{errors.BankCode?.message}</p>
                 </div>
 
                 <div className='mb-8 md:w-full md:mb-0'>
                   <label
                     className='labelTitle mb-1'
-                    htmlFor="bankname">
+                    htmlFor="Bank">
                     銀行名稱
                   </label>
                   <input
-                    id='bankname'
+                    id='Bank'
                     className="inputInfo pl-2 mb-1"
                     type="text"
                     placeholder="請輸入銀行名稱"
-                    {...register('bank',
+                    {...register('Bank',
                       { required: '此為必填欄位' }
                     )} />
-                  <p className="text-xs text-rose-600">{errors.bank?.message}</p>
+                  <p className="text-xs text-rose-600">{errors.Bank?.message}</p>
 
                   <label
                     className='labelTitle mt-7 mb-1'
-                    htmlFor="account">
+                    htmlFor="Account">
                     銀行帳號
                   </label>
                   <input
-                    id='account'
+                    id='Account'
                     className="inputInfo pl-2 mb-1"
                     type="text"
                     placeholder="請輸入銀行帳號"
-                    {...register('account',
+                    {...register('Account',
                       { required: '此為必填欄位' }
                     )} />
-                  <p className="text-xs text-rose-600">{errors.account?.message}</p>
+                  <p className="text-xs text-rose-600">{errors.Account?.message}</p>
                 </div>
               </div>
 

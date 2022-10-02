@@ -82,8 +82,11 @@ export const ModalSingelDetailSettlement = ({ onClose, getPersonalSettlement, ge
   const settleUp = useCallback(async (settleUpData) => {
     setIsLoading(true)
     try {
-      const { GroupId, OwnerMemberId, PayerMemberId, OwnerPaytoPayerAmount, PaymentMethod, Memo, FileName, CreatDate } = await settleUpApi(settleUpData)
-      console.log('結算結果 :>> ', '結算成功')
+      const res = await settleUpApi(settleUpData)
+      console.log('結算結果 :>> ', res)
+      if (res.status !== true) {
+        return
+      }
       getGroupAllSettlement(groupId)
       getPersonalSettlement(settleUpData.OwnerMemberId)
       getAllSettled(groupId)
@@ -94,8 +97,12 @@ export const ModalSingelDetailSettlement = ({ onClose, getPersonalSettlement, ge
   }, [groupId, settleUpData.OwnerMemberId])
 
   const clickSettleUp = () => {
+    setIsLoading(true)
     settleUp(settleUpData)
     toast.success('結算成功!')
+    setTimeout(() => {
+      setIsLoading(false)
+    }, 500)
     handleOpenSuccess()
   }
 
