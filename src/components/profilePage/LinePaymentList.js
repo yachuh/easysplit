@@ -5,6 +5,7 @@ import { toast } from 'react-toastify'
 import EditPaymentLinePay from './EditPaymentLinePay'
 import { DeletePayment } from '../ModalFeedback'
 import LoadingModal from '../LoadingModal'
+import hexschool from '../../image/hexschool.jpg'
 
 export default function LinePaymentList ({ payLine, getPaymentAll }) {
   const [isLoading, setIsLoading] = useState(false)
@@ -109,7 +110,7 @@ export default function LinePaymentList ({ payLine, getPaymentAll }) {
                                 <p>收款二維碼 (選填)</p>
                                 <img
                                     className='w-4 h-4'
-                                    src={qrCodeUrl}
+                                    src={hexschool}
                                     alt="qrCode"
                                 />
                             </li>
