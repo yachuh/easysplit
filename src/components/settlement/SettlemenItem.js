@@ -14,7 +14,7 @@ export const SettlementPayerItem = ({ payerListItem }) => {
             id={MemberId}
             className='flex gap-4 text-base'>
             <img
-                className='settlement-userImg'
+                className='settlement-userImg btn-shadow'
                 src={PayerImageUrl}
                 alt='userSettlement'
             />
@@ -40,7 +40,7 @@ export const SettlementOwnerItem = ({ ownerListItem }) => {
   return (
         <div className='flex gap-4 text-base'>
             <img
-                className='settlement-userImg'
+                className='settlement-userImg btn-shadow'
                 src={OwnerImageUrl}
                 alt='userSettlement'
             />
@@ -116,7 +116,7 @@ export const PersonalPayerItem = ({ settlementItem, getPersonalSettlement, getGr
                         id={payerMemberId}
                         className='flex gap-4 text-base mb-4'>
                         <img
-                            className='settlement-userImg'
+                            className='settlement-userImg btn-shadow'
                             src={payerImageUrl}
                             alt='userSettlement'
                         />
@@ -248,7 +248,7 @@ export const PersonalOwnerItem = ({ settlementItem, getPersonalSettlement, getGr
                         id={ownerMemberId}
                         className='flex gap-4 text-base mb-4'>
                         <img
-                            className='settlement-userImg'
+                            className='settlement-userImg btn-shadow'
                             src={ownerImageUrl}
                             alt='userSettlement'
                         />
@@ -357,7 +357,7 @@ export const SelfSettlementPayerItem = ({ selfSettlementItem, isActive, setActiv
             className={`flex w-full justify-between text-base pt-2 pb-3 px-4 font-bold cursor-pointer ${isActive ? 'bg-color-champagne-pink' : 'bg-white'}`}>
             <div className='flex gap-3 items-center'>
                 <img
-                    className='settlement-userImg w-10 h-10 rounded-full'
+                    className='settlement-userImg w-10 h-10 rounded-full btn-shadow'
                     src={ownerImageUrl}
                     alt='userSettlement'
                 />
@@ -418,7 +418,7 @@ export const SelfSettlementOwnerItem = ({ selfSettlementItem, isActive, setActiv
             className={`flex w-full justify-between text-base pt-2 pb-3 px-4 font-bold cursor-pointer ${isActive ? 'bg-color-champagne-pink' : 'bg-white'}`}>
             <div className='flex gap-3 items-center act'>
                 <img
-                    className='settlement-userImg w-10 h-10 rounded-full'
+                    className='settlement-userImg w-10 h-10 rounded-full btn-shadow'
                     src={payerImageUrl}
                     alt='userSettlement'
                 />

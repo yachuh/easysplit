@@ -14,6 +14,10 @@ export default function RecordList () {
   const [openAddExpenseModal, setOpenAddExpenseModal] = useState(false)
   const handleOpenAddExpenseModal = () => setOpenAddExpenseModal(true)
   const handleCloseAddExpenseModal = () => setOpenAddExpenseModal(false)
+
+  const [openAddExpenseModalSm, setOpenAddExpenseModalSm] = useState(false)
+  const handleOpenAddExpenseModalSm = () => setOpenAddExpenseModalSm(true)
+  const handleCloseAddExpenseModalSm = () => setOpenAddExpenseModalSm(false)
   /* ---- Modal 相關 END ---- */
 
   const mergeCreatDate = (expenseData)?.concat(settledData)
@@ -83,6 +87,23 @@ export default function RecordList () {
           })
         } */}
       </ul>
+
+      <button
+        className='md:hidden btn-primary w-full'
+        onClick={handleOpenAddExpenseModalSm}>
+        <Add sx={{ fontSize: 20 }} />
+        新增費用
+      </button>
+      <Modal
+        open={openAddExpenseModalSm}
+        onClose={handleCloseAddExpenseModalSm}
+        onClick={handleCloseAddExpenseModalSm}
+        className="modalCard-bg"
+      >
+        <div onClick={(e) => e.stopPropagation()} className="expenseModal">
+          <AddExpenseModal open={openAddExpenseModalSm} onClose={handleCloseAddExpenseModalSm} />
+        </div>
+      </Modal>
     </div>
   )
 }
