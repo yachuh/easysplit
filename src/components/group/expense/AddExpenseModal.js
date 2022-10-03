@@ -241,12 +241,12 @@ export default function AddExpenseModal ({ open, onClose, expenseId, expenseData
           {/* 名稱:::item ＆ 種類:::expenseType */}
           <div className="flex items-center gap-4 mb-[25px]">
             {/* 種類 */}
-            <div className="relative w-8 h-8"
-            >
+            <div className="relative w-8 h-8">
               <button
-              disabled={!editModeEnabled}
+                disabled={!editModeEnabled}
                 className="w-8 h-8 rounded hover:scale-105"
-                onClick={() => {
+                onClick={(e) => {
+                  e.preventDefault()
                   if (!openExpenseTypeModal) {
                     handleOpenExpenseTypeModal()
                     return
@@ -270,8 +270,9 @@ export default function AddExpenseModal ({ open, onClose, expenseId, expenseData
                               key={i}
                               id={type.id}
                               className="flex items-center p-1 gap-4 cursor-pointer active:bg-gray-100 hover:text-color-dark-green"
-                              onClick={() => {
+                              onClick={(e) => {
                                 // setExpenseType({ id: type.id, imageUrl: type.imageUrl })
+                                e.preventDefault()
                                 setValue('expenseType', type.id, { shouldValidate: true })
                                 handleCloseExpenseTypeModal()
                               }}
@@ -383,7 +384,7 @@ export default function AddExpenseModal ({ open, onClose, expenseId, expenseData
               <p>註記</p>
               <textarea
                 disabled={!editModeEnabled}
-                rows="2"
+                rows="1"
                 className="formInput py-2 px-3 overflow-auto mt-1 disabled:border-none"
                 {...register('memo')}
               />
