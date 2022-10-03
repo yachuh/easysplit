@@ -183,12 +183,15 @@ export default function AddExpenseModal ({ open, onClose, expenseId, expenseData
       <div className="expenseModal-header">
         <Edit className="expenseModal-header-icon" onClick={onClickEdit}/>
         <Delete className="expenseModal-header-icon" />
-        <Check className="expenseModal-header-icon" onClick={handleSubmit(onSubmit)} />
+        <Check className="expenseModal-header-icon"
+          onClick={handleSubmit(onSubmit)}
+          disabled={(!isValid)}
+        />
         <LastPage className="expenseModal-header-icon" />
       </div>
       {/* ---- epxense form ---- */}
       <FormProvider {...methods} editModeEnabled={editModeEnabled}>
-        <form className="expenseModal-form formInput-text-correct" onSubmit={handleSubmit(onSubmit)}>
+        <form className="expenseModal-form formInput-text-correct" >
           {/* 日期:::creatDate */}
           {/* <DateField /> */}
           <div className="my-6">
@@ -348,14 +351,14 @@ export default function AddExpenseModal ({ open, onClose, expenseId, expenseData
           </div>
           {/* 圖片 addExpenseAlbumVMs */}
           <AttachPhotos />
-          {/* 送出 */}
-          <div className="mt-4">
+          {/* 送出 btn */}
+          {/* <div className="mt-4">
             <input
               type="submit"
               className="btn-primary w-full"
               value="送出"
               disabled={(!isValid)} />
-          </div>
+          </div> */}
         </form>
       </FormProvider>
       {/* footer */}

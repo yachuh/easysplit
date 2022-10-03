@@ -64,7 +64,10 @@ export default function SelectOwner ({ ownerList, setOwnerList, watchCost, editM
           <button
             disabled={!editModeEnabled}
             className="formInput py-1 px-4 mb-4 text-left disabled:border-none"
-            onClick={handleOpenOwnerListPopup}
+            onClick={(e) => {
+              e.preventDefault()
+              handleOpenOwnerListPopup()
+            }}
           >
               平分（全部）
           </button>
