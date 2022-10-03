@@ -10,7 +10,7 @@ export default function AboutUs () {
                 data-aos="fade-up">
                 關於我們
             </h2>
-            <ul className="flex flex-col xl:flex-row gap-5 justify-between">
+            <ul className="flex flex-col xl:flex-row gap-5 justify-between p-8">
                 <li
                     className="aboutUs-Card border-colors-fifth card-shadow"
                     data-aos="zoom-in-right">
@@ -20,9 +20,10 @@ export default function AboutUs () {
                     />
                     <div className="flex flex-col gap-5 items-center">
                         <h5 className="font-bold">Dora</h5>
+                        <h4 className="text-black font-bold">薛嵐璟</h4>
                         <p className="text-2xl">前端工程師</p>
                         <p>設計｜3D｜動畫</p>
-                        <p>旅遊｜F1｜大自然</p>
+                        <p>旅遊｜F1｜自然</p>
                     </div>
                 </li>
                 <li
@@ -34,9 +35,10 @@ export default function AboutUs () {
                     />
                     <div className="flex flex-col gap-5 items-center">
                         <h5 className="font-bold">YaChu</h5>
+                      <h4 className="text-black font-bold">謝雅竹</h4>
                         <p className="text-2xl">前端工程師</p>
                         <p>設計｜3D｜動畫</p>
-                        <p>旅遊｜F1｜大自然</p>
+                        <p>旅遊｜F1｜自然</p>
                     </div>
                 </li>
                 <li
@@ -48,6 +50,7 @@ export default function AboutUs () {
                     />
                     <div className="flex flex-col gap-5 items-center">
                         <h5 className="font-bold">Jean</h5>
+                      <h4 className="text-black font-bold">江卷靜</h4>
                         <p className="text-2xl">後端工程師</p>
                         <p>瑜珈｜貓派｜山海</p>
                         <p>插畫｜極簡｜理財</p>
