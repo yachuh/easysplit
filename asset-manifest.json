@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/easysplit/static/css/main.b3efa7d3.css",
-    "main.js": "/easysplit/static/js/main.bc7f4370.js",
+    "main.js": "/easysplit/static/js/main.184be769.js",
     "static/media/Carousel-img03.svg": "/easysplit/static/media/Carousel-img03.260d5866e6eff4dc95ff.svg",
     "static/media/whoareyou.svg": "/easysplit/static/media/whoareyou.9821be7f9ccc7e287cbe2163ee766c60.svg",
     "static/media/Carousel-img04.svg": "/easysplit/static/media/Carousel-img04.89d287f822399db12f43.svg",
@@ -45,10 +45,10 @@
     "static/media/SettledDetail.svg": "/easysplit/static/media/SettledDetail.06f51f66ccb19ea49adc19463077e513.svg",
     "static/media/bgEllipse.svg": "/easysplit/static/media/bgEllipse.aa648795bd5bf975001e.svg",
     "main.b3efa7d3.css.map": "/easysplit/static/css/main.b3efa7d3.css.map",
-    "main.bc7f4370.js.map": "/easysplit/static/js/main.bc7f4370.js.map"
+    "main.184be769.js.map": "/easysplit/static/js/main.184be769.js.map"
   },
   "entrypoints": [
     "static/css/main.b3efa7d3.css",
-    "static/js/main.bc7f4370.js"
+    "static/js/main.184be769.js"
   ]
 }
