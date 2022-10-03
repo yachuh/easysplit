@@ -20,7 +20,7 @@ export default function AppLayout ({ children }) {
     try {
       const { status: isSuccess, message, userdata } = await getProfileApi()
       if (!isSuccess) {
-        // console.log(message)
+        console.log(message)
         return
       }
       setUserData(userData => ({
