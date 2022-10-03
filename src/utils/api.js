@@ -82,6 +82,7 @@ const ADD_MEMBER = '/Group/AddMember'
 const CHANGE_MEMBER_ROLE = '/Group/ChangeMemberRole'
 const EDIT_MEMBER = '/Group/EditMember'
 const DELETE_MEMBER = '/Group/DeleteMember'
+const GET_GROUP_INVITAION = '/Group/SendInviteMail'
 
 // expense 相關
 const GET_EXPENSE_TYPE = '/Expense/GetExpenseType'
@@ -180,6 +181,7 @@ export const addGroupApi = (payload) => postApi(ADD_GROUP, toUpperCamelCase(payl
 export const addGroupCoverApi = (formData) => imgPostApi(ADD_GROUP_COVER, formData)
 export const editGroupCoverApi = (formData) => imgPostApi(EDIT_GROUP_COVER, formData)
 export const addMemberApi = (payload) => postApi(ADD_MEMBER, toUpperCamelCase(payload))
+export const getGroupInvitationApi = (groupId) => postApi(`${GET_GROUP_INVITAION}/${groupId}`)
 
 // expense 相關 api
 export const addExpenseApi = (payload) => postApi(ADD_EXPENSE, toUpperCamelCase(payload))

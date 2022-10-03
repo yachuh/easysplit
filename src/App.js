@@ -13,6 +13,7 @@ import ProfilePage from './pages/ProfilePage'
 import ResetPwdPage from './pages/ResetPwdPage'
 import NotificationPage from './pages/NotificationPage'
 import PayBillPage from './pages/PayBillPage'
+import { JoinGroupModal } from './components/group/GroupModal'
 
 // group 相關
 import GroupPage from './pages/GroupPage'
@@ -61,6 +62,7 @@ function App () {
         <Route path="/forgetpassword" element={<ForgetPasswordPage />} />
         <Route path="/AuthMail/AccountActivation" element={<AccountActivationPage />} />
         <Route path="/AuthMail/ResetPassword" element={<ResetPwdPage />} />
+        {/* <Route path="AuthMail/GroupInvitation" element={<JoinGroupModal />} /> */}
         {/* user 相關 */}
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/notifications" element={<NotificationPage />} />

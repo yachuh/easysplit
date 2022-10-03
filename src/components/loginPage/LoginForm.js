@@ -5,10 +5,10 @@ import { toast } from 'react-toastify'
 import { setAuthToken } from '../../utils/utils'
 import { loginApi } from '../../utils/api'
 import Modal from '@mui/material/Modal'
-import ForgetPassword from './ForgetPassword'
 import { EmailOutlined, HttpsOutlined, CloseOutlined } from '@mui/icons-material'
 import googleIcon from '../../image/googleIcon.svg'
 import LoadingModal from '../LoadingModal'
+import ForgetPassword from './ForgetPassword'
 
 export default function LoginForm () {
   const [isLoading, setIsLoading] = useState(false)
