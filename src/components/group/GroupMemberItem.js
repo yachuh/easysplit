@@ -16,8 +16,8 @@ export default function GroupMemberItem ({ memberId, memberName, userId, imageUr
   const handleCloseEditMember = () => setOpenEditMember(false)
 
   return (
-    <li className="member-item">
-      <div className="member-item-user hover:bg-colors-seventh">
+    <li className="member-item hover:bg-colors-seventh hover:text-white">
+      <div className="member-item-user">
         <img className="member-item-avatar" src={imageUrl} alt={memberName} />
         <div className="member-item-info">
           <p className="mb-1 md:mb-0">{memberName}</p>
