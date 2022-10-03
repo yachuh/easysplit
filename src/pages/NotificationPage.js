@@ -1,9 +1,12 @@
 import AppLayout from './AppLayout'
+import { Notification } from '../components/notification/Notification'
 
 export default function NotificationPage () {
   return (
     <AppLayout>
-      <h2>通知</h2>
+      <div className='mt-10 h-[65vh] overflow-y-scroll w-full md:h-[80vh] md:pl-10'>
+        <Notification />
+      </div>
     </AppLayout>
   )
 }

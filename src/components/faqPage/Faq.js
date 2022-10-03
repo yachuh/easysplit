@@ -62,12 +62,12 @@ export default function Faq () {
                 >
                     <Typography
                         sx={{ width: '100%', fontSize: 20, fontWeight: 600 }}>
-                        XXXXXXXXXXXXXXXX
+                        我要怎麼把朋友邀請進來一起使用?
                     </Typography>
                 </AccordionSummary>
                 <AccordionDetails>
                     <Typography>
-                        免費! 拆帳趣無須付費，若您喜歡拆帳趣，可斗內我們作為支持，我們將萬分感謝。
+                        在你所新增的群組內，新增成員後，由你發請邀請連結給朋友，朋友先於本網站註冊後，點入邀請連結後，進入群組選擇自己的成員角色，即可一起使用拆帳趣功能!
                     </Typography>
                 </AccordionDetails>
             </Accordion>
@@ -80,12 +80,12 @@ export default function Faq () {
                 >
                     <Typography
                         sx={{ width: '100%', fontSize: 20, fontWeight: 600 }}>
-                        XXXXXXXXXXXXXXXX
+                        我要怎麼知道最後的拆帳金額?
                     </Typography>
                 </AccordionSummary>
                 <AccordionDetails>
                     <Typography>
-                        免費! 拆帳趣無須付費，若您喜歡拆帳趣，可斗內我們作為支持，我們將萬分感謝。
+                        在結算明細的右上角，點選結算，便可以知道自己目前應該要向誰付款，或是誰應該要支付我，再點選下一步完成結算流程。
                     </Typography>
                 </AccordionDetails>
             </Accordion>
