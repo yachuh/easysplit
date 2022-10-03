@@ -6,7 +6,7 @@ import { settledDetailDataContext } from '../../context/context'
 import { getSettledDetailApi, getExpenseApi } from '../../utils/api'
 import SettledDetail from '../../components/settlement/SettledDetail'
 import LoadingModal from '../LoadingModal'
-import SingleExpensePage from '../../pages/SingleExpensePage'
+import AddExpenseModal from './expense/AddExpenseModal'
 
 // turn ISOS time into month and day e.g. Sep 23
 const toMonthAndDay = (time) => {
@@ -24,7 +24,7 @@ const toDay = (time) => {
  */
 export function ExpenseRecordItem ({ expenseTypeList, expenseId, item, cost, creatDate, memo, expenseType, personalStatus, payerList }) {
   const [isLoading, setIsLoading] = useState(false)
-  const pathname = useLocation().pathname // <Link to={`${pathname}/${expenseId}`}>
+  // const pathname = useLocation().pathname // <Link to={`${pathname}/${expenseId}`}>
 
   /* ---- Modal 相關 START ---- */
   const [openExpenseModal, setOpenExpenseModal] = useState(false)
@@ -32,7 +32,7 @@ export function ExpenseRecordItem ({ expenseTypeList, expenseId, item, cost, cre
   const handleCloseExpenseModal = () => setOpenExpenseModal(false)
   /* ---- Modal 相關 END ---- */
 
-  const [expenseData, setExpenseData] = useState()
+  const [expenseData, setExpenseData] = useState({})
 
   /* ---- APIs START ---- */
   const getExpense = useCallback(async (expenseId) => {
@@ -42,7 +42,8 @@ export function ExpenseRecordItem ({ expenseTypeList, expenseId, item, cost, cre
       if (!isSuccess) {
         return
       }
-      setExpenseData(expenseData)
+      const expenseDetail = expenseData[0]
+      setExpenseData(expenseDetail)
       setIsLoading(false)
     } catch (error) {
       console.log(error)
@@ -56,16 +57,11 @@ export function ExpenseRecordItem ({ expenseTypeList, expenseId, item, cost, cre
    */
   const toExpenseTypeIcon = (expenseType) => {
     const filterExpenseTypeList = expenseTypeList.filter(type => {
-      const { expenseMethod, imageUrl } = type
-      if (expenseMethod === expenseType) {
-        return imageUrl
+      if (type.id === expenseType) {
+        return type.imageUrl
       }
     })
     return (filterExpenseTypeList[0]?.imageUrl)
-  }
-
-  const onClickExpenseItem = async () => {
-    handleOpenExpenseModal()
   }
 
   useEffect(() => {
@@ -81,7 +77,7 @@ export function ExpenseRecordItem ({ expenseTypeList, expenseId, item, cost, cre
           ? <LoadingModal />
           : <div
             id={expenseId}
-            onClick={() => { onClickExpenseItem(expenseId) }}
+            onClick={handleOpenExpenseModal}
             className="w-full flex flex-col justify-between cursor-pointer gap-2 md:flex-row md:justify-start md:items-center mb-3">
             <div className='flex items-center gap-2 font-bold md:flex-col'>
               <p className='text-gray-500 md:text-black'>{toMonth(creatDate)}</p>
@@ -89,7 +85,6 @@ export function ExpenseRecordItem ({ expenseTypeList, expenseId, item, cost, cre
             </div>
             <div className='w-full flex items-center gap-4'>
               <img className='w-10 h-10 md:w-16 md:h-16' src={toExpenseTypeIcon(expenseType)} alt={expenseType} />
-
               <div className='w-full flex flex-col-reverse md:flex-row md:justify-between'>
                 <div className='w-full flex flex-col gap-1 md:gap-2'>
                   <p className='font-bold text-black'>{item}</p>
@@ -112,7 +107,6 @@ export function ExpenseRecordItem ({ expenseTypeList, expenseId, item, cost, cre
               </div>
 
             </div>
-
           </div>
       }
       {/* ---- ExpenseModal START ---- */}
@@ -123,7 +117,7 @@ export function ExpenseRecordItem ({ expenseTypeList, expenseId, item, cost, cre
         className="modalCard-bg"
       >
         <div onClick={(e) => e.stopPropagation()} className="expenseModal">
-          <SingleExpensePage open={openExpenseModal} onClose={handleCloseExpenseModal} />
+          <AddExpenseModal open={openExpenseModal} onClose={handleCloseExpenseModal} getExpense={getExpense} expenseId={expenseId} expenseData={expenseData} setExpenseData={setExpenseData} />
         </div>
       </Modal>
       {/* ---- ExpenseModal END ---- */}

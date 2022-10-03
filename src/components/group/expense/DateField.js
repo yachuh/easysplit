@@ -2,7 +2,7 @@ import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import { useFormContext, Controller } from 'react-hook-form'
 
-export default function DateField () {
+export default function DateField ({ editModeEnabled }) {
   const {
     control
   } = useFormContext
@@ -13,7 +13,8 @@ export default function DateField () {
           name="creatDate"
           render={({ field }) => (
             <DatePicker
-              className="px-4 py-1 bg-white border border-gray-300 rounded w-[122px]"
+              readOnly={editModeEnabled}
+              className="px-4 py-1 bg-white border border-gray-300 rounded w-[122px] border-none"
               placeholderText="Select date"
               selected={field.value}
               onChange={(date) => { field.onChange(date) }}
