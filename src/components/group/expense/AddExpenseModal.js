@@ -1,16 +1,39 @@
 import { useEffect, useState, useRef } from 'react'
-import { useForm, FormProvider, useFormContext, useFieldArray, Controller } from 'react-hook-form'
-import { addExpenseApi } from '../../../utils/api'
+import { useForm, FormProvider } from 'react-hook-form'
+import { addExpenseApi, getExpenseApi, editExpenseApi, editExpenseImgApi, delExpenseApi } from '../../../utils/api'
 import { useGroupData } from '../../../context/context'
 import Modal from '@mui/material/Modal'
-import { PayerListModal, OwnerListModal, ExpenseTypeModal } from '../GroupModal'
-import { Edit, Delete, LastPage, Check, AttachMoney, CloseOutlined, Update, InsertPhoto } from '@mui/icons-material'
+import { Edit, Delete, LastPage, Check, AttachMoney, Update, InsertPhoto } from '@mui/icons-material'
 import DateField from './DateField'
 import SelectPayer from './SelectPayer'
 import SelectOwner from './SelectOwner'
 import AttachPhotos from './AttachPhotos'
 
-export default function AddExpenseModal ({ open, onClose }) {
+export default function AddExpenseModal ({ open, onClose, expenseId, expenseData, setExpenseData }) {
+  const getExpense = async (expenseId) => {
+    try {
+      const { status: isSuccess, message, expenseData } = await getExpenseApi(expenseId)
+      if (!isSuccess) {
+        return
+      }
+      const expenseDetail = expenseData[0]
+      setExpenseData(expenseDetail)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  useEffect(() => {
+    getExpense(expenseId)
+  }, [expenseId])
+
+  useEffect(() => {
+    if (!expenseId) {
+      setEditModeEnabled(true)
+    }
+  }, [])
+  console.log('expenseData:::', expenseData)
+  console.log('expenseId:::', expenseId)
   const { groupData, memberList, expenseTypeList, getAllExpense } = useGroupData()
   const [editModeEnabled, setEditModeEnabled] = useState(false) // switch on & off edit mode
 
@@ -20,21 +43,35 @@ export default function AddExpenseModal ({ open, onClose }) {
   const handleCloseExpenseTypeModal = () => setOpenExpenseTypeModal(false)
 
   /* ---- react hook form configs START---- */
+  const recordDefaultValues = {
+    groupId: groupData.groupId,
+    expenseType: expenseData?.expenseType,
+    item: expenseData?.item,
+    cost: expenseData?.cost,
+    addPayerExpenseVMs: expenseData?.payerList,
+    addOwnerExpenseVMs: expenseData?.ownerList,
+    addExpenseAlbumVMs: expenseData?.photoList,
+    creatDate: new Date(expenseData?.creatDate),
+    memo: expenseData?.memo
+  }
+  const addDefaultValues = {
+    groupId: groupData.groupId,
+    expenseType: 0,
+    item: '',
+    cost: 0,
+    addPayerExpenseVMs: [{
+      MemberId: memberList[0].memberId,
+      PayAmount: 0
+    }],
+    addOwnerExpenseVMs: [],
+    addExpenseAlbumVMs: [],
+    creatDate: new Date(Date.now()), // current time new Date(Date.now()).toISOString()
+    memo: ''
+  }
+  const defaultValues = expenseId ? recordDefaultValues : addDefaultValues
+
   const methods = useForm({
-    defaultValues: {
-      groupId: groupData.groupId,
-      expenseType: 0,
-      item: '',
-      cost: 0,
-      addPayerExpenseVMs: [{
-        MemberId: memberList[0].memberId,
-        PayAmount: 0
-      }],
-      addOwnerExpenseVMs: [],
-      addExpenseAlbumVMs: [],
-      creatDate: new Date(Date.now()), // current time new Date(Date.now()).toISOString()
-      memo: ''
-    }
+    defaultValues
   })
   const {
     register,
@@ -65,7 +102,7 @@ export default function AddExpenseModal ({ open, onClose }) {
   }, [watchCost])
 
   // get expenseType icon imageUrl
-  const expenseTypeIcon = expenseTypeList.find(item => item.id === getValues('expenseType')).imageUrl
+  const expenseTypeIcon = expenseTypeList.find(item => item.id === getValues('expenseType'))?.imageUrl
 
   // addExpenseApi
   const onSubmit = async data => {
@@ -106,22 +143,56 @@ export default function AddExpenseModal ({ open, onClose }) {
     console.log(e.current.target)
   }
 
+  // edit form
+  const onClickEdit = () => {
+    setEditModeEnabled(!editModeEnabled)
+    console.log(editModeEnabled)
+  }
+
+  /* ---- APIs START ---- */
+  const editExpense = async (data) => {
+    try {
+      const { status: isSuccess, message, expenseData } = await editExpenseApi(data)
+      if (!isSuccess) {
+        console.log(message)
+        return
+      }
+      console.log('expenseData:::', expenseData)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const delExpense = async () => {
+    try {
+      const { status: isSuccess, message, expenseData } = await delExpenseApi(expenseId)
+      if (!isSuccess) {
+        console.log(message)
+        return
+      }
+      console.log('expenseData:::', expenseData)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  /* ---- APIs END ---- */
+
   return (
     <div>
       {/* ---- header icons ---- */}
       <div className="expenseModal-header">
-        <Edit className="expenseModal-header-icon"/>
+        <Edit className="expenseModal-header-icon" onClick={onClickEdit}/>
         <Delete className="expenseModal-header-icon" />
         <Check className="expenseModal-header-icon" onClick={handleSubmit(onSubmit)} />
         <LastPage className="expenseModal-header-icon" />
       </div>
       {/* ---- epxense form ---- */}
-      <FormProvider {...methods}>
+      <FormProvider {...methods} editModeEnabled={editModeEnabled}>
         <form className="expenseModal-form formInput-text-correct" onSubmit={handleSubmit(onSubmit)}>
           {/* 日期:::creatDate */}
           {/* <DateField /> */}
           <div className="my-6">
-            <DateField/>
+            <DateField />
             <p className="text-xs mb-2 text-rose-600">{errors.creatDate?.message}</p>
           </div>
           {/* 名稱:::item ＆ 種類:::expenseType */}
@@ -130,9 +201,9 @@ export default function AddExpenseModal ({ open, onClose }) {
             <div className="relative w-8 h-8"
             >
               <button
+              disabled={!editModeEnabled}
                 className="w-8 h-8 rounded hover:scale-105"
                 onClick={() => {
-                  console.log(openExpenseTypeModal)
                   if (!openExpenseTypeModal) {
                     handleOpenExpenseTypeModal()
                     return
@@ -177,7 +248,8 @@ export default function AddExpenseModal ({ open, onClose }) {
             {/* 名稱 */}
             <label className="w-full">
               <input
-                className="formInput py-1 px-3 align-middle"
+                disabled={!editModeEnabled}
+                className="formInput py-1 px-3 align-middle disabled:border-none"
                 type="text"
                 placeholder="請輸入名稱"
                 {...register('item', {
@@ -194,7 +266,8 @@ export default function AddExpenseModal ({ open, onClose }) {
             <AttachMoney sx={{ fontSize: 32 }} className="text-color-dark-green" />
             <label className="w-full">
               <input
-                className="formInput py-1 px-3"
+                disabled={!editModeEnabled}
+                className="formInput py-1 px-3 disabled:border-none"
                 type="number"
                 min="0"
                 placeholder="0.00"
@@ -215,10 +288,10 @@ export default function AddExpenseModal ({ open, onClose }) {
           {/* 付款＆分帳細節 payerExpenseVMs, ownerExpenseVMs */}
           <div className="mb-6">
             {/* 付款人 payerExpenseVMs */}
-            <SelectPayer payerList={payerList} setPayerList={setPayerList} watchCost={watchCost} />
+            <SelectPayer payerList={payerList} setPayerList={setPayerList} watchCost={watchCost} editModeEnabled={editModeEnabled} />
             {/* 分帳人＆模式 ownerExpenseVMs */}
             <div className="ml-12 mt-6">
-              <SelectOwner ownerList={ownerList} setOwnerList={setOwnerList} watchCost={watchCost} />
+              <SelectOwner ownerList={ownerList} setOwnerList={setOwnerList} watchCost={watchCost} editModeEnabled={editModeEnabled} />
               {/* Display owners & individaul ownAmount */}
               <ul className="overflow-scroll max-h-[30vh] pt-2 pb-2">
                 {
@@ -266,8 +339,9 @@ export default function AddExpenseModal ({ open, onClose }) {
             <label className="w-full">
               <p>註記</p>
               <textarea
+                disabled={!editModeEnabled}
                 rows="2"
-                className="formInput py-2 px-3 overflow-auto mt-1"
+                className="formInput py-2 px-3 overflow-auto mt-1 disabled:border-none"
                 {...register('memo')}
               />
             </label>
@@ -276,7 +350,11 @@ export default function AddExpenseModal ({ open, onClose }) {
           <AttachPhotos />
           {/* 送出 */}
           <div className="mt-4">
-            <input type="submit" className="btn-primary w-full" value="送出" disabled={(!isValid)} />
+            <input
+              type="submit"
+              className="btn-primary w-full"
+              value="送出"
+              disabled={(!isValid)} />
           </div>
         </form>
       </FormProvider>

@@ -4,7 +4,7 @@ import Modal from '@mui/material/Modal'
 import { PayerListModal } from '../GroupModal'
 import { CloseOutlined } from '@mui/icons-material'
 
-export default function SelectPayer ({ payerList, setPayerList, watchCost }) {
+export default function SelectPayer ({ payerList, setPayerList, watchCost, editModeEnabled }) {
   const [openPayerListPopup, setOpenPayerListPopup] = useState(false)
   const handleOpenPayerListPopup = () => setOpenPayerListPopup(true)
   const handleClosePayerListPopup = () => setOpenPayerListPopup(false)
@@ -23,7 +23,8 @@ export default function SelectPayer ({ payerList, setPayerList, watchCost }) {
           <label>
             <div className="singlePayment-name">
               <button
-                className="formInput singlePayment-name py-1 px-4 overflow-hidden text-left text-ellipsis"
+              disabled={!editModeEnabled}
+                className="formInput singlePayment-name py-1 px-4 overflow-hidden text-left text-ellipsis disabled:border-none"
                 onClick={handleOpenPayerListPopup}
               >
                 {payerList[0].memberName}

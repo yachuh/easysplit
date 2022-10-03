@@ -24,7 +24,7 @@ const MenuProps = {
   }
 }
 
-export default function SelectOwner ({ ownerList, setOwnerList, watchCost }) {
+export default function SelectOwner ({ ownerList, setOwnerList, watchCost, editModeEnabled }) {
   const { memberList } = useGroupData
 
   // @mui Select components
@@ -61,7 +61,11 @@ export default function SelectOwner ({ ownerList, setOwnerList, watchCost }) {
       name=""
       render={({ field }) => (
         <>
-          <button className="formInput py-1 px-4 mb-4 text-left" onClick={handleOpenOwnerListPopup}>
+          <button
+            disabled={!editModeEnabled}
+            className="formInput py-1 px-4 mb-4 text-left disabled:border-none"
+            onClick={handleOpenOwnerListPopup}
+          >
               平分（全部）
           </button>
             {/* SelecOwnerListModal START */}
