@@ -5,6 +5,7 @@ import { uploadAvatarApi } from '../../utils/api'
 import LoadingModal from '../LoadingModal'
 
 export default function UploadAvatarModal ({ Open, onClose }) {
+  const { getUserProfile } = useUserData()
   const [isLoading, setIsLoading] = useState(false)
   const { setUserData } = useUserData()
   const [image, setImage] = useState({ preview: '', raw: '' })
@@ -27,26 +28,19 @@ export default function UploadAvatarModal ({ Open, onClose }) {
       const { status: isSuccess, message, data } = await uploadAvatarApi(formData)
       console.log(data)
       if (!isSuccess) {
-        // console.log(message)
+        console.log(message)
         return
       }
       setUserData(userData => ({
         ...userData,
         imageUrl: data.Image // formData.image
       }))
-      // console.log(message)
+      getUserProfile()
+      onClose()
       setIsLoading(false)
     } catch (error) {
       console.log(error)
     }
-
-    // const res = await fetch('https://easysplit.rocket-coding.com/api/User/UploadAvatar', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'multipart/form-data'
-    //   },
-    //   body: formData
-    // })
   }
 
   return (
