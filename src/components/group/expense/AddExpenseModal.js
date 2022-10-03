@@ -2,19 +2,21 @@ import { useEffect, useState, useRef } from 'react'
 import { useForm, FormProvider } from 'react-hook-form'
 import { addExpenseApi, getExpenseApi, editExpenseApi, editExpenseImgApi, delExpenseApi } from '../../../utils/api'
 import { useGroupData } from '../../../context/context'
-import Modal from '@mui/material/Modal'
-import { Edit, Delete, LastPage, Check, AttachMoney, Update, InsertPhoto } from '@mui/icons-material'
+import { Edit, Delete, LastPage, Check, AttachMoney } from '@mui/icons-material'
 import DateField from './DateField'
 import SelectPayer from './SelectPayer'
 import SelectOwner from './SelectOwner'
 import AttachPhotos from './AttachPhotos'
 
 export default function AddExpenseModal ({ open, onClose, expenseId, expenseData, setExpenseData }) {
+  const { groupData, memberList, expenseTypeList, getAllExpense } = useGroupData()
+  const [editModeEnabled, setEditModeEnabled] = useState(false) // switch on & off edit mode
+
   const getExpense = async (expenseId) => {
     try {
       const { status: isSuccess, message, expenseData } = await getExpenseApi(expenseId)
       if (!isSuccess) {
-        return
+        console.log(message)
       }
       const expenseDetail = expenseData[0]
       setExpenseData(expenseDetail)
@@ -32,10 +34,9 @@ export default function AddExpenseModal ({ open, onClose, expenseId, expenseData
       setEditModeEnabled(true)
     }
   }, [])
+
   console.log('expenseData:::', expenseData)
   console.log('expenseId:::', expenseId)
-  const { groupData, memberList, expenseTypeList, getAllExpense } = useGroupData()
-  const [editModeEnabled, setEditModeEnabled] = useState(false) // switch on & off edit mode
 
   /* ---- Modals ---- */
   const [openExpenseTypeModal, setOpenExpenseTypeModal] = useState(false)
@@ -43,6 +44,7 @@ export default function AddExpenseModal ({ open, onClose, expenseId, expenseData
   const handleCloseExpenseTypeModal = () => setOpenExpenseTypeModal(false)
 
   /* ---- react hook form configs START---- */
+  // defaultValues depends on whether it's add-new-expense(no expenseId) or check-single-expense modal
   const recordDefaultValues = {
     groupId: groupData.groupId,
     expenseType: expenseData?.expenseType,
@@ -85,7 +87,7 @@ export default function AddExpenseModal ({ open, onClose, expenseId, expenseData
   } = methods
   /* ---- react hook form configs END---- */
 
-  // print all form data
+  // print current form data
   const watchAllFields = watch()
   console.log(watchAllFields)
 
@@ -108,8 +110,8 @@ export default function AddExpenseModal ({ open, onClose, expenseId, expenseData
   const onSubmit = async data => {
     data.groupId = groupData.groupId // append groudId to data
     data.cost = parseFloat(data.cost) // convert cost from string to number
-    const newDate = data.creatDate.toISOString()
-    data.creatDate = newDate
+    const dateIsoFormat = data.creatDate.toISOString() // convert value(string) to ISO string format
+    data.creatDate = dateIsoFormat
     console.log('payload:::', data)
     try {
       const { status: isSuccess, message, addedExpenseId: expenseId } = await addExpenseApi(data)
@@ -150,7 +152,12 @@ export default function AddExpenseModal ({ open, onClose, expenseId, expenseData
   }
 
   /* ---- APIs START ---- */
-  const editExpense = async (data) => {
+  const editExpense = async data => {
+    data.groupId = groupData.groupId // append groudId to data
+    data.cost = parseFloat(data.cost) // convert cost from string to number
+    const dateIsoFormat = data.creatDate.toISOString() // convert value(string) to ISO string format
+    data.creatDate = dateIsoFormat
+    console.log('payload:::', data)
     try {
       const { status: isSuccess, message, expenseData } = await editExpenseApi(data)
       if (!isSuccess) {
@@ -181,17 +188,26 @@ export default function AddExpenseModal ({ open, onClose, expenseId, expenseData
     <div>
       {/* ---- header icons ---- */}
       <div className="expenseModal-header">
-        <Edit className="expenseModal-header-icon" onClick={onClickEdit}/>
-        <Delete className="expenseModal-header-icon" />
-        <Check className="expenseModal-header-icon"
-          onClick={handleSubmit(onSubmit)}
-          disabled={(!isValid)}
-        />
-        <LastPage className="expenseModal-header-icon" />
+        { editModeEnabled // only show edit button when it's not under edit mode
+          ? <></>
+          : <Edit className="expenseModal-header-icon" onClick={onClickEdit}/>
+        }
+        { expenseId // only show delete button when expenseId isn't undefined
+          ? <Delete className="expenseModal-header-icon" />
+          : <></>
+        }
+        { expenseId && editModeEnabled // only show check button under edit mode & if expenseId is undefined
+          ? <Check className="expenseModal-header-icon"
+              onClick={handleSubmit(onSubmit)}
+              disabled={(!isValid)}
+            />
+          : <></>
+        }
+        <LastPage className="expenseModal-header-icon" onClick={onClose}/>
       </div>
       {/* ---- epxense form ---- */}
       <FormProvider {...methods} editModeEnabled={editModeEnabled}>
-        <form className="expenseModal-form formInput-text-correct" >
+        <form className="expenseModal-form formInput-text-correct" onSubmit={handleSubmit(onSubmit)}>
           {/* 日期:::creatDate */}
           {/* <DateField /> */}
           <div className="my-6">
@@ -350,15 +366,19 @@ export default function AddExpenseModal ({ open, onClose, expenseId, expenseData
             </label>
           </div>
           {/* 圖片 addExpenseAlbumVMs */}
-          <AttachPhotos />
+          {/* <AttachPhotos /> */}
           {/* 送出 btn */}
-          {/* <div className="mt-4">
-            <input
-              type="submit"
-              className="btn-primary w-full"
-              value="送出"
-              disabled={(!isValid)} />
-          </div> */}
+          { !expenseId && editModeEnabled
+            ? <div className="mt-4">
+                <input
+                  type="submit"
+                  className="btn-primary w-full"
+                  value="送出"
+                  disabled={(!isValid)} />
+              </div>
+            : <></>
+          }
+
         </form>
       </FormProvider>
       {/* footer */}

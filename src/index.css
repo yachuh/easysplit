@@ -203,7 +203,7 @@ code {
   }
 
   .expenseModal-header-icon {
-    @apply w-6 h-6 hover:scale-125 hover:text-color-green cursor-pointer;
+    @apply w-6 h-6 hover:scale-125 hover:text-color-green cursor-pointer disabled:text-gray-300 disabled:cursor-none;
   }
 
   .expenseModal-form {
