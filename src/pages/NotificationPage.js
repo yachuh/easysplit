@@ -1,5 +1,5 @@
 import AppLayout from './AppLayout'
-import { Notification } from '../components/notification/Notification'
+import { Notification } from '../components/FunctionNotification/Notification'
 
 export default function NotificationPage () {
   return (

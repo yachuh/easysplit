@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { getAllNotificationApi } from '../../utils/api'
 import userSettlement from '../../image/userSettlement.svg'
-import LoadingModal from '../../components/LoadingModal'
+import LoadingModal from '../LoadingModal'
 
 export const Notification = () => {
   const [isLoading, setIsLoading] = useState(false)

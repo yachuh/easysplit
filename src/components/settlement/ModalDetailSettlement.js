@@ -166,7 +166,7 @@ export const ModalDetailSettlement = ({ onClose, getPersonalSettlement, getGroup
               onChange={dataChange}
             />
             <div className='flex gap-3'>
-              <div className='w-1/2'>
+              <div className='w-full'>
                 <label
                   className='labelTitle'
                   htmlFor="remark">
@@ -174,11 +174,11 @@ export const ModalDetailSettlement = ({ onClose, getPersonalSettlement, getGroup
                 </label>
                 <textarea
                   onChange={textValueChange}
-                  className="inputInfo pl-2 h-[40px]"
+                  className="inputInfo pl-2 h-[40px] mb-3"
                   placeholder="備註或其他"
                   value={textValue} />
               </div>
-              <div className='w-1/2'>
+              {/* <div className='w-1/2'>
                 <label
                   className='labelTitle'
                   htmlFor="qrcode">
@@ -190,7 +190,7 @@ export const ModalDetailSettlement = ({ onClose, getPersonalSettlement, getGroup
                   type="file"
                   placeholder="上傳"
                 />
-              </div>
+              </div> */}
             </div>
 
             <div className='w-full flex justify-between gap-4'>
