@@ -12,6 +12,7 @@ import ForgetPasswordPage from './pages/ForgetPasswordPage'
 import ProfilePage from './pages/ProfilePage'
 import ResetPwdPage from './pages/ResetPwdPage'
 import NotificationPage from './pages/NotificationPage'
+import PayBillPage from './pages/PayBillPage'
 
 // group 相關
 import GroupPage from './pages/GroupPage'
@@ -51,6 +52,7 @@ function App () {
         <Route path="/stillmore" element={<StillMorePage />} />
         <Route path="/faq" element={<FaqPage />} />
         <Route path="/privacyPolicy" element={<PrivacyPolicyPage />} />
+        <Route path="/payBill" element={<PayBillPage />} />
         <Route path="*" element={<ErrorPage />} />
         <Route path="nav" handleLogout={handleLogout} element={<Nav />} />
         {/* signup & login 相關 */}

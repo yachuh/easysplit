@@ -71,7 +71,7 @@ export default function SettledDetail ({ onClose, getSettledDetail }) {
                   <span className='mr-1 text-colors-fourth'>
                     <AttachMoney sx={{ fontSize: 16 }} />
                   </span>
-                  <span className='text-black font-bold'>{ownerPaytoPayerAmount}</span>
+                  <span className='text-black font-bold'>{ownerPaytoPayerAmount.toFixed(2)}</span>
                 </p>
               </div>
             </div>

@@ -563,7 +563,7 @@ code {
   }
 
   .member-item-avatar {
-    @apply w-8 h-8;
+    @apply w-8 h-8 rounded-full;
   }
 
   .member-item-info {

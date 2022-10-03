@@ -106,6 +106,9 @@ const SEND_REMINDER = '/Settlement/SendReminder'
 const GET_SELF_SETTLEMENT = '/Settlement/GetSelfSettlement'
 const SETTLEUP_IMAGE = '/Settlement/SettleUpImage'
 
+// 通知 相關
+const GET_ALL_NOTIFICATION = '/Notification/GetAllNotification'
+
 /**
  * input an object with any keys
  * output an object with key in camel case
@@ -215,6 +218,9 @@ export const getAllMemberApi = (groupId) => getApi(`${GET_ALL_MEMBER}/${groupId}
 export const getExpenseTypeApi = () => getApi(GET_EXPENSE_TYPE)
 export const getAllExpenseApi = (groupId) => getApi(`${GET_ALL_EXPENSE}/${groupId}`)
 export const getExpenseApi = (expenseId) => getApi(`${GET_EXPENSE}/${expenseId}`)
+
+// 通知 相關
+export const getAllNotificationApi = () => getApi(GET_ALL_NOTIFICATION)
 
 /* ---- PUT ---- */
 const putApi = async (url, payload) => {

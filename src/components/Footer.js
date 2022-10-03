@@ -18,7 +18,7 @@ export const FooterHome = () => {
         <footer className="bg-colors-third py-5">
             <div className="viewContainer flex justify-center lg:justify-between lg:items-center lg:gap-2">
                 <Link className="hidden lg:block" to="/">
-                    <img className="w-[35px]" src={singleLogo} alt="singleLogo"/>
+                    <img className="w-[35px]" src={singleLogo} alt="singleLogo" />
                 </Link>
                 <ul className="flex items-center lg:items-start text-white gap-5 lg:gap-8">
                     <li className="footer-hover">
@@ -44,7 +44,7 @@ export const FooterHome = () => {
                         </Link>
                     </li>
                     <li className="footer-hover">
-                        <Link className="footerLink" to="/">
+                        <Link className="footerLink" to="/payBill">
                             <div className="footerImg">
                                 <Savings sx={{ fontSize: 45 }} />
                             </div>
@@ -109,7 +109,7 @@ export const FooterUser = () => {
 
             <div className="viewContainer hidden md:flex md:justify-between md:items-center md:gap-2">
                 <Link to="/">
-                    <img className="w-[35px]" src={singleLogo} alt="singleLogo"/>
+                    <img className="w-[35px]" src={singleLogo} alt="singleLogo" />
                 </Link>
                 <h6 className="text-white">Copyright © 2022 EasySplit All rights reserved</h6>
             </div>

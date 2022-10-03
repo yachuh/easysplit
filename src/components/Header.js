@@ -19,7 +19,7 @@ export const HeaderHome = () => {
                     className="hidden lg:flex font-bold lg:gap-10">
                     <li
                         className="p-2 headerNav-hover">
-                        <Link to="/">支持我們</Link>
+                        <Link to="/payBill">支持我們</Link>
                     </li>
                     <li
                         className="p-2 headerNav-hover">

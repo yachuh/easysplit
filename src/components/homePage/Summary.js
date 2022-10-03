@@ -49,10 +49,6 @@ export default function Summary () {
           <p
             className="mb-10">
             拆帳是小事，人多是大事。拆帳是小事，人多是大事。拆帳是小事，人多是大事。
-            <br />
-            &nbsp;
-            <br />
-            這邊預計有2~3行文字。
           </p>
           <Link to="login" className="btn-primary w-full">
             開始拆帳
