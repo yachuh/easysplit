@@ -2,11 +2,13 @@ import { useEffect, useState, useRef } from 'react'
 import { useForm, FormProvider } from 'react-hook-form'
 import { addExpenseApi, getExpenseApi, editExpenseApi, editExpenseImgApi, delExpenseApi } from '../../../utils/api'
 import { useGroupData } from '../../../context/context'
-import { Edit, Delete, LastPage, Check, AttachMoney } from '@mui/icons-material'
 import DateField from './DateField'
 import SelectPayer from './SelectPayer'
 import SelectOwner from './SelectOwner'
 import AttachPhotos from './AttachPhotos'
+import Modal from '@mui/material/Modal'
+import { DeleteExpenseModal } from '../GroupModal'
+import { Edit, Delete, LastPage, Check, AttachMoney, CloseOutlined } from '@mui/icons-material'
 
 export default function AddExpenseModal ({ open, onClose, expenseId, expenseData, setExpenseData }) {
   const { groupData, memberList, expenseTypeList, getAllExpense } = useGroupData()
@@ -42,6 +44,9 @@ export default function AddExpenseModal ({ open, onClose, expenseId, expenseData
   const [openExpenseTypeModal, setOpenExpenseTypeModal] = useState(false)
   const handleOpenExpenseTypeModal = () => setOpenExpenseTypeModal(true)
   const handleCloseExpenseTypeModal = () => setOpenExpenseTypeModal(false)
+  const [openDeleteExpenseModal, setOpenDeleteExpenseModal] = useState(false)
+  const handleOpenDeleteExpenseModal = () => setOpenDeleteExpenseModal(true)
+  const handleCloseDeleteExpenseModal = () => setOpenDeleteExpenseModal(false)
 
   /* ---- react hook form configs START---- */
   // defaultValues depends on whether it's add-new-expense(no expenseId) or check-single-expense modal
@@ -70,6 +75,26 @@ export default function AddExpenseModal ({ open, onClose, expenseId, expenseData
     creatDate: new Date(Date.now()), // current time new Date(Date.now()).toISOString()
     memo: ''
   }
+  // const editDefaultValues = {
+  //   id: expenseId,
+  //   groupId: groupData.groupId,
+  //   expenseType: expenseData?.expenseType,
+  //   item: expenseData?.item,
+  //   cost: expenseData?.cost,
+  //   payerExpenseVMs: expenseData?.payerList,
+  //   ownerExpenseVMs: expenseData?.ownerList,
+  //   expenseAlbumVMs: expenseData?.photoList,
+  //   creatDate: new Date(expenseData?.creatDate),
+  //   memo: expenseData?.memo
+  // }
+  // const defaultValues = () => {
+  //   if (!expenseId) {
+  //     return addDefaultValues
+  //   } else if (!editModeEnabled) {
+  //     return editDefaultValues
+  //   }
+  //   return recordDefaultValues
+  // }
   const defaultValues = expenseId ? recordDefaultValues : addDefaultValues
 
   const methods = useForm({
@@ -145,44 +170,35 @@ export default function AddExpenseModal ({ open, onClose, expenseId, expenseData
     console.log(e.current.target)
   }
 
-  // edit form
   const onClickEdit = () => {
     setEditModeEnabled(!editModeEnabled)
     console.log(editModeEnabled)
   }
 
-  /* ---- APIs START ---- */
-  const editExpense = async data => {
+  const onSubmitEdit = async (data) => {
     data.groupId = groupData.groupId // append groudId to data
     data.cost = parseFloat(data.cost) // convert cost from string to number
     const dateIsoFormat = data.creatDate.toISOString() // convert value(string) to ISO string format
     data.creatDate = dateIsoFormat
+    data.Id = expenseId
+    data.ownerExpenseVMs = data.addOwnerExpenseVMs
+    delete data.addOwnerExpenseVMs
+    data.payerExpenseVMs = data.addPayerExpenseVMs
+    delete data.addPayerExpenseVMs
+    data.expenseAlbumVMs = data.addExpenseAlbumVMs
+    delete data.addExpenseAlbumVMs
     console.log('payload:::', data)
     try {
-      const { status: isSuccess, message, expenseData } = await editExpenseApi(data)
-      if (!isSuccess) {
-        console.log(message)
-        return
-      }
-      console.log('expenseData:::', expenseData)
+      const res = await editExpenseApi(data)
+      // if (!isSuccess) {
+      //   console.log(res)
+      //   return
+      // }
+      console.log(res)
     } catch (error) {
       console.log(error)
     }
   }
-
-  const delExpense = async () => {
-    try {
-      const { status: isSuccess, message, expenseData } = await delExpenseApi(expenseId)
-      if (!isSuccess) {
-        console.log(message)
-        return
-      }
-      console.log('expenseData:::', expenseData)
-    } catch (error) {
-      console.log(error)
-    }
-  }
-  /* ---- APIs END ---- */
 
   return (
     <div>
@@ -193,12 +209,20 @@ export default function AddExpenseModal ({ open, onClose, expenseId, expenseData
           : <Edit className="expenseModal-header-icon" onClick={onClickEdit}/>
         }
         { expenseId // only show delete button when expenseId isn't undefined
-          ? <Delete className="expenseModal-header-icon" />
+          ? <Delete className="expenseModal-header-icon" onClick={handleOpenDeleteExpenseModal} />
           : <></>
         }
+        {/* DeleteExpenseModal START */}
+        <Modal open={openDeleteExpenseModal} onClose={handleCloseDeleteExpenseModal} className="modalCard-bg">
+          <div onClick={(e) => e.stopPropagation()} className="groupModalCard">
+            <div onClick={handleCloseDeleteExpenseModal} className="modalCancel"><CloseOutlined sx={{ fontSize: 14 }} /></div>
+            <DeleteExpenseModal open={openDeleteExpenseModal} onClose={handleCloseDeleteExpenseModal} expenseId={expenseId} getAllExpense={getAllExpense}/>
+          </div>
+        </Modal>
+        {/* DeleteExpenseModal End */}
         { expenseId && editModeEnabled // only show check button under edit mode & if expenseId is undefined
           ? <Check className="expenseModal-header-icon"
-              onClick={handleSubmit(onSubmit)}
+              onClick={handleSubmit(onSubmitEdit)}
               disabled={(!isValid)}
             />
           : <></>
