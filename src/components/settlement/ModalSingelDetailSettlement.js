@@ -103,7 +103,7 @@ export const ModalSingelDetailSettlement = ({ onClose, getPersonalSettlement, ge
     setTimeout(() => {
       setIsLoading(false)
     }, 500)
-    handleOpenSuccess()
+    // handleOpenSuccess()
   }
 
   useEffect(() => {

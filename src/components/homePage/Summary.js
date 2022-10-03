@@ -44,11 +44,11 @@ export default function Summary () {
           data-aos="fade-right">
           <h3
             className="font-bold mb-10">
-            一句話介紹 EasySplit
+            使用拆帳趣，算錢好容易。
           </h3>
           <p
             className="mb-10">
-            拆帳是小事，人多是大事。拆帳是小事，人多是大事。拆帳是小事，人多是大事。
+            拆帳是小事，人多是大事。
           </p>
           <Link to="login" className="btn-primary w-full">
             開始拆帳
