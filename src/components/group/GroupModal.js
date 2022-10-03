@@ -351,10 +351,10 @@ export function PayerListModal ({ open, onClose, payerList, setPayerList, watchC
           })
         }
       </ul>
-      <button onClick={() => { console.log('切換至 +多人付款 popup') }} className="flex items-center text-colors-primary font-bold mt-6">
+      {/* <button onClick={() => { console.log('切換至 +多人付款 popup') }} className="flex items-center text-colors-primary font-bold mt-6">
         <Add sx={{ fontSize: 20 }} className="mr-2" />
         多人付款
-      </button>
+      </button> */}
     </div>
   )
 }
