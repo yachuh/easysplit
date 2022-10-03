@@ -23,9 +23,12 @@ export default function SelectPayer ({ payerList, setPayerList, watchCost, editM
           <label>
             <div className="singlePayment-name">
               <button
-              disabled={!editModeEnabled}
+                disabled={!editModeEnabled}
                 className="formInput singlePayment-name py-1 px-4 overflow-hidden text-left text-ellipsis disabled:border-none"
-                onClick={handleOpenPayerListPopup}
+                onClick={ e => {
+                  e.preventDefault()
+                  handleOpenPayerListPopup()
+                }}
               >
                 {payerList[0].memberName}
               </button>
