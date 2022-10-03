@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useForm, useFormContext, useFieldArray, Controller } from 'react-hook-form'
-import { addMemberApi, editMemberApi, delMemberApi, changeMemberRoleApi, delGroupApi } from '../../utils/api'
+import { addMemberApi, editMemberApi, delMemberApi, changeMemberRoleApi, delGroupApi, delExpenseApi } from '../../utils/api'
 import { useGroupData } from '../../context/context'
 import GroupMemberListItem from './GroupMemberListItem'
 import { Add, AttachMoney } from '@mui/icons-material'
@@ -281,6 +281,44 @@ export function DeleteGroupModal ({ open, onClose }) {
 /**
  * ==== 群組 - 新增費用 相關 modal ====
  */
+
+export function DeleteExpenseModal ({ open, onClose, expenseId, getAllExpense }) {
+  const onSubmitDelete = async () => {
+    try {
+      const { status: isSuccess, message } = await delExpenseApi(expenseId)
+      if (!isSuccess) {
+        console.log(message)
+        return
+      }
+      console.log(message)
+      onClose()
+      getAllExpense()
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  return (
+    <div className="w-full">
+      <div className="groupModalCard-title">
+        <h4>刪除費用</h4>
+      </div>
+      <p className="groupModalCard-text">確定要將此筆費用刪除？</p>
+      <p className="modalHint">
+        請注意：此動作一經確認無法復原。<br></br>
+        您將無法恢復此筆費用紀錄。
+      </p>
+      <div className="groupModalCard-btns">
+        <button type="submit" className="btn-outline  w-1/2" onClick={onClose}>
+          取消
+        </button>
+        <button type="submit" className="btn-primary w-1/2" onClick={onSubmitDelete}>
+          確認
+        </button>
+      </div>
+    </div>
+  )
+}
 
 export function PayerListModal ({ open, onClose, payerList, setPayerList, watchCost }) {
   const { memberList } = useGroupData()
