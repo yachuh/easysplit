@@ -21,6 +21,7 @@ export default function RecordList () {
   /* ---- Modal 相關 END ---- */
 
   const mergeCreatDate = (expenseData)?.concat(settledData)
+  console.log('merge:::', mergeCreatDate)
   mergeCreatDate?.sort((a, b) => b.creatDate.localeCompare(a.creatDate) || b.creatDate.localeCompare(a.creatDate))
 
   useEffect(() => {
@@ -56,6 +57,25 @@ export default function RecordList () {
       </div>
       <ul className='overflow-scroll-view md:h-[40vh] lg:overflow-y-scroll lg:h-[85%]'>
         {
+          mergeCreatDate
+            ? mergeCreatDate?.map((mergeItem, i) => {
+              return (
+              <div key={i}>
+
+                {isLoading
+                  ? <LoadingModal />
+                  : mergeItem.expenseId !== undefined ? <ExpenseRecordItem key={i} {...mergeItem} expenseTypeList={expenseTypeList} /> : <SettledRecordItem key={i} {...mergeItem} />
+                }
+
+              </div>
+              )
+            })
+            : <div className="text-center mt-8">
+                <h4 className="font-semibold mb-3">尚無紀錄</h4>
+                <p>點擊「新增費用」來建立你的第一筆費用吧！</p>
+              </div>
+        }
+        {/* {
           mergeCreatDate?.map((mergeItem, i) => {
             return (
               <div key={i}>
@@ -68,7 +88,7 @@ export default function RecordList () {
               </div>
             )
           })
-        }
+        } */}
 
         {/* {
           // expense record

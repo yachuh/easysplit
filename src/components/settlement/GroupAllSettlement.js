@@ -91,6 +91,7 @@ export default function GroupAllSettlement () {
           <GroupAllSettlementList
             getPersonalSettlement={getPersonalSettlement}
             getGroupAllSettlement={getGroupAllSettlement}
+            groupAllSettlementData={groupAllSettlementData}
           />
         </settlementClickDataContext.Provider>
       </PersonalSettlementDataContext.Provider>

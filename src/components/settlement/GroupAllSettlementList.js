@@ -8,7 +8,8 @@ import ModalSettlement from './ModalSettlement'
 import { getSelfSettlementApi, getReminderApi } from '../../utils/api'
 import LoadingModal from '../LoadingModal'
 
-export default function GroupAllSettlementList ({ getPersonalSettlement, getGroupAllSettlement }) {
+export default function GroupAllSettlementList ({ getPersonalSettlement, getGroupAllSettlement, groupAllSettlementData }) {
+  console.log(groupAllSettlementData)
   const [isLoading, setIsLoading] = useState(false)
   const { groupData } = useGroupData()
   const { groupId } = groupData
@@ -106,7 +107,9 @@ export default function GroupAllSettlementList ({ getPersonalSettlement, getGrou
               </div>
             </Modal>
           </div>
-          <div className='overflow-scroll-view md:h-[40vh] lg:overflow-y-scroll lg:h-[85%]'>
+          {
+            groupAllSettlementData.settlementList
+              ? <div className='overflow-scroll-view md:h-[40vh] lg:overflow-y-scroll lg:h-[85%]'>
             <GroupPayerListItem
               getPersonalSettlement={getPersonalSettlement}
               getGroupAllSettlement={getGroupAllSettlement}
@@ -118,6 +121,11 @@ export default function GroupAllSettlementList ({ getPersonalSettlement, getGrou
               getReminder={getReminder}
             />
           </div>
+              : <div className="text-center mt-8">
+                <h4 className="font-semibold mb-3">尚無紀錄</h4>
+                <p>目前沒有未結算的款項</p>
+              </div>
+          }
 
           <button
             onClick={handleOpen}
