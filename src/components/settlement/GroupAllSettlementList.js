@@ -9,7 +9,7 @@ import { getSelfSettlementApi, getReminderApi } from '../../utils/api'
 import LoadingModal from '../LoadingModal'
 
 export default function GroupAllSettlementList ({ getPersonalSettlement, getGroupAllSettlement, groupAllSettlementData }) {
-  console.log(groupAllSettlementData)
+  // console.log(groupAllSettlementData)
   const [isLoading, setIsLoading] = useState(false)
   const { groupData } = useGroupData()
   const { groupId } = groupData
