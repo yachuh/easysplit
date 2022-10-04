@@ -6,6 +6,7 @@ import { EmailOutlined, PermIdentityOutlined, CloseOutlined } from '@mui/icons-m
 import Modal from '@mui/material/Modal'
 import { ModalResetPwd } from '../ModalFeedback'
 import LoadingModal from '../LoadingModal'
+import { toast } from 'react-toastify'
 
 export default function ProfileForm () {
   const [isLoading, setIsLoading] = useState(false)
@@ -40,6 +41,7 @@ export default function ProfileForm () {
         ...userData,
         name: data.name
       }))
+      toast.success('資料已更新')
       setIsLoading(false)
     } catch (error) {
       console.log(error)

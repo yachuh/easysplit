@@ -6,6 +6,7 @@ import Modal from '@mui/material/Modal'
 import { DeleteGroupModal } from './GroupModal'
 import { CloseOutlined, AddPhotoAlternateOutlined } from '@mui/icons-material'
 import LoadingModal from '../../components/LoadingModal'
+import { toast } from 'react-toastify'
 
 export default function GroupSettingForm () {
   const [isLoading, setIsLoading] = useState(false)
@@ -92,6 +93,7 @@ export default function GroupSettingForm () {
       }))
       getGroupData()
       setIsLoading(false)
+      toast.success('群組資料已更新')
     } catch (error) {
       console.log(error)
     }
