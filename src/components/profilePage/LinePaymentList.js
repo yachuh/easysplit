@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { CloseOutlined } from '@mui/icons-material'
 import { deleteLineApi } from '../../utils/api'
 import Modal from '@mui/material/Modal'
 import { toast } from 'react-toastify'
@@ -11,9 +12,9 @@ export default function LinePaymentList ({ payLine, getPaymentAll }) {
   const [isLoading, setIsLoading] = useState(false)
   const { id, name, phone, lineId, qrCodeUrl } = payLine
 
-  const [open, setOpen] = useState(false)
-  const handleOpen = () => setOpen(true)
-  const handleClose = () => setOpen(false)
+  const [openQRCode, setOpenQRCode] = useState(false)
+  const handleOpenQRCode = () => setOpenQRCode(true)
+  const handleCloseQRCode = () => setOpenQRCode(false)
 
   const [openDeleteItem, setOpenDeleteItem] = useState(false)
   const handleOpenDeleteItem = () => setOpenDeleteItem(true)
@@ -109,10 +110,30 @@ export default function LinePaymentList ({ payLine, getPaymentAll }) {
                             <li className='md:w-1/4'>
                                 <p>收款二維碼 (選填)</p>
                                 <img
-                                    className='w-4 h-4'
+                                    className='w-10 h-10 cursor-pointer'
                                     src={hexschool}
                                     alt="qrCode"
+                                    onClick={handleOpenQRCode}
                                 />
+                                <Modal
+                                    open={openQRCode}
+                                    onClose={handleCloseQRCode}
+                                    className="modalCard-bg">
+                                    <div
+                                        onClick={(e) => e.stopPropagation()}
+                                        className="modalCard">
+                                        <div
+                                            onClick={handleCloseQRCode}
+                                            className="modalCancel">
+                                            <CloseOutlined sx={{ fontSize: 14 }} />
+                                        </div>
+                                        <img
+                                            className='w-1/2'
+                                            src={hexschool}
+                                            alt="qrCode"
+                                        />
+                                    </div>
+                                </Modal>
                             </li>
                         </ul>
                     </li>

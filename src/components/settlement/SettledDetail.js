@@ -9,6 +9,11 @@ import coverPhoto from '../../image/coverPhoto.svg'
 import { ModalConfirmTheDeletion } from '../../components/ModalFeedback'
 import LoadingModal from '../LoadingModal'
 
+const toMonthAndDayAndTime = (time) => {
+  const formatDate = time.getFullYear() + '-' + (time.getMonth() + 1) + '-' + time.getDate() + ' ' + time.getHours() + ':' + time.getMinutes() + ':' + time.getSeconds()
+  return formatDate
+}
+
 export default function SettledDetail ({ onClose, getSettledDetail }) {
   const { getAllSettled, groupData } = useGroupData()
   const { groupId } = groupData
@@ -78,7 +83,7 @@ export default function SettledDetail ({ onClose, getSettledDetail }) {
 
             <ul className='flex justify-between items-center mb-2'>
               <li>日期</li>
-              <li className='font-bold'>{creatDate}</li>
+              <li className='font-bold'>{toMonthAndDayAndTime(new Date(creatDate))}</li>
             </ul>
             <ul className='flex justify-between items-center mb-2'>
               <li>收款方式</li>

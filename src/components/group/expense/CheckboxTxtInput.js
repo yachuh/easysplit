@@ -26,10 +26,10 @@ export default function CheckboxTxtInput ({ memberId, memberName, imageUrl, owne
   // pass checkbox value to parent when checkboxValue changes
   useEffect(() => {
     if (!checkboxValue.checkbox) {
-      console.log('invalid', checkboxValue)
-      return
+      // console.log('invalid', checkboxValue)
+
     }
-    console.log('valid', checkboxValue)
+    // console.log('valid', checkboxValue)
   }, [checkboxValue])
 
   return (

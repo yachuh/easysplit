@@ -10,7 +10,7 @@ import LoadingModal from '../LoadingModal'
 export function AddNewMemberModal ({ onClose }) {
   const [isLoading, setIsLoading] = useState(false)
   const { groupId } = useParams()
-  console.log('groupId', groupId)
+  // console.log('groupId', groupId)
   const {
     register,
     handleSubmit,
@@ -26,7 +26,7 @@ export function AddNewMemberModal ({ onClose }) {
     setIsLoading(true)
     try {
       const { status: isSuccess, message } = await addMemberApi(data)
-      console.log(data)
+      // console.log(data)
       if (!isSuccess) {
         return
       }
@@ -87,15 +87,15 @@ export function ChangeRoleModal ({ onClose }) {
 
   const ChangeMemberRole = async () => {
     const memberId = newMemberId
-    console.log('onClick memberId:::', memberId)
+    // console.log('onClick memberId:::', memberId)
     setIsLoading(true)
     try {
       const { status: isSuccess, message } = await changeMemberRoleApi(memberId)
       if (!isSuccess) {
-        console.log(message)
+        // console.log(message)
         return
       }
-      console.log(message)
+      // console.log(message)
       getMemberList()
       onClose()
       setIsLoading(false)
@@ -153,12 +153,12 @@ export function EditMemberModal ({ onClose, memberId, memberName }) {
     setIsLoading(true)
     try {
       const { status: isSuccess, message } = await editMemberApi(data)
-      console.log(data)
+      // console.log(data)
       if (!isSuccess) {
-        console.log(message)
+        // console.log(message)
         return
       }
-      console.log(message)
+      // console.log(message)
       getMemberList()
       onClose()
       setIsLoading(false)
@@ -217,10 +217,10 @@ export function DeleteMemberModal ({ onClose, memberId, memberName }) {
     try {
       const { status: isSuccess, message } = await delMemberApi(memberId)
       if (!isSuccess) {
-        console.log(message)
+        // console.log(message)
         return
       }
-      console.log(message)
+      // console.log(message)
       getMemberList()
       onClose()
       setIsLoading(false)
