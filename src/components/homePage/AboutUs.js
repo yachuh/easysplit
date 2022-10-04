@@ -37,8 +37,8 @@ export default function AboutUs () {
                         <h5 className="font-bold">YaChu</h5>
                         <h4 className="text-black font-bold">謝雅竹</h4>
                         <p className="text-2xl">前端工程師</p>
-                        <p>網球｜潛水｜旅遊</p>
-                        <p>放空｜高爾夫｜自由</p>
+                        <p>大海｜旅遊｜潛水</p>
+                        <p>網球｜滑板｜高爾夫</p>
                     </div>
                 </li>
                 <li
