@@ -21,7 +21,7 @@ export default function RecordList () {
   /* ---- Modal 相關 END ---- */
 
   const mergeCreatDate = (expenseData)?.concat(settledData)
-  console.log('merge:::', mergeCreatDate)
+  // console.log('merge:::', mergeCreatDate)
   mergeCreatDate?.sort((a, b) => b.creatDate.localeCompare(a.creatDate) || b.creatDate.localeCompare(a.creatDate))
 
   useEffect(() => {
