@@ -22,7 +22,6 @@ export default function SignupForm () {
   })
 
   const onSubmit = async data => {
-    // console.log('Signup form data', data)
     setIsLoading(true)
     try {
       const { status: isSuccess, message } = await signupApi(data)

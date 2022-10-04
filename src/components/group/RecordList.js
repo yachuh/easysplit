@@ -61,12 +61,10 @@ export default function RecordList () {
             ? mergeCreatDate?.map((mergeItem, i) => {
               return (
               <div key={i}>
-
                 {isLoading
                   ? <LoadingModal />
                   : mergeItem.expenseId !== undefined ? <ExpenseRecordItem key={i} {...mergeItem} expenseTypeList={expenseTypeList} /> : <SettledRecordItem key={i} {...mergeItem} />
                 }
-
               </div>
               )
             })
