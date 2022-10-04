@@ -42,6 +42,7 @@ export function AddNewMemberModal ({ open, onClose }) {
         return
       }
       // console.log(message)
+      toast.success('成員已新增')
       onClose()
     } catch (error) {
       console.log(error)
@@ -169,7 +170,6 @@ export function ChangeRoleModal ({ open, onClose }) {
 
   const ChangeMemberRole = async () => {
     const memberId = newMemberId
-    // console.log('onClick memberId:::', memberId)
     try {
       const { status: isSuccess, message } = await changeMemberRoleApi(memberId)
       if (!isSuccess) {
@@ -179,6 +179,7 @@ export function ChangeRoleModal ({ open, onClose }) {
       // console.log(message)
       getMemberList()
       onClose()
+      toast.success('成員已更新')
     } catch (error) {
       console.log(error)
     }
@@ -235,6 +236,7 @@ export function EditMemberModal ({ open, onClose, memberId, memberName }) {
         return
       }
       // console.log(message)
+      toast.success('成員已更新')
       getMemberList()
       onClose()
     } catch (error) {
@@ -406,8 +408,8 @@ export function DeleteGroupModal ({ open, onClose }) {
         // console.log(message)
         return
       }
-      // console.log(message)
       onClose()
+      toast.success('群組已刪除')
       navigate('/profile')
     } catch (error) {
       console.log(error)
@@ -451,6 +453,7 @@ export function DeleteExpenseModal ({ open, onClose, expenseId, getAllExpense })
       // console.log(message)
       onClose()
       getAllExpense()
+      toast.success('刪除成功')
     } catch (error) {
       console.log(error)
     }
