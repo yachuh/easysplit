@@ -36,12 +36,12 @@ export function AddNewMemberModal ({ open, onClose }) {
   const onSubmit = async (data) => {
     try {
       const { status: isSuccess, message } = await addMemberApi(data)
-      console.log(data)
+      // console.log(data)
       if (!isSuccess) {
-        console.log(message)
+        // console.log(message)
         return
       }
-      console.log(message)
+      // console.log(message)
       onClose()
     } catch (error) {
       console.log(error)
@@ -103,10 +103,10 @@ export function GroupInvitationModal ({ open, onClose }) {
       const { status: isSuccess, message, inviation: invitation } = await getGroupInvitationApi(groupId)
       const invitationLink = invitation.HtmlBody.split('!')[2]
       if (!isSuccess) {
-        console.log(message)
+        // console.log(message)
         return
       }
-      console.log('invitationLink:::', invitationLink)
+      // console.log('invitationLink:::', invitationLink)
       // return invitationLink
       setLink(invitationLink)
     } catch (error) {
@@ -169,14 +169,14 @@ export function ChangeRoleModal ({ open, onClose }) {
 
   const ChangeMemberRole = async () => {
     const memberId = newMemberId
-    console.log('onClick memberId:::', memberId)
+    // console.log('onClick memberId:::', memberId)
     try {
       const { status: isSuccess, message } = await changeMemberRoleApi(memberId)
       if (!isSuccess) {
-        console.log(message)
+        // console.log(message)
         return
       }
-      console.log(message)
+      // console.log(message)
       getMemberList()
       onClose()
     } catch (error) {
@@ -229,12 +229,12 @@ export function EditMemberModal ({ open, onClose, memberId, memberName }) {
   const onSubmitEdit = async (data) => {
     try {
       const { status: isSuccess, message } = await editMemberApi(data)
-      console.log(data)
+      // console.log(data)
       if (!isSuccess) {
-        console.log(message)
+        // console.log(message)
         return
       }
-      console.log(message)
+      // console.log(message)
       getMemberList()
       onClose()
     } catch (error) {
@@ -284,10 +284,10 @@ export function DeleteMemberModal ({ open, onClose, memberId, memberName }) {
     try {
       const { status: isSuccess, message } = await delMemberApi(memberId)
       if (!isSuccess) {
-        console.log(message)
+        // console.log(message)
         return
       }
-      console.log(message)
+      // console.log(message)
       getMemberList()
       onClose()
     } catch (error) {
@@ -403,10 +403,10 @@ export function DeleteGroupModal ({ open, onClose }) {
     try {
       const { status: isSuccess, message } = await delGroupApi(groupId)
       if (!isSuccess) {
-        console.log(message)
+        // console.log(message)
         return
       }
-      console.log(message)
+      // console.log(message)
       onClose()
       navigate('/profile')
     } catch (error) {
@@ -445,10 +445,10 @@ export function DeleteExpenseModal ({ open, onClose, expenseId, getAllExpense })
     try {
       const { status: isSuccess, message } = await delExpenseApi(expenseId)
       if (!isSuccess) {
-        console.log(message)
+        // console.log(message)
         return
       }
-      console.log(message)
+      // console.log(message)
       onClose()
       getAllExpense()
     } catch (error) {
@@ -503,14 +503,14 @@ export function PayerListModal ({ open, onClose, payerList, setPayerList, watchC
 
   const handleOnClick = e => {
     e.preventDefault()
-    console.log(e.currentTarget.id)
+    // console.log(e.currentTarget.id)
     const newPayerList = [{
       MemberId: e.currentTarget.id,
       PayAmount: watchCost,
       memberName: e.currentTarget.dataset.name,
       imageUrl: e.currentTarget.dataset.imageurl
     }]
-    console.log('newPayerList:::', newPayerList)
+    // console.log('newPayerList:::', newPayerList)
     setPayerList(newPayerList)
     replace([{ MemberId: Number(e.currentTarget.id), PayAmount: Number(watchCost) }])
     onClose()
@@ -583,8 +583,8 @@ export function OwnerListModal ({ open, onClose, ownerList, setownerList, watchC
   const handleOnClick = e => {
     e.preventDefault()
     const { currentTarget: { value, id } } = e // deconstructed "value" from e
-    console.log('e.currentTarget.id', id)
-    console.log('e.currentTarget.value', value)
+    // console.log('e.currentTarget.id', id)
+    // console.log('e.currentTarget.value', value)
     setOwnerExpenseList(ownerExpenseList => [
       ...ownerExpenseList,
       {
@@ -592,7 +592,7 @@ export function OwnerListModal ({ open, onClose, ownerList, setownerList, watchC
         OwnAmount: value
       }
     ])
-    console.log(ownerExpenseList)
+    // console.log(ownerExpenseList)
   }
 
   const handleCheckboxTxtInputChange = (e, checkboxValue) => {

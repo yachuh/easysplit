@@ -3,6 +3,11 @@ import { getAllNotificationApi } from '../../utils/api'
 import userSettlement from '../../image/userSettlement.svg'
 import LoadingModal from '../LoadingModal'
 
+const toMonthAndDayAndTime = (time) => {
+  const formatDate = time.getFullYear() + '-' + (time.getMonth() + 1) + '-' + time.getDate() + ' ' + time.getHours() + ':' + time.getMinutes() + ':' + time.getSeconds()
+  return formatDate
+}
+
 export const Notification = () => {
   const [isLoading, setIsLoading] = useState(false)
 
@@ -34,13 +39,14 @@ export const Notification = () => {
   return (
     <>
       {notificationData.notification?.map((notificationItem, i) => {
+        const { Id, Information, CreatDate } = notificationItem
         return (
           <div key={i}>
             {
               isLoading
                 ? <LoadingModal />
                 : <div
-                  id={notificationItem.Id}
+                  id={Id}
                   className='flex items-center gap-4 text-base mb-4'>
                   <img
                     className='settlement-userImg w-16 h-16'
@@ -48,9 +54,9 @@ export const Notification = () => {
                     alt='userSettlement'
                   />
                   <ul className='flex flex-col gap-1'>
-                    <li className='text-black font-bold'>{notificationItem.Information}</li>
+                    <li className='text-black font-bold'>{Information}</li>
                     <li className='flex items-center'>
-                      {notificationItem.CreatDate}
+                      {toMonthAndDayAndTime(new Date(CreatDate))}
                     </li>
                   </ul>
                 </div>

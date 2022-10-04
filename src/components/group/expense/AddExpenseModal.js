@@ -18,7 +18,7 @@ export default function AddExpenseModal ({ open, onClose, expenseId, expenseData
     try {
       const { status: isSuccess, message, expenseData } = await getExpenseApi(expenseId)
       if (!isSuccess) {
-        console.log(message)
+        // console.log(message)
       }
       const expenseDetail = expenseData[0]
       setExpenseData(expenseDetail)
@@ -37,8 +37,8 @@ export default function AddExpenseModal ({ open, onClose, expenseId, expenseData
     }
   }, [])
 
-  console.log('expenseData:::', expenseData)
-  console.log('expenseId:::', expenseId)
+  // console.log('expenseData:::', expenseData)
+  // console.log('expenseId:::', expenseId)
 
   /* ---- Modals ---- */
   const [openExpenseTypeModal, setOpenExpenseTypeModal] = useState(false)
@@ -114,7 +114,7 @@ export default function AddExpenseModal ({ open, onClose, expenseId, expenseData
 
   // print current form data
   const watchAllFields = watch()
-  console.log(watchAllFields)
+  // console.log(watchAllFields)
 
   // watch 'Cost' change & calculate avg cost
   const watchCost = watch('cost') // watch form inputs:cost
@@ -137,16 +137,16 @@ export default function AddExpenseModal ({ open, onClose, expenseId, expenseData
     data.cost = parseFloat(data.cost) // convert cost from string to number
     const dateIsoFormat = data.creatDate.toISOString() // convert value(string) to ISO string format
     data.creatDate = dateIsoFormat
-    console.log('payload:::', data)
+    // console.log('payload:::', data)
     try {
       const { status: isSuccess, message, addedExpenseId: expenseId } = await addExpenseApi(data)
       if (!isSuccess) {
-        console.log(message)
+        // console.log(message)
         return
       }
       getAllExpense()
-      console.log(message)
-      console.log('expenseId:::', expenseId)
+      // console.log(message)
+      // console.log('expenseId:::', expenseId)
     } catch (error) {
       console.log(error)
     }
@@ -161,18 +161,18 @@ export default function AddExpenseModal ({ open, onClose, expenseId, expenseData
   }])
   const [ownerList, setOwnerList] = useState([])
   useEffect(() => {
-    console.log('payerList:::', payerList)
-    console.log('ownerList:::', ownerList)
+    // console.log('payerList:::', payerList)
+    // console.log('ownerList:::', ownerList)
   }, [payerList, ownerList])
 
   // a function to test onClick target
   const testOnClick = (e) => {
-    console.log(e.current.target)
+    // console.log(e.current.target)
   }
 
   const onClickEdit = () => {
     setEditModeEnabled(!editModeEnabled)
-    console.log(editModeEnabled)
+    // console.log(editModeEnabled)
   }
 
   const onSubmitEdit = async (data) => {
@@ -187,14 +187,14 @@ export default function AddExpenseModal ({ open, onClose, expenseId, expenseData
     delete data.addPayerExpenseVMs
     data.expenseAlbumVMs = data.addExpenseAlbumVMs
     delete data.addExpenseAlbumVMs
-    console.log('payload:::', data)
+    // console.log('payload:::', data)
     try {
       const res = await editExpenseApi(data)
       // if (!isSuccess) {
       //   console.log(res)
       //   return
       // }
-      console.log(res)
+      // console.log(res)
     } catch (error) {
       console.log(error)
     }

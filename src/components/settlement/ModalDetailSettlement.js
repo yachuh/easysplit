@@ -83,7 +83,7 @@ export const ModalDetailSettlement = ({ onClose, getPersonalSettlement, getGroup
     setIsLoading(true)
     try {
       const { GroupId, OwnerMemberId, PayerMemberId, OwnerPaytoPayerAmount, PaymentMethod, Memo, FileName, CreatDate } = await settleUpApi(settleUpData)
-      console.log('結算結果 :>> ', '結算成功')
+      // console.log('結算結果 :>> ', '結算成功')
       getGroupAllSettlement(groupId)
       getPersonalSettlement(settleUpData.OwnerMemberId)
       getAllSettled(groupId)

@@ -13,10 +13,10 @@ export default function DeleteGroupModal ({ onClose }) {
     try {
       const { status: isSuccess, message } = await delGroupApi(groupId)
       if (!isSuccess) {
-        console.log(message)
+        // console.log(message)
         return
       }
-      console.log(message)
+      // console.log(message)
       onClose()
       navigate('/profile')
       setIsLoading(false)
