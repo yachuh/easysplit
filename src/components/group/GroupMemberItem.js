@@ -2,11 +2,8 @@ import { useState } from 'react'
 import Modal from '@mui/material/Modal'
 import { DeleteMemberModal, EditMemberModal } from './GroupModal'
 import { CloseOutlined, Cancel, Edit } from '@mui/icons-material'
-import { useUserData } from '../../context/context'
 
 export default function GroupMemberItem ({ memberId, memberName, userId, imageUrl, email }) {
-  const { userData, setUserData } = useUserData
-  console.log(userData)
   const [open, setOpen] = useState(false)
   const [openEditMember, setOpenEditMember] = useState(false)
 

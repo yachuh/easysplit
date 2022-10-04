@@ -4,13 +4,12 @@ import { forgetPwdApi } from '../../utils/api'
 import { EmailOutlined, CloseOutlined } from '@mui/icons-material'
 import Modal from '@mui/material/Modal'
 import { ModalResetPwd } from '../ModalFeedback'
-import LoadingModal from '../../components/LoadingModal'
+import LoadingModal from '../LoadingModal'
 
 export default function ForgetPassword ({ Open, onClose }) {
   const [isLoading, setIsLoading] = useState(false)
   const {
     register,
-    getValues,
     handleSubmit,
     formState: { errors }
   } = useForm({

@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useForm, useFormContext, useFieldArray, Controller } from 'react-hook-form'
-import { addMemberApi, editMemberApi, delMemberApi, changeMemberRoleApi, delGroupApi, delExpenseApi } from '../../utils/api'
+import { addMemberApi, editMemberApi, delMemberApi, changeMemberRoleApi, delGroupApi, delExpenseApi, getGroupInvitationApi } from '../../utils/api'
 import { useGroupData } from '../../context/context'
 import GroupMemberListItem from './GroupMemberListItem'
-import { Add, AttachMoney } from '@mui/icons-material'
+import Modal from '@mui/material/Modal'
+import { Add, AttachMoney, CloseOutlined, FileCopy } from '@mui/icons-material'
 import Checkbox from '@mui/material/Checkbox'
 import CheckboxTxtInput from './expense/CheckboxTxtInput'
+import { toast } from 'react-toastify'
 
 /**
  * ==== 群組 - 成員 相關 modal ====
@@ -15,7 +17,11 @@ import CheckboxTxtInput from './expense/CheckboxTxtInput'
 // 新增成員
 export function AddNewMemberModal ({ open, onClose }) {
   const { groupId } = useParams()
-  console.log('groupId', groupId)
+
+  const [openGroupInvitaitionModal, setOpenGroupInvitaitionModal] = useState(false)
+  const handleOpenGroupInvitaitionModal = () => setOpenGroupInvitaitionModal(true)
+  const handleCloseGroupInvitaitionModal = () => setOpenGroupInvitaitionModal(false)
+
   const {
     register,
     handleSubmit,
@@ -63,7 +69,17 @@ export function AddNewMemberModal ({ open, onClose }) {
           />
           <p className="text-xs mb-2 text-rose-600">{errors.name?.message}</p>
         </div>
-        <p className="groupModalCard-Link">或是分享邀請連結給朋友</p>
+        <p className="groupModalCard-Link"
+          onClick={handleOpenGroupInvitaitionModal}
+        >或是分享邀請連結給朋友</p>
+        {/* GroupInvitaionModal START */}
+        <Modal open={openGroupInvitaitionModal} onClose={handleCloseGroupInvitaitionModal} className="modalCard-bg">
+          <div onClick={(e) => e.stopPropagation()} className="modalCard">
+            <div onClick={handleCloseGroupInvitaitionModal} className="modalCancel"><CloseOutlined sx={{ fontSize: 14 }} /></div>
+            <GroupInvitationModal open={openGroupInvitaitionModal} onClose={handleCloseGroupInvitaitionModal} />
+          </div>
+        </Modal>
+        {/* GroupInvitationModal END */}
         <div className="mt-[29px]">
           <input
             type="submit"
@@ -73,6 +89,75 @@ export function AddNewMemberModal ({ open, onClose }) {
           />
         </div>
       </form>
+    </div>
+  )
+}
+
+// 邀請連結
+export function GroupInvitationModal ({ open, onClose }) {
+  const { groupId } = useParams()
+  const [link, setLink] = useState('')
+
+  const getGroupInvitation = async () => {
+    try {
+      const { status: isSuccess, message, inviation: invitation } = await getGroupInvitationApi(groupId)
+      const invitationLink = invitation.HtmlBody.split('!')[2]
+      if (!isSuccess) {
+        console.log(message)
+        return
+      }
+      console.log('invitationLink:::', invitationLink)
+      // return invitationLink
+      setLink(invitationLink)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  useEffect(() => {
+    getGroupInvitation()
+  }, [])
+
+  const onClickCopy = async () => {
+    await navigator.clipboard.writeText(link)
+    toast.success('已複製連結')
+  }
+
+  const onClickShare = async () => {
+    if (navigator.share) {
+      try {
+        if (navigator.share) {
+          await navigator.share({
+            title: 'Webshare API Demo',
+            url: link
+          })
+        }
+      } catch (error) {
+        console.log(error)
+      }
+    }
+  }
+
+  return (
+    <div className="w-full">
+      <div className="groupModalCard-title">
+        <h4>分享邀請連結</h4>
+      </div>
+      <p className="groupModalCard-text">透過邀請連結請朋友加入群組：</p>
+      <div className="flex justify-between items-center mt-4">
+        <input
+        disabled
+        type="text"
+        value={link}
+        className="text-gray-300 groupModalCard-form-input-box truncate mr-2"
+        />
+        <FileCopy sx={{ fontSize: 24 }} onClick={onClickCopy} className="cursor-pointer hover:text-color-green "/>
+      </div>
+      <button
+        className="btn-primary w-full mt-8"
+        onClick={onClickShare}
+      >
+        分享連結
+      </button>
     </div>
   )
 }
@@ -228,6 +313,79 @@ export function DeleteMemberModal ({ open, onClose, memberId, memberName }) {
           確認
         </button>
       </div>
+    </div>
+  )
+}
+
+// 加入群組
+export function JoinGroupModal ({ open, onClose }) {
+  const navigate = useNavigate()
+  const { guid } = useParams()
+  console.log(guid)
+
+  const [openSelectMemberModal, setOpenSelectMemberModal] = useState(false)
+  const handleOpenSelectMemberModal = () => setOpenSelectMemberModal(true)
+  const handleCloseSelectMemberModal = () => setOpenSelectMemberModal(false)
+
+  return (
+    <div className="w-full">
+      <div className="groupModalCard-title">
+        <h4>加入群組</h4>
+      </div>
+      <p className="groupModalCard-text">加入<span className="font-bold"> 202208嘉義三天二夜</span>，一起拆帳去</p>
+      <div className="groupModalCard-btns">
+        <button type="submit" className="btn-outline  w-1/2" onClick={() => {
+          onClose()
+          navigate('/')
+        }}
+        >
+          取消
+        </button>
+        <button type="submit" className="btn-primary w-1/2" onClick={handleOpenSelectMemberModal}>
+          加入群組
+        </button>
+        {/* SelectMemberModal START */}
+        <Modal open={openSelectMemberModal} onClose={handleCloseSelectMemberModal} className="modalCard-bg">
+          <div onClick={(e) => e.stopPropagation()} className="modalCard">
+            <div onClick={handleCloseSelectMemberModal} className="modalCancel"><CloseOutlined sx={{ fontSize: 14 }} /></div>
+            <SelectMemberModal open={openSelectMemberModal} onClose={handleCloseSelectMemberModal} />
+          </div>
+        </Modal>
+        {/* SelectMemberModal END */}
+      </div>
+    </div>
+  )
+}
+
+export function SelectMemberModal () {
+  const { memberList } = useGroupData()
+  const [newMemberId, setNewMemberId] = useState()
+
+  return (
+    <div className="w-full">
+      <div className="groupModalCard-title">
+        <h4>你是哪一位成員</h4>
+      </div>
+      <p className="groupModalCard-text text-left">點擊選擇你是群組中的哪一位成員</p>
+      <p className="modalHint text-left m-0">之後仍可在群組設定中更改</p>
+      <div>
+        <ul className="border border-colors-primary rounded my-4 h-[144px] overflow-scroll">
+          {
+            memberList.map((member, i) => {
+              return (
+                <GroupMemberListItem key={i} {...member} setNewMemberId={setNewMemberId} />
+              )
+            })
+          }
+        </ul>
+      </div>
+      <p>都不是你嗎？建立一個新的成員：</p>
+      <button
+        type="submit"
+        className="btn-primary w-full"
+      >
+        建立新成員
+      </button>
     </div>
   )
 }
