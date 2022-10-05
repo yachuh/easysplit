@@ -62,8 +62,8 @@ export default function SelectOwner ({ ownerList, setOwnerList, watchCost, editM
       render={({ field }) => (
         <>
           <button
-            disabled={!editModeEnabled}
-            className="formInput py-1 px-4 mb-4 text-left disabled:border-none"
+            disabled="true" // ={!editModeEnabled}
+            className="formInput py-1 px-4 mb-4 text-left disabled:cursor-not-allowed disabled:bg-gray-50"
             onClick={(e) => {
               e.preventDefault()
               handleOpenOwnerListPopup()
