@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form'
 import AddPhotoAlternateOutlinedIcon from '@mui/icons-material/AddPhotoAlternateOutlined'
 import { addGroupApi, addGroupCoverApi } from '../utils/api'
 import LoadingModal from '../components/LoadingModal'
+import { toast } from 'react-toastify'
 
 export default function AddNewGroupModal ({ onClose, groupList, setGroupList }) {
   const [isLoading, setIsLoading] = useState(false)
@@ -71,6 +72,7 @@ export default function AddNewGroupModal ({ onClose, groupList, setGroupList }) 
       navigate(`/group/${groupId}`)
       setIsLoading(false)
       onClose()
+      toast.success('已建立新群組')
     } catch (error) {
       console.log(error)
     }

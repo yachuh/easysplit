@@ -9,6 +9,7 @@ import AttachPhotos from './AttachPhotos'
 import Modal from '@mui/material/Modal'
 import { DeleteExpenseModal } from '../GroupModal'
 import { Edit, Delete, LastPage, Check, AttachMoney, CloseOutlined } from '@mui/icons-material'
+import { toast } from 'react-toastify'
 
 export default function AddExpenseModal ({ open, onClose, expenseId, expenseData, setExpenseData }) {
   const { groupData, memberList, expenseTypeList, getAllExpense } = useGroupData()
@@ -144,6 +145,7 @@ export default function AddExpenseModal ({ open, onClose, expenseId, expenseData
         // console.log(message)
         return
       }
+      toast.success('已新增費用')
       getAllExpense()
       // console.log(message)
       // console.log('expenseId:::', expenseId)
